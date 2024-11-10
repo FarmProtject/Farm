@@ -10,7 +10,18 @@ public class GameManager : MonoBehaviour
     public InputBase inputManager { get; set; }
     static public GameManager instance { get; set; }
     public UIManager UIManager;
+    
 
+    private void Start()
+    {
+        SetUpField();
+        ChangeInputOnScene();//TestCode
+    }
+    private void Update()
+    {
+        inputManager.OnPlayerInput();
+        
+    }
     public void SetUpField()
     {
         if (_instance == null)
@@ -20,7 +31,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+    
     public void ChangeInputOnScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
