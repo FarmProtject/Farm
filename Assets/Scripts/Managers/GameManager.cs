@@ -8,18 +8,22 @@ public class GameManager : MonoBehaviour
     UIManager _UIManager;
     InputBase _InputManager { get; set; }
     public InputBase inputManager { get; set; }
-    static public GameManager instance { get; set; }
     public UIManager UIManager;
-    
+    public KeySettings keySettings = new KeySettings();
+    static public GameManager instance { get; set; }
+
+
 
     private void Start()
     {
         SetUpField();
+        keySettings.DefaultKeyBinding();
         ChangeInputOnScene();//TestCode
+        
+        
     }
     private void Update()
     {
-        inputManager.OnPlayerInput();
         
     }
     public void SetUpField()
@@ -37,13 +41,28 @@ public class GameManager : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName == "MainScene")
         {
+            
             _InputManager = new MainInput();
             inputManager = _InputManager;
+            _InputManager.gameManager = this;
+            inputManager.gameManager = this;
+            if (EventManager.instance.OnPlayerInput != null)
+            {
+                EventManager.instance.OnPlayerInput.RemoveAllListeners();
+            }
+            EventManager.instance.OnPlayerInput.AddListener(inputManager.OnPlayerInput);
         }
         else
         {
             _InputManager = new TownInput();
             inputManager = _InputManager;
+            _InputManager.gameManager = this;
+            inputManager.gameManager = this;
+            if (EventManager.instance.OnPlayerInput != null)
+            {
+                EventManager.instance.OnPlayerInput.RemoveAllListeners();
+            }
+            EventManager.instance.OnPlayerInput.AddListener(inputManager.OnPlayerInput);
         }
     }
 

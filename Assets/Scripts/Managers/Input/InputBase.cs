@@ -5,5 +5,6 @@ using UnityEngine;
 public abstract class InputBase 
 {
     protected GameObject selectObj;
+    public GameManager gameManager;
     public abstract void OnPlayerInput();
 }

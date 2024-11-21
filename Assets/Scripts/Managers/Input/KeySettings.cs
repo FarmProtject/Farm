@@ -5,14 +5,14 @@ using UnityEngine;
 public class KeySettings 
 {
     Dictionary<string, GameObject> keyObj = new Dictionary<string, GameObject>();
-    Dictionary<KeyCode, string> keyName = new Dictionary<KeyCode, string>();
+    public Dictionary<string, KeyCode> keyName = new Dictionary<string, KeyCode>();
 
 
-    public void OpenUIOnKey(KeyCode key)
+    public void OpenUIOnKey(string key)
     {
         if (keyName.ContainsKey(key))
         {
-            string objName = keyName[key];
+            string objName = key;
             if (keyObj.ContainsKey(objName))
             {
                 GameObject targetUI = keyObj[objName];
@@ -45,7 +45,11 @@ public class KeySettings
         {
             Debug.Log($"Key Didn't Mapping Key : {key.ToString()}");
         }
-        
+    }
 
+    public void DefaultKeyBinding()
+    {
+        keyName.Add("run", KeyCode.LeftShift);
+        Debug.Log(keyName["run"]);
     }
 }
