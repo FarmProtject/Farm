@@ -12,11 +12,16 @@ public class GameManager : MonoBehaviour
     public KeySettings keySettings = new KeySettings();
     static public GameManager instance { get; set; }
 
+    public PlayerEntity playerEntity;
 
+    private void Awake()
+    {
+        SetUpField();
+    }
 
     private void Start()
     {
-        SetUpField();
+        
         keySettings.DefaultKeyBinding();
         ChangeInputOnScene();//TestCode
         

@@ -33,7 +33,7 @@ public class TownInput : InputBase
         {
             Debug.Log("MAGNITYDE = 0");
         }
-
+        OnInteractKey();
     }
 
     public void PlayerInfoIn()
@@ -110,6 +110,42 @@ public class TownInput : InputBase
     {
 
     }
+    #endregion
+    #region InteractKey
+    void OnInteractKey()
+    {
+        if(Input.GetKeyDown(gameManager.keySettings.keyName["interact"]) && playerEntity.interactOBJ.Count>=1)
+        {
+            GameObject interactObj = playerEntity.interactOBJ[0];
+            GameObject playerOBJ = playerEntity.gameObject;
+            float distance = Vector3.Distance(playerOBJ.transform.position, interactObj.transform.position);
+            for(int i = 0; i < playerEntity.interactOBJ.Count; i++)
+            {
+                GameObject tempOBJ = playerEntity.interactOBJ[i];
+                float tempDistance = Vector3.Distance(playerOBJ.transform.position,tempOBJ.transform.position);
+                if (tempDistance < distance)
+                {
+                    interactObj = tempOBJ;
+                }
+            }
 
+            
+            IInteractable interact = interactObj.transform.GetComponent<IInteractable>();
+
+            playerEntity.nowInteract = interactObj;
+            interact.Interact();
+
+
+        }
+
+        else if (playerEntity.interactOBJ.Count==0)
+        {
+            Debug.Log("InteractOBJ NULL");
+        }
+    }
+    void InteractDistCheck()
+    {
+        //원형 레이캐스트로 해당 오브젝트 있는지 판단해야함
+    }
     #endregion
 }

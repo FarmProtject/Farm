@@ -9,11 +9,22 @@ public class PlayerEntity : LivingEntity
     public float runSpeed=4f;
     public float walkSpeed=2f;
 
+    [SerializeField]public List<GameObject> interactOBJ = new List<GameObject>();
+    public GameObject nowInteract;
+
+
+    private void Awake()
+    {
+        
+    }
     protected override void Start()
     {
         base.Start();
         SetMoveState(MoveState.walk);
-
+        if (GameManager.instance.playerEntity == null)
+        {
+            GameManager.instance.playerEntity = this;
+        }
     }
 
     #region 플레이어의 정보 초기화
@@ -37,7 +48,6 @@ public class PlayerEntity : LivingEntity
     public override void SetMoveState(MoveState inputState)
     {
         moveState = inputState;
-        Debug.Log(moveState);
         SetMoveSpeed();
         MoveAnimCahnge();
     }
@@ -47,11 +57,9 @@ public class PlayerEntity : LivingEntity
         {
             case MoveState.walk:
                 moveSpeed = walkSpeed;
-                Debug.Log("walkSpeed");
                 break;
             case MoveState.run:
                 moveSpeed = runSpeed;
-                Debug.Log("runSpeed");
                 break;
             default:
                 break;
@@ -61,7 +69,6 @@ public class PlayerEntity : LivingEntity
     #region 플레이어의 이동과 이동 애니메이션 관련
     protected override void MoveTo()
     {
-        Debug.Log("MoveTo!");
         if(front.magnitude != 0)
         {
             myRigid.MovePosition(myRigid.position + front * moveSpeed * Time.deltaTime);

@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
 
     public List<GameObject> openUIObj = new List<GameObject>();
+    public GameObject NPCPanel;
     void Start()
     {
         

@@ -51,5 +51,7 @@ public class KeySettings
     {
         keyName.Add("run", KeyCode.LeftShift);
         Debug.Log(keyName["run"]);
+        keyName.Add("interact", KeyCode.F);
+        Debug.Log(keyName["interact"]);
     }
 }

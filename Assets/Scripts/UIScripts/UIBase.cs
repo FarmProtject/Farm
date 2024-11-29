@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIBase : MonoBehaviour
 {
     protected RectTransform myRect;
+    protected UIManager uiManager;
     protected virtual void Start()
     {
         SetupInitialField();
@@ -37,5 +38,14 @@ public class UIBase : MonoBehaviour
         myRect.anchorMin = new Vector2(0.5f - 0.33f / 2, 0.45f - 0.67f / 2);
         myRect.anchorMax = new Vector2(0.5f + 0.33f / 2, 0.45f + 0.67f / 2);
         myRect.sizeDelta = Vector2.zero;
+    }
+
+    protected virtual void AddOnUIManager()
+    {
+        uiManager.openUIObj.Add(this.gameObject);
+    }
+    protected virtual void RemoveOnUIManager()
+    {
+        uiManager.openUIObj.Remove(this.gameObject);
     }
 }
