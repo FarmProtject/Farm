@@ -33,7 +33,7 @@ public class NPCportrait : UIBase
     }
     protected override void SetPosition()
     {
-        myRect.pivot = new Vector2(0.5f,0f);
+        myRect.pivot = new Vector2(0.5f,0.3f);
         myRect.anchoredPosition = new Vector2(0,-20);
     }
 }

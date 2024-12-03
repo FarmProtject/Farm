@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
             _instance = this;
             instance = _instance;
         }
+        if(UIManager == null)
+        {
+            UIManager = this.gameObject.transform.GetComponent<UIManager>();
+        }
 
     }
     

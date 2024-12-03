@@ -15,6 +15,7 @@ public class UIBase : MonoBehaviour
     protected virtual void SetupInitialField()
     {
         myRect = this.gameObject.transform.GetComponent<RectTransform>();
+        uiManager = GameManager.instance.UIManager;
     }
     protected virtual void SetPosition()
     {
@@ -42,10 +43,18 @@ public class UIBase : MonoBehaviour
 
     protected virtual void AddOnUIManager()
     {
-        uiManager.openUIObj.Add(this.gameObject);
+        if(uiManager != null)
+        {
+            uiManager.openUIObj.Add(this.gameObject);
+        }
+        
     }
     protected virtual void RemoveOnUIManager()
     {
-        uiManager.openUIObj.Remove(this.gameObject);
+        if(uiManager != null && uiManager.openUIObj.Contains(this.gameObject))
+        {
+            uiManager.openUIObj.Remove(this.gameObject);
+        }
+        
     }
 }

@@ -12,6 +12,7 @@ public class PlayerEntity : LivingEntity
     [SerializeField]public List<GameObject> interactOBJ = new List<GameObject>();
     public GameObject nowInteract;
 
+    InventoryData inventory = new InventoryData();
 
     private void Awake()
     {

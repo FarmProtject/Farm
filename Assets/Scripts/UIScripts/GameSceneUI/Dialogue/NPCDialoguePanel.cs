@@ -22,7 +22,7 @@ public class NPCDialoguePanel : UIBase
     protected override void SetUISize()
     {
         myRect.anchorMin = new Vector2(0.2f, 0);
-        myRect.anchorMax = new Vector2(0.8f, 0.4f);
+        myRect.anchorMax = new Vector2(0.8f, 0.3f);
         myRect.sizeDelta = new Vector2(0, 0);
     }
     protected override void SetPosition()

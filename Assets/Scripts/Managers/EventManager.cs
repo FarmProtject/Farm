@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
 
     public UnityEvent MoveOnUpDate;
     public UnityEvent OnPlayerInput;
+    public UnityEvent OnInventoryUpdate;
 
     private void Awake()
     {
