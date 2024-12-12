@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     public PlayerEntity playerEntity;
 
+
+    public Sprite testImage;
+    public GameObject testItemObj;
     private void Awake()
     {
         SetUpField();

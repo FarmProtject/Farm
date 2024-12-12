@@ -34,6 +34,9 @@ public class TownInput : InputBase
             Debug.Log("MAGNITYDE = 0");
         }
         OnInteractKey();
+
+        OnInventoryKey();
+        OnItemTest();
     }
 
     public void PlayerInfoIn()
@@ -148,4 +151,27 @@ public class TownInput : InputBase
         //원형 레이캐스트로 해당 오브젝트 있는지 판단해야함
     }
     #endregion
+
+    void OnInventoryKey()
+    {
+        if (Input.GetKeyDown(gameManager.keySettings.keyName["inventory"]))
+        {
+            if (GameManager.instance.UIManager.inventoryPanel.activeSelf)
+            {
+                GameManager.instance.UIManager.inventoryPanel.SetActive(false);
+            }
+            else
+            {
+                GameManager.instance.UIManager.inventoryPanel.SetActive(true);
+            }
+        }
+    }
+    void OnItemTest()
+    {
+        if (Input.GetKeyDown(gameManager.keySettings.keyName["itemTest"]))
+        {
+            GameObject go = GameObject.Instantiate(GameManager.instance.testItemObj);
+            go.transform.position = player.transform.position + new Vector3(2, 2, 2);
+        }
+    }
 }

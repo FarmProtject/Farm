@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IStackable 
 {
     int maxStack { get; }
-    int AddStack(int amount);
+    int AddStack(ItemBase item,int amount);
     bool CanStack(int amount);
 }

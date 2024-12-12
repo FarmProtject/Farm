@@ -12,20 +12,20 @@ public class PlayerEntity : LivingEntity
     [SerializeField]public List<GameObject> interactOBJ = new List<GameObject>();
     public GameObject nowInteract;
 
-    InventoryData inventory = new InventoryData();
+    public InventoryData inventory = new InventoryData();
 
     private void Awake()
     {
-        
+        if (GameManager.instance.playerEntity == null)
+        {
+            GameManager.instance.playerEntity = this;
+        }
     }
     protected override void Start()
     {
         base.Start();
         SetMoveState(MoveState.walk);
-        if (GameManager.instance.playerEntity == null)
-        {
-            GameManager.instance.playerEntity = this;
-        }
+        
     }
 
     #region 플레이어의 정보 초기화

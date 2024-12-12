@@ -6,11 +6,15 @@ public class NPCportrait : UIBase
 {
     public float panelHeight;
     [SerializeField] GameObject npcNamePanel;
+    [SerializeField] GameObject dialoguePanel;
+    GameObject shopPanel;
     NPCNamePanel npcNamePanelScript;
     private void Awake()
     {
         npcNamePanel = GameObject.Find("NPCNamePanel");
         npcNamePanelScript = npcNamePanel.GetComponent<NPCNamePanel>();
+        dialoguePanel = GameObject.Find("DialoguePanel");
+        shopPanel = GameObject.Find("ShopPanel");
     }
     protected override void Start()
     {
@@ -27,7 +31,6 @@ public class NPCportrait : UIBase
         }
         myRect.anchorMin = new Vector2(0.5f, 0.5f);
         myRect.anchorMax = new Vector2(0.5f, 0.5f);//Áß¾ÓÁ¤·Ä
-        Debug.Log(panelHeight);
         myRect.sizeDelta = new Vector2(panelHeight * 0.5f, panelHeight * 0.5f);
         npcNamePanelScript.panelHeight = myRect.rect.height;
     }
