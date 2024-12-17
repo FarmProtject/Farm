@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
     UIManager _UIManager;
     InputBase _InputManager { get; set; }
     public InputBase inputManager { get; set; }
+    MouseInputManager _mouseManager;
+    public MouseInputManager mouseManager;
     public UIManager UIManager;
+    
+    
     public KeySettings keySettings = new KeySettings();
     static public GameManager instance { get; set; }
 
@@ -17,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public Sprite testImage;
     public GameObject testItemObj;
+
     private void Awake()
     {
         SetUpField();
@@ -45,7 +50,11 @@ public class GameManager : MonoBehaviour
         {
             UIManager = this.gameObject.transform.GetComponent<UIManager>();
         }
-
+        if(mouseManager == null)
+        {
+            _mouseManager = transform.GetComponent<MouseInputManager>();
+            mouseManager = _mouseManager;
+        }
     }
     
     public void ChangeInputOnScene()
@@ -82,6 +91,7 @@ public class GameManager : MonoBehaviour
     public void OnKey()
     {
         _InputManager.OnPlayerInput();
+        _mouseManager.OnPlayerInput();
     }
 
 }

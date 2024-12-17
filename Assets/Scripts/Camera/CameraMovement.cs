@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class CameraMovement : MonoBehaviour
+public class CameraMovement : MonoBehaviour,IMouseInput
 {
     Transform myTr;
     
@@ -31,21 +31,7 @@ public class CameraMovement : MonoBehaviour
    
     void Update()
     {
-        if (Input.GetAxis("Mouse ScrollWheel")!=0)
-        {
-            LookDistanceChange();
-        }
-        if (Input.GetMouseButton(1))
-        {
-            rotateAngle += Input.GetAxis("Mouse X") * rotationSpeed;
-            LookDistanceChange();
-            HoriRotate();
-            VertRotate();
-        }
-        else
-        {
-            HoriRotate();
-        }
+        
         
     }
     void LookDistanceChange()
@@ -72,5 +58,47 @@ public class CameraMovement : MonoBehaviour
         transform.LookAt(followTr);
     }
 
-    
+    public void OnLeftClickStart()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLeftClickEnd()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnRightClickStart()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnRightClickEnd()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnMouseWheel()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnMouseInput()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            LookDistanceChange();
+        }
+        if (Input.GetMouseButton(1))
+        {
+            rotateAngle += Input.GetAxis("Mouse X") * rotationSpeed;
+            LookDistanceChange();
+            HoriRotate();
+            VertRotate();
+        }
+        else
+        {
+            HoriRotate();
+        }
+    }
 }

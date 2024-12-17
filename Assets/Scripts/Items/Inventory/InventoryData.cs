@@ -9,7 +9,7 @@ public class InventoryData
     public List<ItemBase> inventory = new List<ItemBase>();
     public int maxInventory = 40;
     public InventoryItemPanel inventoryUI;
-    
+    int gold;
     
     public void OnGetItemCheck(ItemBase item)
     {
