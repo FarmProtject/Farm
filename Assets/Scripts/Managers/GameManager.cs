@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     InputBase _InputManager { get; set; }
     public InputBase inputManager { get; set; }
     MouseInputManager _mouseManager;
+
     public MouseInputManager mouseManager;
     public UIManager UIManager;
     
@@ -93,5 +94,7 @@ public class GameManager : MonoBehaviour
         _InputManager.OnPlayerInput();
         _mouseManager.OnPlayerInput();
     }
+
+
 
 }

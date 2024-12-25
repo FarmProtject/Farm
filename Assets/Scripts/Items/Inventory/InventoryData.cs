@@ -110,26 +110,24 @@ public class InventoryData
             
         };
     }
-    /*
-    void LetRestItems(int rest,ItemBase stack)
+    public void InventorySlotSwap(int first,int second)
     {
-        if (rest > 0)
+        Debug.Log("InventorySlotSwap");
+        ItemBase temp;
+        if (inventory[first] == null)
+            return;
+        temp = inventory[first];
+        if(inventory[second]== null)
         {
-            stack.itemCount = rest;
+            inventory[second] = inventory[first];
+            inventory[first] = null;
         }
-    }
-    bool CheckItemAmount(ItemBase invenStack, ItemBase getStack)
-    {
-        bool moreMax = true;
-        
-        if(invenStack.CanStack(getStack.itemCount))
+        else if (inventory[second] != null)
         {
-            moreMax = false;
+            inventory[first] = inventory[second];
+            inventory[second] = temp;
         }
-
-        return moreMax;
+        EventManager.instance.OnInventoryUpdate.Invoke();
     }
-    
-    */
     
 }

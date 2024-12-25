@@ -7,10 +7,12 @@ public class MouseOBJ : MonoBehaviour
     GameManager gm;
     Image myImage;
     ItemBase item;
+    RectTransform myRect;
     private void Awake()
     {
         gm = GameManager.instance;
-        myImage = transform.GetComponent<Image>();
+        myImage = transform.GetChild(0).transform.GetComponent<Image>();
+        myRect = transform.GetComponent<RectTransform>();
     }
     void Start()
     {
@@ -19,11 +21,15 @@ public class MouseOBJ : MonoBehaviour
 
     void Update()
     {
+        CursorFollow();
+    }
+    void OnStart()
+    {
         
     }
-
-    void MouseOBjImageChange(Sprite sprite)
+    public void MouseOBjImageChange(Sprite sprite)
     {
+        this.gameObject.SetActive(true);
         if(sprite == null)
         {
             Debug.Log("sprite Null");
@@ -31,18 +37,16 @@ public class MouseOBJ : MonoBehaviour
         }
         myImage.sprite = sprite;
     }
-    public void OnItemClickStart()
+    public void MouseOBJImageReset()
     {
-
+        if(myImage.sprite != null)
+        {
+            myImage.sprite = null;
+            this.gameObject.SetActive(false);
+        }
     }
-    void OnItemClickEnd()
+    void CursorFollow()
     {
-
-    }
-    public void OnItemClick(ItemBase moveItem)
-    {
-        item = moveItem;
-        //item.icon으로 스프라이트 데이터 읽어오는 로직 필요
-        //MouseOBjImageChange();
+        myRect.anchoredPosition = Input.mousePosition;
     }
 }

@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent MoveOnUpDate;
     public UnityEvent OnPlayerInput;
     public UnityEvent OnInventoryUpdate;
-
+    public UnityEvent OnPlayerMouseinput;
     private void Awake()
     {
         SetUpField();
@@ -30,6 +30,14 @@ public class EventManager : MonoBehaviour
         if (OnPlayerInput != null)
         {
             OnPlayerInput.Invoke();
+        }
+        if (OnPlayerMouseinput != null)
+        {
+            OnPlayerMouseinput.Invoke();
+        }
+        else
+        {
+            Debug.Log("MouseInput Null");
         }
     }
 

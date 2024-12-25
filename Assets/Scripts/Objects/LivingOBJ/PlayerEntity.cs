@@ -13,7 +13,7 @@ public class PlayerEntity : LivingEntity
     public GameObject nowInteract;
 
     public InventoryData inventory = new InventoryData();
-
+    int maxInventory = 30;
     private void Awake()
     {
         if (GameManager.instance.playerEntity == null)
@@ -25,7 +25,7 @@ public class PlayerEntity : LivingEntity
     {
         base.Start();
         SetMoveState(MoveState.walk);
-        
+        SetInventoryNull();
     }
 
     #region 플레이어의 정보 초기화
@@ -43,6 +43,13 @@ public class PlayerEntity : LivingEntity
         }
         runSpeed = 4f;
         walkSpeed = 2f;
+    }
+    void SetInventoryNull()
+    {
+        for(int i = 0; i<maxInventory; i++)
+        {
+            inventory.inventory.Add(null);
+        }
     }
     #endregion
     #region MoveStateChange 이동상태와 애니메이션을 변경한다

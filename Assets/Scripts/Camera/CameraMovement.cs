@@ -5,7 +5,8 @@ using System;
 public class CameraMovement : MonoBehaviour,IMouseInput
 {
     Transform myTr;
-    
+    GameManager gameManager;
+
     public Transform followTr;
     public float posx;
     public float posy;
@@ -17,16 +18,20 @@ public class CameraMovement : MonoBehaviour,IMouseInput
     public float distance = 3;
     public float minDistance=0.5f;
     public float maxDistance = 8;
-    public float wheelSpeed = 2;
+    public float wheelSpeed = 4f;
 
     public float rotationSpeed = 2;
     public float rotateAngle;
     public float smoothSpeed = 0.125f;
+
+    private void Awake()
+    {
+        gameManager = GameManager.instance;
+    }
     void Start()
     {
         myTr = this.transform;
-
-
+        AddMouseInput();
     }
    
     void Update()
@@ -38,6 +43,7 @@ public class CameraMovement : MonoBehaviour,IMouseInput
     {
         distance -= Input.GetAxis("Mouse ScrollWheel") * wheelSpeed;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
+        
     }
 
     void VertRotate()
@@ -58,47 +64,48 @@ public class CameraMovement : MonoBehaviour,IMouseInput
         transform.LookAt(followTr);
     }
 
-    public void OnLeftClickStart()
+    
+    public void OnMouseInput()
     {
-        throw new NotImplementedException();
+        OnLeftClick();
+        OnRightClick();
+        OnMouseWheel();
     }
 
-    public void OnLeftClickEnd()
+    public void OnLeftClick()
     {
-        throw new NotImplementedException();
+        Debug.Log("OnLeftClick");
     }
 
-    public void OnRightClickStart()
+    public void OnRightClick()
     {
-        throw new NotImplementedException();
-    }
-
-    public void OnRightClickEnd()
-    {
-        throw new NotImplementedException();
+        if (Input.GetMouseButton(1))
+        {
+            rotateAngle += Input.GetAxis("Mouse X") * rotationSpeed;
+            //LookDistanceChange();
+            VertRotate();
+            HoriRotate();
+            Debug.Log("CameraRightClick");
+        }
+        else
+        {
+            LookDistanceChange();
+            HoriRotate();
+        }
     }
 
     public void OnMouseWheel()
     {
-        throw new NotImplementedException();
+        LookDistanceChange();
+        if (distance!=Vector3.Distance(followTr.position,transform.position))
+        {
+            HoriRotate();
+            Debug.Log("CameraWehel");
+        }
     }
 
-    public void OnMouseInput()
+    public void AddMouseInput()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
-        {
-            LookDistanceChange();
-        }
-        if (Input.GetMouseButton(1))
-        {
-            rotateAngle += Input.GetAxis("Mouse X") * rotationSpeed;
-            LookDistanceChange();
-            HoriRotate();
-            VertRotate();
-        }
-        else
-        {
-            HoriRotate();
-        }
+        gameManager.mouseManager.mouseInput = this;
     }
 }
