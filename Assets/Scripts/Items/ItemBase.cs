@@ -9,23 +9,30 @@ public enum Rarity
 
 public enum ItemType 
 { 
-
+    None,
+    Tool,
+    Consum,
+    Equip,
+    Material
 }
 
 public class ItemBase : IStackable
 {
-    public int id { get; set; }
-    public string name { get; set; }
-    public Rarity rarity { get; set; }
+    public int id;
+    public string name;
+    public Rarity rarity;
+    public ItemType type;
     public string stat { get; set; }
-    public string skill { get; set; }
-    public string desc { get; set; }
-    public int price { get; set; }
-    public string icon { get; set; }
-    public string model { get; set; }
+    public string useeffect;
+    public string description;
+    public int price;
+    public string icon;
+    public string model;
 
     public int itemCount;
     public int maxStack;
+
+    public bool throwable;
     int IStackable.maxStack => maxStack;
 
     public int AddStack(ItemBase item,int amount)

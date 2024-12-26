@@ -1,0 +1,11 @@
+id,name,type,description,price,maxstack,icon,throwable
+400001,재료1,material,재료설명1,10,50,,TRUE
+400002,재료2,material,재료설명2,20,50,,TRUE
+400003,재료3,material,재료설명3,30,50,,TRUE
+400004,재료4,material,재료설명4,40,50,,TRUE
+400005,재료5,material,재료설명5,50,50,,TRUE
+400006,재료6,material,재료설명6,60,50,,TRUE
+400007,재료7,material,재료설명7,70,50,,TRUE
+400008,재료8,material,재료설명8,80,50,,TRUE
+400009,재료9,material,재료설명9,90,50,,TRUE
+400010,재료10,material,재료설명10,100,50,,FALSE

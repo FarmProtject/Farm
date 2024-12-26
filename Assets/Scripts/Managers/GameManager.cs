@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
 
     public MouseInputManager mouseManager;
     public UIManager UIManager;
-    
+
+    public DataManager dataManager;
+    DataManager _dataManager;
     
     public KeySettings keySettings = new KeySettings();
     static public GameManager instance { get; set; }
@@ -33,13 +35,14 @@ public class GameManager : MonoBehaviour
         
         keySettings.DefaultKeyBinding();
         ChangeInputOnScene();//TestCode
-        
-        
+
     }
     private void Update()
     {
         
     }
+
+
     public void SetUpField()
     {
         if (_instance == null)
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
         {
             _mouseManager = transform.GetComponent<MouseInputManager>();
             mouseManager = _mouseManager;
+        }
+        if(dataManager == null)
+        {
+            _dataManager = transform.GetComponent<DataManager>();
+            dataManager = _dataManager;
         }
     }
     

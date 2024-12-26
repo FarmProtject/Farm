@@ -1,0 +1,11 @@
+id,name,type,description,price,maxstack,icon,useeffect,throwable
+300001,체력 포션,potion,체력 회복 포션,50,10,,null,TRUE
+300002,고급 체력 포션,potion,체력을 많이 회복시켜주는 포션,100,10,,null,TRUE
+300003,최고급 체력 포션,potion,체력을 매우 많이 회복시켜주는 포션,150,10,,null,TRUE
+300004,공격력 포션,potion,공격력 버프 포션,100,10,,null,TRUE
+300005,방어력 포션,potion,방어력 버프 포션,100,10,,null,TRUE
+300006,이동속도 포션,potion,이동속도 버프 포션,100,10,,null,TRUE
+300011,씨앗1,seed,씨앗1설명,10,40,,null,TRUE
+300012,씨앗2,seed,씨앗2설명,15,40,,null,TRUE
+300013,비료1,fertilizer,비료1설명,20,40,,null,TRUE
+300014,비료2,fertilizer,비료2설명,30,40,,null,TRUE
