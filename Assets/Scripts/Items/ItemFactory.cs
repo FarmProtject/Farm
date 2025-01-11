@@ -79,7 +79,22 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
+        if (TrySetValue(data.datas[index], "damage", ref item.damage))
+        {
 
+        }
+        if (TrySetValue(data.datas[index], "defense", ref item.defense))
+        {
+
+        }
+        if (TrySetValue(data.datas[index], "speed", ref item.speed))
+        {
+
+        }
+        if (TrySetValue(data.datas[index], "slot", ref item.slot))
+        {
+
+        }
         return item;
     }
 

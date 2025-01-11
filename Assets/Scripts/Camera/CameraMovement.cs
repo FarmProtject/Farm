@@ -2,7 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class CameraMovement : MonoBehaviour,IMouseInput
+public class CameraWheel : IClickAction
+{
+    private readonly CameraMovement cameraMove;
+
+    public CameraWheel(CameraMovement cameraMove)
+    {
+        this.cameraMove = cameraMove;
+    }
+    public void Invoke()
+    {
+        cameraMove.OnMouseWheel();
+    }
+}
+
+public class CameraRightClick : IClickAction
+{
+    private readonly CameraMovement cameraMove;
+
+    public CameraRightClick(CameraMovement cameraMove)
+    {
+        this.cameraMove = cameraMove;
+    }
+    public void Invoke()
+    {
+
+        cameraMove.OnRightClick();
+    }
+}
+public class CameraLeftClick : IClickAction
+{
+    private readonly CameraMovement cameraMove;
+
+    public CameraLeftClick(CameraMovement cameraMove)
+    {
+        this.cameraMove = cameraMove;
+    }
+    public void Invoke()
+    {
+        cameraMove.OnLeftClick();
+    }
+}
+public class CameraMovement : MonoBehaviour
 {
     Transform myTr;
     GameManager gameManager;
@@ -24,14 +65,25 @@ public class CameraMovement : MonoBehaviour,IMouseInput
     public float rotateAngle;
     public float smoothSpeed = 0.125f;
 
+    CameraWheel cameraWheel; // 각각 클릭 실행함수를 제어하기 위해 분리
+    CameraLeftClick cameraLeftClick;
+    CameraRightClick cameraRightClick;
+
     private void Awake()
     {
         gameManager = GameManager.instance;
+        if(gameManager.camearaMove == null)
+        {
+            gameManager.camearaMove = this;
+        }
+        cameraWheel = new CameraWheel(this);
+        cameraLeftClick = new CameraLeftClick(this);
+        cameraRightClick = new CameraRightClick(this);
     }
     void Start()
     {
         myTr = this.transform;
-        AddMouseInput();
+        ChangeAllMouseInput();
     }
    
     void Update()
@@ -74,7 +126,7 @@ public class CameraMovement : MonoBehaviour,IMouseInput
 
     public void OnLeftClick()
     {
-        Debug.Log("OnLeftClick");
+        
     }
 
     public void OnRightClick()
@@ -104,8 +156,37 @@ public class CameraMovement : MonoBehaviour,IMouseInput
         }
     }
 
-    public void AddMouseInput()
+    public void ChangeAllMouseInput()
     {
-        gameManager.mouseManager.mouseInput = this;
+        AddLeftClick();
+        AddRightClick();
+        AddWheel();
+    }
+    public void AddLeftClick()
+    {
+        if(gameManager == null)
+        {
+            Debug.Log("gm null");
+            return;
+        }
+        gameManager.mouseManager.leftClick.Push(cameraLeftClick);
+    }
+    public void AddRightClick()
+    {
+        if (gameManager == null)
+        {
+            Debug.Log("gm null");
+            return;
+        }
+        gameManager.mouseManager.rightClick.Push(cameraRightClick);
+    }
+    public void AddWheel()
+    {
+        if (gameManager == null)
+        {
+            Debug.Log("gm null");
+            return;
+        }
+        gameManager.mouseManager.wheelAction.Push(cameraWheel);
     }
 }

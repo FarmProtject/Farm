@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IClickAction
+public interface IItemFunction
 {
-    public void Invoke();
+    public void function();
+
 }

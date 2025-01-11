@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public Sprite testImage;
     public GameObject testItemObj;
 
+    public CameraMovement camearaMove;
     private void Awake()
     {
         SetUpField();
@@ -63,6 +64,10 @@ public class GameManager : MonoBehaviour
         {
             _dataManager = transform.GetComponent<DataManager>();
             dataManager = _dataManager;
+        }
+        if(camearaMove == null)
+        {
+            camearaMove = GameObject.Find("CameraOBJ").transform.GetComponent<CameraMovement>();
         }
     }
     

@@ -6,7 +6,14 @@ public enum Rarity
 {
 
 }
-
+public enum EquipSlot
+{
+    None,
+    hand,
+    body,
+    foot,
+    accessories
+}
 public enum ItemType 
 { 
     None,
@@ -31,7 +38,10 @@ public class ItemBase : IStackable
 
     public int itemCount;
     public int maxStack;
-
+    public int damage;
+    public int defense;
+    public int speed;
+    public EquipSlot slot;
     public bool throwable;
     int IStackable.maxStack => maxStack;
 

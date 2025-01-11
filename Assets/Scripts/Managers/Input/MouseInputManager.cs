@@ -2,39 +2,94 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+public class ClickActionStack
+{
+    //여러가지 클릭액션을 관리하기 위해서 스택형태로 저장
+    public List<IClickAction> actions = new List<IClickAction>();
+    private IClickAction defaultAction;
+    public void Push(IClickAction action)
+    {
+        if (!actions.Contains(action))
+        {
+            actions.Add(action);
+        }
+    }
+    public IClickAction Pop()
+    {
+        if (actions.Count > 0)
+        {
+            IClickAction lastAction = actions[actions.Count - 1];
+            actions.RemoveAt(actions.Count - 1);
+            return lastAction;
+        }
+        return null;
+    }
+    public IClickAction Peek()
+    {
+        return actions.Count > 0 ? actions[^1] : defaultAction;
 
+    }
+    public void RemoveAction(IClickAction action)
+    {
+        var foundAction = actions.FirstOrDefault(a => a == action || a.Equals(action));
+        if (foundAction != null)
+        {
+            actions.Remove(foundAction);
+        }
+        else
+        {
+            Debug.Log("Cant fount equal action");
+        }
+
+    }
+}
 public class MouseInputManager : MonoBehaviour
 {
 
-    public IMouseInput mouseInput;
+    public ClickActionStack leftClick;
+    public ClickActionStack rightClick;
+    public ClickActionStack wheelAction;
 
     public Sprite baseCursorImage;
     InventoryData inventory;
     public InventorySlot clickedSlot;
     CameraMovement cameraMove;
+    [SerializeField]
     GameObject mouseOBJ;
     MouseOBJ followScript;
+
+    PlayerEntity playerEntity;
+    GameObject playerObj;
+
     private void Awake()
     {
-
         inventory = GameManager.instance.playerEntity.inventory;
-        cameraMove = GameObject.Find("CameraOBJ").transform.GetComponent<CameraMovement>();
-        InputChangeToCamera();
+        cameraMove = GameManager.instance.camearaMove;
+        //cameraMove = GameObject.Find("Main Camera").transform.GetComponent<CameraMovement>();
+        
         EventManager.instance.OnPlayerMouseinput.AddListener(OnPlayerInput);
         mouseOBJ = GameObject.Find("MouseFollowOBJ");
         followScript = mouseOBJ.transform.GetComponent<MouseOBJ>();
         mouseOBJ.SetActive(false);
+        playerEntity = GameManager.instance.playerEntity;
+        playerObj = playerEntity.gameObject;
+
+        leftClick = new ClickActionStack();
+        rightClick = new ClickActionStack();
+        wheelAction = new ClickActionStack();
     }
 
     void Start()
     {
-
+        InputChangeToCamera();
+        
     }
     private void Update()
     {
 
     }
-
+    #region 마우스 인풋 실행부
     public void OnPlayerInput()
     {
         OnLeftClick();
@@ -44,29 +99,29 @@ public class MouseInputManager : MonoBehaviour
     }
     void OnLeftClick()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            if (mouseInput == null)
+            if (leftClick == null)
                 return;
-            mouseInput.OnLeftClick();
+            leftClick.Peek().Invoke();
         }
     }
     void OnRightClick()
     {
-        Debug.Log(1111);
         if (Input.GetMouseButton(1))
         {
-            if (mouseInput == null)
+            if (rightClick == null)
                 return;
-            mouseInput.OnRightClick();
+            rightClick.Peek().Invoke();
         }
     }
     void OnmouseWeel()
     {
-        if (mouseInput == null)
+        if (wheelAction == null)
             return;
-        mouseInput.OnMouseWheel();
+        wheelAction.Peek().Invoke();
     }
+    #endregion
     public void CusorImageChange(Sprite sprite)
     {
         Vector2 spot = Vector2.zero;
@@ -75,7 +130,7 @@ public class MouseInputManager : MonoBehaviour
 
     public void InputChangeToCamera()
     {
-        mouseInput = cameraMove;
+        cameraMove.ChangeAllMouseInput();
     }
 
     public void InventoryInput()
@@ -100,9 +155,38 @@ public class MouseInputManager : MonoBehaviour
             CusorImageChange(sprite);
         }
     }
-
+    public void InputFunctionCheck()
+    {
+        if(leftClick.actions.Count == 0)
+        {
+            cameraMove.AddLeftClick();
+        }
+        if(rightClick.actions.Count==0)
+        {
+            cameraMove.AddRightClick();
+        }
+        if(wheelAction.actions.Count == 0)
+        {
+            cameraMove.AddWheel();
+        }
+    }
     public void CursorImageReset()
     {
         followScript.MouseOBJImageReset();
+    }
+
+    public Vector3 OnCharactorFront()
+    {
+        Vector3 forward = playerObj.transform.forward;
+        return forward;
+    }
+    public Vector3 OnCameraFront()
+    {
+        Vector3 forward = (playerObj.transform.position - cameraMove.gameObject.transform.position).normalized;
+        return forward;
+    }
+    public void OnInteractOBJ()
+    {
+
     }
 }

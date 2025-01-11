@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnPlayerInput;
     public UnityEvent OnInventoryUpdate;
     public UnityEvent OnPlayerMouseinput;
+    public UnityEvent FarmAreaEvents;
     private void Awake()
     {
         SetUpField();
@@ -35,16 +36,19 @@ public class EventManager : MonoBehaviour
         {
             OnPlayerMouseinput.Invoke();
         }
-        else
+        if (FarmAreaEvents != null)
         {
-            Debug.Log("MouseInput Null");
+            FarmAreaEvents.Invoke();
         }
+        GameManager.instance.mouseManager.InputFunctionCheck();
+
+
     }
 
 
     void SetUpField()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
             instance = _instance;

@@ -122,6 +122,11 @@ public class InventoryData
             inventory[second] = inventory[first];
             inventory[first] = null;
         }
+        else if (inventory[second] != null && inventory[first].id == inventory[second].id && inventory[first].itemCount<inventory[first].maxStack)
+        {
+            inventory[second].itemCount = inventory[first].maxStack - inventory[first].itemCount;
+            inventory[first].itemCount = inventory[first].maxStack;
+        }
         else if (inventory[second] != null)
         {
             inventory[first] = inventory[second];

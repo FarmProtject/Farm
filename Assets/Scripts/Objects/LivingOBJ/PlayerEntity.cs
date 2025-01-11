@@ -14,6 +14,7 @@ public class PlayerEntity : LivingEntity
 
     public InventoryData inventory = new InventoryData();
     int maxInventory = 30;
+    public int gold;
     private void Awake()
     {
         if (GameManager.instance.playerEntity == null)
