@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public enum Rarity
 {
 
@@ -30,7 +32,7 @@ public class ItemBase : IStackable
     public Rarity rarity;
     public ItemType type;
     public string stat { get; set; }
-    public string useeffect;
+    public IItemEffect useeffect;
     public string description;
     public int price;
     public string icon;

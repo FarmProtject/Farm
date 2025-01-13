@@ -39,7 +39,7 @@ public class FarmAreaController : MonoBehaviour
         if(Physics.Raycast(ray,out hit, 100, layer))
         {
             
-            preViewObj.transform.position = myGrid.WorldToCell(hit.point);
+            preViewObj.transform.localPosition= myGrid.WorldToCell(hit.point);
             Debug.Log(hit.point);
 
         }

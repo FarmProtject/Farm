@@ -21,6 +21,8 @@ public class TownInput : InputBase
 
 
     public PlayerEntity playerEntity;
+    public QuickSlotPanel quickSlot;
+    
     public override void OnPlayerInput()
     {
         if(cameraTr == null)
@@ -56,6 +58,10 @@ public class TownInput : InputBase
         if(playerAnim == null)
         {
             playerAnim = player.GetComponentInChildren<Animator>();
+        }
+        if(quickSlot == null)
+        {
+            GameObject.Find("QuickSlotPanel").transform.GetComponent<QuickSlotPanel>();
         }
     }
 #region BasicMove
@@ -172,6 +178,19 @@ public class TownInput : InputBase
         {
             GameObject go = GameObject.Instantiate(GameManager.instance.testItemObj);
             go.transform.position = player.transform.position + new Vector3(2, 2, 2);
+        }
+    }
+
+    void OnQuickSlotKey()
+    {
+        foreach(var key in gameManager.keySettings.quickSlotKeys.Keys)
+        {
+            int slotNumber = gameManager.keySettings.quickSlotKeys[key];
+            if (Input.GetKeyDown(key))
+            {
+                quickSlot.quickUse.SetItem(gameManager.keySettings.quickSlots[slotNumber].item);
+                
+            }
         }
     }
 }

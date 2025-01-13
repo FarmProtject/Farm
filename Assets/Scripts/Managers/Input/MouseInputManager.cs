@@ -44,6 +44,7 @@ public class ClickActionStack
 
     }
 }
+
 public class MouseInputManager : MonoBehaviour
 {
 
@@ -62,6 +63,7 @@ public class MouseInputManager : MonoBehaviour
     PlayerEntity playerEntity;
     GameObject playerObj;
 
+    QuickSlot selectQuick;
     private void Awake()
     {
         inventory = GameManager.instance.playerEntity.inventory;

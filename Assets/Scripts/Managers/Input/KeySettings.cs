@@ -6,7 +6,8 @@ public class KeySettings
 {
     Dictionary<string, GameObject> keyObj = new Dictionary<string, GameObject>();
     public Dictionary<string, KeyCode> keyName = new Dictionary<string, KeyCode>();
-
+    public Dictionary<KeyCode, int> quickSlotKeys = new Dictionary<KeyCode,int>();
+    public Dictionary<int, QuickSlot> quickSlots = new Dictionary<int, QuickSlot>();
 
     public void OpenUIOnKey(string key)
     {

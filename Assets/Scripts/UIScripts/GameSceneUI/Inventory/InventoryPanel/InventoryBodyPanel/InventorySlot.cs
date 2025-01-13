@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
@@ -34,7 +35,7 @@ public class InvenWheelAction : IClickAction
     }
 }
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
     public int slotNumber;
     public Image itemSprite;
@@ -192,5 +193,15 @@ public class InventorySlot : MonoBehaviour
     public void InvenWheelAction()
     {
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Point In!");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("Point out!");
     }
 }
