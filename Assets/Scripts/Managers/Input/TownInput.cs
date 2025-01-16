@@ -21,7 +21,7 @@ public class TownInput : InputBase
 
 
     public PlayerEntity playerEntity;
-    public QuickSlotPanel quickSlot;
+    public QuickSlotManager quickSlot;
     
     public override void OnPlayerInput()
     {
@@ -61,7 +61,7 @@ public class TownInput : InputBase
         }
         if(quickSlot == null)
         {
-            GameObject.Find("QuickSlotPanel").transform.GetComponent<QuickSlotPanel>();
+            GameObject.Find("QuickSlotPanel").transform.GetComponent<QuickSlotManager>();
         }
     }
 #region BasicMove
@@ -157,7 +157,7 @@ public class TownInput : InputBase
         //원형 레이캐스트로 해당 오브젝트 있는지 판단해야함
     }
     #endregion
-
+    #region 인벤토리
     void OnInventoryKey()
     {
         if (Input.GetKeyDown(gameManager.keySettings.keyName["inventory"]))
@@ -180,7 +180,8 @@ public class TownInput : InputBase
             go.transform.position = player.transform.position + new Vector3(2, 2, 2);
         }
     }
-
+    #endregion
+    #region 퀵슬롯 
     void OnQuickSlotKey()
     {
         foreach(var key in gameManager.keySettings.quickSlotKeys.Keys)
@@ -189,8 +190,19 @@ public class TownInput : InputBase
             if (Input.GetKeyDown(key))
             {
                 quickSlot.quickUse.SetItem(gameManager.keySettings.quickSlots[slotNumber].item);
-                
+                if ((quickSlot.quickUse.item) is FarmItem farmItem)
+                {//농장에서 사용 가능 한 아이템일경우 레이캐스트로 사용가능여부 판별등에 쓸 레이어 정보 갱신
+                    gameManager.farmManager.InvokeLayerChange(farmItem.layer);
+                }
+                else
+                {
+                    gameManager.farmManager.InvokeLayerChange("Default");//아닐경우 디폴트레이어로 갱신
+                }
             }
         }
     }
+
+
+    
+    #endregion
 }

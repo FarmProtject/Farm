@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public GameObject testItemObj;
 
     public CameraMovement camearaMove;
+
+    public FarmManager farmManager;
     private void Awake()
     {
         SetUpField();
@@ -68,6 +70,10 @@ public class GameManager : MonoBehaviour
         if(camearaMove == null)
         {
             camearaMove = GameObject.Find("CameraOBJ").transform.GetComponent<CameraMovement>();
+        }
+        if(farmManager == null)
+        {
+            farmManager = transform.GetComponent<FarmManager>();
         }
     }
     

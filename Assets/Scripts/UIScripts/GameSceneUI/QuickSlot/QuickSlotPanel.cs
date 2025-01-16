@@ -4,18 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class QuickSlotItemClick : IClickAction
-{
-    ItemBase item;
-    public void SetItem(ItemBase item)
-    {
-        this.item = item;
-    }
-    public void Invoke()
-    {
-        item.useeffect.function();
-    }
-}
 
 
 public class QuickSlotPanel : UIBase,Isubject
@@ -25,7 +13,7 @@ public class QuickSlotPanel : UIBase,Isubject
     public Vector3 gridSize = new Vector3(90,90,0);
     public Vector2 spacing = new Vector2(7.5f,0);
 
-    public QuickSlotItemClick quickUse;
+    
 
     public void Attach(IObserver observer)
     {

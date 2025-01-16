@@ -10,8 +10,10 @@ public class FarmAreaController : MonoBehaviour
     GameObject preViewObj;
     List<GameObject> poolObjs = new List<GameObject>();
     Camera mainCamera;
+    
+    public bool canBuild;
     [SerializeField]
-    LayerMask layer;
+    public LayerMask rayLayer;
     void Start()
     {
         SetUp();
@@ -36,7 +38,7 @@ public class FarmAreaController : MonoBehaviour
         mousePos.z = mainCamera.nearClipPlane;
         Ray ray = mainCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit, 100, layer))
+        if(Physics.Raycast(ray,out hit, 100, rayLayer))
         {
             
             preViewObj.transform.localPosition= myGrid.WorldToCell(hit.point);
@@ -45,6 +47,25 @@ public class FarmAreaController : MonoBehaviour
         }
     }
 
+    public Vector3 GetGridPosition(LayerMask layer)
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = mainCamera.nearClipPlane;
+        Ray ray = mainCamera.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 30, layer))
+        {
+            mousePos = myGrid.WorldToCell(hit.point);
+            canBuild = true;
+            return mousePos;
+        }
+        else
+        {
+            canBuild = false;
+            return mousePos;
+        }
+        
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")

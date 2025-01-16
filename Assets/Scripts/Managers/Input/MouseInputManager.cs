@@ -27,6 +27,7 @@ public class ClickActionStack
     }
     public IClickAction Peek()
     {
+        Debug.Log("Default Action!!!");
         return actions.Count > 0 ? actions[^1] : defaultAction;
 
     }
@@ -69,7 +70,7 @@ public class MouseInputManager : MonoBehaviour
         inventory = GameManager.instance.playerEntity.inventory;
         cameraMove = GameManager.instance.camearaMove;
         //cameraMove = GameObject.Find("Main Camera").transform.GetComponent<CameraMovement>();
-        
+
         EventManager.instance.OnPlayerMouseinput.AddListener(OnPlayerInput);
         mouseOBJ = GameObject.Find("MouseFollowOBJ");
         followScript = mouseOBJ.transform.GetComponent<MouseOBJ>();
@@ -85,7 +86,7 @@ public class MouseInputManager : MonoBehaviour
     void Start()
     {
         InputChangeToCamera();
-        
+
     }
     private void Update()
     {
@@ -121,7 +122,9 @@ public class MouseInputManager : MonoBehaviour
     {
         if (wheelAction == null)
             return;
+
         wheelAction.Peek().Invoke();
+
     }
     #endregion
     public void CusorImageChange(Sprite sprite)
@@ -149,7 +152,7 @@ public class MouseInputManager : MonoBehaviour
             clickedSlot = slot;
             sprite = slot.itemSprite.sprite;
             item = inventory.inventory[slot.slotNumber];
-            if(sprite == null)
+            if (sprite == null)
             {
                 Debug.Log("Sprite Null");
                 return;
@@ -159,15 +162,15 @@ public class MouseInputManager : MonoBehaviour
     }
     public void InputFunctionCheck()
     {
-        if(leftClick.actions.Count == 0)
+        if (leftClick.actions.Count == 0)
         {
             cameraMove.AddLeftClick();
         }
-        if(rightClick.actions.Count==0)
+        if (rightClick.actions.Count == 0)
         {
             cameraMove.AddRightClick();
         }
-        if(wheelAction.actions.Count == 0)
+        if (wheelAction.actions.Count == 0)
         {
             cameraMove.AddWheel();
         }

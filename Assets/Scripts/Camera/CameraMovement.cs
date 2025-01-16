@@ -137,12 +137,10 @@ public class CameraMovement : MonoBehaviour
             //LookDistanceChange();
             VertRotate();
             HoriRotate();
-            Debug.Log("CameraRightClick");
         }
         else
         {
             LookDistanceChange();
-            HoriRotate();
         }
     }
 
@@ -152,7 +150,6 @@ public class CameraMovement : MonoBehaviour
         if (distance!=Vector3.Distance(followTr.position,transform.position))
         {
             HoriRotate();
-            Debug.Log("CameraWehel");
         }
     }
 
