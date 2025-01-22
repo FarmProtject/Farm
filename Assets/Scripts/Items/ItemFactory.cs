@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 public class ItemFactory : MonoBehaviour
 {
     DataManager dataManager;
@@ -24,6 +25,62 @@ public class ItemFactory : MonoBehaviour
         dataManager = GameManager.instance.dataManager;
     }
 
+    public ItemBase GetItemData(int index)
+    {
+        ItemBase item;
+        if (dataManager.items.ContainsKey(index) && dataManager.items[index]!=null)
+        {
+            item = dataManager.items[index];
+            return dataManager.items[index];
+        }
+        else if(dataManager.items.ContainsKey(index)&&dataManager.items[index] == null)
+        {
+            item = dataManager.items[index]=ItemMake(index);
+            return item;
+        }
+        else
+        {
+            item = ItemMake(index);
+            dataManager.items.Add(index, item);
+            return item;
+        }
+    }
+
+    public ItemBase ItemMake(int index)
+    {
+        ItemType type = ItemType.None;
+
+        TryConvertEnum(dataManager.itemDatas.datas[index],"type",ref type);
+        //TrySetValue(dataManager.itemDatas.datas[index],"type", ref type);
+        ItemBase item;
+        switch (type)
+        {
+            case ItemType.readySoilItem:
+                item = new ReadySoilItem();
+                break;
+            case ItemType.soilItem:
+                item = new SoilItem();
+                break;
+            case ItemType.equipmentItem:
+                item = new EquipItem();
+                break;
+            case ItemType.harvestItem:
+                item = new HarvestItem();
+                break;
+            case ItemType.consumableItem:
+                item = new ConsumItem();
+                break;
+            case ItemType.None:
+                item = new ItemBase();
+                break;
+            default:
+                item = new ItemBase();
+                Debug.Log("ItemTypeError");
+                break;
+        }
+        return SetItemData(index,item);
+    }
+
     ItemBase SetItemData(int index, ItemBase item)
     {
         DataClass data = dataManager.itemDatas;
@@ -34,9 +91,13 @@ public class ItemFactory : MonoBehaviour
         {
             Debug.Log("Name Didn't Set");
         }
-        if (TrySetValue(data.datas[index], "type", ref item.type))
+        if(TryConvertEnum(data.datas[index],"type",ref item.type))
         {
+
         }
+        /*if (TrySetValue(data.datas[index], "type", ref item.type))
+        {
+        }*/
         else
         {
             Debug.Log("type Didn't Contain");
@@ -71,10 +132,11 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
+        /*
         if (TrySetValue(data.datas[index], "useeffect", ref item.useeffect))
         {
 
-        }
+        }*/
         if (TrySetValue(data.datas[index], "throwable", ref item.throwable))
         {
 
@@ -95,9 +157,20 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
+        if(item is FarmItem farmItem)
+        {
+            if (TrySetValue(data.datas[index], "layer", ref farmItem.layer))
+            {
+
+            }
+        }
+        SetItemFunction(ref item);
         return item;
     }
-
+    public void SetItemFunction(ref ItemBase item)
+    {
+        
+    }
     bool TrySetValue<T>(Dictionary<string,object> data , string key,ref T target)
     {
         if (data.ContainsKey(key) && data[key] != null)
@@ -113,6 +186,22 @@ public class ItemFactory : MonoBehaviour
                 return false;
             }
         }
+        return false;
+    }
+    bool TryConvertEnum<T>(Dictionary<string,object> data, string key, ref T target) where T : struct,Enum 
+    {
+        if(data.ContainsKey(key)&& data[key] != null)
+        {
+
+            if (Enum.TryParse(data[key].ToString(), true, out target))
+            {
+                return true;
+            }
+
+        }
+
+
+
         return false;
     }
 }

@@ -5,7 +5,12 @@ using UnityEngine;
 public class NPC : InteractableEntity,IInteractable
 {
 
+    protected override void OnAwake()
+    {
+        base.OnAwake();
 
+        SetDialogueData();
+    }
 
     protected override void NPCInteract()
     {
@@ -19,29 +24,23 @@ public class NPC : InteractableEntity,IInteractable
     }
     protected virtual void NPCRangeOut()
     {
-        Debug.Log("Range Out!!");
-        if (GameManager.instance.playerEntity.nowInteract == this.gameObject && dialoguePanel.activeSelf)
-        {
-            dialoguePanel.SetActive(false);
-            GameManager.instance.playerEntity.nowInteract = null;
-            Debug.Log("Range Out!! Script Active!");
-        }
+        uiManager.NPCRangeOut(this);
     }
     protected virtual void OpenDialogueUI()
     {
-        if (!dialoguePanel.activeSelf)
-        {
-            dialoguePanel.SetActive(true);
-        }
-        else
-        {
-            dialoguePanel.SetActive(false);
-        }
+        uiManager.DialogueUIToggle(this);
     }
-
+    public string GetDialogue()
+    {
+        return dialogue;
+    }
     private void SetDialogueData()
     {
         // entityName을 이용해 데이터 가져와 세팅
+        if(dialogue == null)
+        {
+            dialogue = "Need to Write SetDialogueData Function";
+        }
     }
 
 

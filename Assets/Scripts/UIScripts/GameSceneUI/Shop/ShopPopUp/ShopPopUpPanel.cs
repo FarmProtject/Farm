@@ -5,6 +5,7 @@ public class ShopPopUpPanel : UIBase, Isubject
 {
     List<IObserver> observers = new List<IObserver>();
 
+    public ItemBase item;
     public void Attach(IObserver observer)
     {
         if (!observers.Contains(observer))

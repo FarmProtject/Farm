@@ -12,6 +12,26 @@ public class FarmItem : ItemBase
 
 }
 
+public class SoilItem : FarmItem
+{
+
+}
+public class ReadySoilItem : FarmItem
+{
+
+}
+public class EquipItem : ItemBase
+{
+
+}
+public class HarvestItem : ItemBase
+{
+
+}
+public class ConsumItem : ItemBase
+{
+
+}
 public class PlowingTool : FarmItem,IItemEffect
 {
     

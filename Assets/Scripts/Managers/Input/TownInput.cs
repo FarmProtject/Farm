@@ -61,7 +61,7 @@ public class TownInput : InputBase
         }
         if(quickSlot == null)
         {
-            GameObject.Find("QuickSlotPanel").transform.GetComponent<QuickSlotManager>();
+            quickSlot = GameManager.instance.quickSlotManager;
         }
     }
 #region BasicMove
@@ -162,14 +162,7 @@ public class TownInput : InputBase
     {
         if (Input.GetKeyDown(gameManager.keySettings.keyName["inventory"]))
         {
-            if (GameManager.instance.UIManager.inventoryPanel.activeSelf)
-            {
-                GameManager.instance.UIManager.inventoryPanel.SetActive(false);
-            }
-            else
-            {
-                GameManager.instance.UIManager.inventoryPanel.SetActive(true);
-            }
+            GameManager.instance.UIManager.OnInventoryKey();
         }
     }
     void OnItemTest()

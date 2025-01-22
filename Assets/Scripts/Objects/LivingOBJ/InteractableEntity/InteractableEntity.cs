@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class InteractableEntity : LivingEntity,IInteractable
 {
-    [SerializeField]protected GameObject dialoguePanel;
+    [SerializeField]protected string dialogue;
+    protected UIManager uiManager;
     private void Awake()
     {
         OnAwake();
     }
     protected virtual void OnAwake()
     {
-        dialoguePanel = GameObject.Find("DialoguePanel");
+        uiManager = GameManager.instance.UIManager;
     }
     public void Interact()
     {

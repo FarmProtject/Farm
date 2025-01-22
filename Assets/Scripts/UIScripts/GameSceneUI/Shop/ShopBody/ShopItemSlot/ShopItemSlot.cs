@@ -8,10 +8,14 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     ShopBodyPanel shopBody;
     public ItemBase itemData;
     Image itemImage;
+    [SerializeField]
     TextMeshProUGUI ItemName;
+    [SerializeField]
     TextMeshProUGUI itemPrice;
+    Button myButton;
 
     List<IObserver> observers = new List<IObserver>();
+    #region lifeCycle
     private void Awake()
     {
         OnAwake();
@@ -19,10 +23,12 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
         shopBody.Attach(this);
         baseWidth = shopBody.gameObject.GetComponent<RectTransform>().rect.width;
         baseHeight = shopBody.gameObject.GetComponent<RectTransform>().rect.height;
+        myButton = transform.GetComponent<Button>();
     }
     private void OnEnable()
     {
         shopBody.Attach(this);
+        
     }
     private void OnDisable()
     {
@@ -37,7 +43,8 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
         base.OnStart();
         Notyfy();
     }
-
+    #endregion
+    #region observer pattern
     void ObserverAdd()
     {
         foreach(IObserver obs in transform.GetComponentsInChildren<IObserver>())
@@ -45,15 +52,14 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
             Attach(obs);
         }
     }
-
-
+    
     public void Invoke()
     {
         OnStart();
         Debug.Log("shopItemPanel Invoke!");
         Debug.Log($"ShopItemPanel {baseWidth}");
     }
-
+    
     public void Attach(IObserver observer)
     {
         if (!observers.Contains(observer))
@@ -83,4 +89,31 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
             obs.Invoke();
         }
     }
+    #endregion
+    #region Button
+
+    void ButtonFunction()
+    {
+        GameManager.instance.UIManager.shopManager.SetBuyingItem(itemData);
+        GameManager.instance.UIManager.ShopPopUpOpen();
+    }
+
+    public void ShopSlotUIData()
+    {
+        SetSlotName();
+        SetSlotPrice();
+    }
+    void SetSlotName()
+    {
+        ItemName.text = itemData.name;
+    }
+    void SetSlotPrice()
+    {
+        itemPrice.text = itemData.price.ToString();
+    }
+    void SetSlotImage()
+    {
+
+    }
+    #endregion
 }

@@ -1,10 +1,10 @@
-id,name,type,description,price,maxstack,icon,damage,defence,speed,slot,useeffect,throwable
-200101,가죽 장갑,equipment,가죽으로 만든 장갑.,150,1,,0,10,0,hand,null,TRUE
-200102,강철 장갑,equipment,강철로 만든 장갑.,200,1,,0,15,0,hand,null,TRUE
-200201,가죽 갑옷,equipment,가죽으로 만든 갑옷.,200,1,,0,20,0,body,null,TRUE
-200202,강철 갑옷,equipment,강철로 만든 갑옷.,250,1,,0,25,0,body,null,TRUE
-200301,가죽 신발,equipment,가죽으로 만든 신발.,150,1,,0,0,5,foot,null,TRUE
-200302,강철 신발,equipment,강철로 만든 신발.,200,1,,0,0,10,foot,null,TRUE
-200401,목걸이,equipment,목걸이.,300,1,,10,0,0,accessories,null,TRUE
-200402,보석 목걸이,equipment,보석으로 만든 목걸이.,450,1,,20,0,0,accessories,null,TRUE
-200601,중요한 목걸이,equipment,버리기 불가능한 중요한 목걸이.,0,1,,20,0,0,accessories,null,FALSE
+id,name,type,description,price,maxstack,icon,damage,defence,speed,slot,useeffect,canbedestroy
+200101,leather_gloves,equipment,leather gloves description,150,1,,0,10,0,hand,null,TRUE
+200102,iron_gloves,equipment,iron gloves description,200,1,,0,15,0,hand,null,TRUE
+200201,leather_armor,equipment,leather armor description,200,1,,0,20,0,body,null,TRUE
+200202,iron_armor,equipment,iron armor description,250,1,,0,25,0,body,null,TRUE
+200301,leather_shoes,equipment,leather shoes description,150,1,,0,0,5,foot,null,TRUE
+200302,iron_shoes,equipment,iron shoes description,200,1,,0,0,10,foot,null,TRUE
+200401,neckless,equipment,neckless description,300,1,,10,0,0,accessories,null,TRUE
+200402,gen_neckless,equipment,gem neckless description,450,1,,20,0,0,accessories,null,TRUE
+200601,precious_neckless,equipment,precious neckless description. can not be destroy,0,1,,20,0,0,accessories,null,FALSE

@@ -17,12 +17,13 @@ public enum EquipSlot
     accessories
 }
 public enum ItemType 
-{ 
-    None,
-    Tool,
-    Consum,
-    Equip,
-    Material
+{
+    readySoilItem,
+    soilItem,
+    equipmentItem,
+    harvestItem,
+    consumableItem,
+    None
 }
 
 public class ItemBase : IStackable

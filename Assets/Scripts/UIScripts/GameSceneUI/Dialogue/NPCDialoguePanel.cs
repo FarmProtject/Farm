@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class NPCDialoguePanel : UIBase
 {
+    ScriptPanel dialogue;
+
+    private void Awake()
+    {
+        dialogue = GetComponentInChildren<ScriptPanel>();
+    }
     private void OnEnable()
     {
         AddOnUIManager();
+        
     }
     private void OnDisable()
     {
@@ -29,5 +36,14 @@ public class NPCDialoguePanel : UIBase
     {
         myRect.pivot = new Vector2(0.5f, 0f);
         myRect.anchoredPosition = new Vector2(0,0);
+    }
+
+    public void SetDialogue(string dialogueText)
+    {
+        dialogue.SetText(dialogueText);
+    }
+    public void RemoveDialogue()
+    {
+        dialogue.SetText("");
     }
 }

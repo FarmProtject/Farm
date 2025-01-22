@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - Soil
-  - Crop
+  - soil
+  - crops
   - FarmArea
-  - CultivatedSoil
+  - readysoil
   - 
   - 
   - 

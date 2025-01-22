@@ -12,8 +12,9 @@ public class QuickSlotPanel : UIBase,Isubject
     GridLayoutGroup myGrid;
     public Vector3 gridSize = new Vector3(90,90,0);
     public Vector2 spacing = new Vector2(7.5f,0);
+    QuickSlot[] slots;
 
-    
+
 
     public void Attach(IObserver observer)
     {
@@ -68,7 +69,7 @@ public class QuickSlotPanel : UIBase,Isubject
 
     void SetQuickSlotNumbers() // Äü½½·ÔÀÇ ½½·Ô¹øÈ£ ºÎ¿©
     {
-        QuickSlot[] slots = GetComponentsInChildren<QuickSlot>();
+        slots = GetComponentsInChildren<QuickSlot>();
 
         for(int i = 0; i < slots.Length; i++)
         {

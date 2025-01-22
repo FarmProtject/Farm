@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
     public CameraMovement camearaMove;
 
     public FarmManager farmManager;
+
+    public QuickSlotManager quickSlotManager;
+
+    public ShopManager shopManager;
+
+    public ItemFactory itemFactory;
     private void Awake()
     {
         SetUpField();
@@ -74,6 +80,18 @@ public class GameManager : MonoBehaviour
         if(farmManager == null)
         {
             farmManager = transform.GetComponent<FarmManager>();
+        }
+        if(quickSlotManager == null)
+        {
+            quickSlotManager = transform.GetComponent<QuickSlotManager>();
+        }
+        if(shopManager == null)
+        {
+            shopManager = GameObject.Find("ShopManager").transform.GetComponent<ShopManager>();
+        }
+        if(itemFactory == null)
+        {
+            itemFactory = transform.GetComponent<ItemFactory>();
         }
     }
     

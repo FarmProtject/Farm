@@ -5,18 +5,15 @@ using UnityEngine;
 public class ShopNPC : NPC, IInteractable
 {
 
-    List<ItemBase> shopItems = new List<ItemBase>();
-    GameObject shopPanelObj;
-    GameObject inventoryObj;
-    ShopPanel shopData;
-    
+    List<int> shopItems = new List<int>();
+
     protected override void OnAwake()
     {
         base.OnAwake();
-        shopPanelObj = GameManager.instance.UIManager.shopPanel;
-        inventoryObj = GameManager.instance.UIManager.inventoryPanel;
-        shopData = shopPanelObj.transform.GetComponent<ShopPanel>();
+        uiManager = GameManager.instance.UIManager;
         SetItemData();
+        shopItems.Add(100001);
+        shopItems.Add(300011);
     }
     protected override void Start()
     {
@@ -26,37 +23,12 @@ public class ShopNPC : NPC, IInteractable
     protected override void NPCInteract()
     {
         base.NPCInteract();
-        OnShopOpen();
+        uiManager.OnShopInteract(this,shopItems);
     }
-    void OnShopOpen()
-    {
-        if (GameManager.instance.playerEntity.nowInteract == this.gameObject && shopPanelObj.activeSelf)
-        {
-            shopPanelObj.SetActive(false);
-            inventoryObj.SetActive(false);
-        }
-        else if(GameManager.instance.playerEntity.nowInteract == this.gameObject && !shopPanelObj.activeSelf)
-        {
-            shopPanelObj.SetActive(true);
-            if (!inventoryObj.activeSelf)
-            {
-                inventoryObj.SetActive(true);
-            }
-            GiveItemDataToShop();
-        }
-    }
+    
     protected override void NPCRangeOut()
     {
-        Debug.Log("Range Out!!");
-        if (GameManager.instance.playerEntity.nowInteract == this.gameObject && dialoguePanel.activeSelf)
-        {
-            dialoguePanel.SetActive(false);
-            shopPanelObj.SetActive(false);
-            inventoryObj.SetActive(false);
-            GameManager.instance.playerEntity.nowInteract = null;
-            
-            Debug.Log("Range Out!! Script Active!");
-        }
+        uiManager.NPCRangeOut(this);
     }
     void SetItemData()
     {

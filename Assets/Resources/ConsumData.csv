@@ -1,11 +1,11 @@
-id,name,type,description,price,maxstack,icon,useeffect,throwable
-300001,체력 포션,potion,체력 회복 포션,50,10,,null,TRUE
-300002,고급 체력 포션,potion,체력을 많이 회복시켜주는 포션,100,10,,null,TRUE
-300003,최고급 체력 포션,potion,체력을 매우 많이 회복시켜주는 포션,150,10,,null,TRUE
-300004,공격력 포션,potion,공격력 버프 포션,100,10,,null,TRUE
-300005,방어력 포션,potion,방어력 버프 포션,100,10,,null,TRUE
-300006,이동속도 포션,potion,이동속도 버프 포션,100,10,,null,TRUE
-300011,씨앗1,seed,씨앗1설명,10,40,,null,TRUE
-300012,씨앗2,seed,씨앗2설명,15,40,,null,TRUE
-300013,비료1,fertilizer,비료1설명,20,40,,null,TRUE
-300014,비료2,fertilizer,비료2설명,30,40,,null,TRUE
+id,name,type,description,price,maxstack,icon,useeffect,canbedestroy,layer
+300001,health_potion,potion,health potion description,50,10,,null,TRUE,default
+300002,good_health_potion,potion,good health potion description,100,10,,null,TRUE,default
+300003,best_health_potion,potion,best health potion description,150,10,,null,TRUE,default
+300004,strength_potion,potion,strength potion description,100,10,,null,TRUE,default
+300005,defence_potion,potion,defence potion description,100,10,,null,TRUE,default
+300006,speed_potion,potion,speed potion description,100,10,,null,TRUE,default
+300011,berry_seed,seed,berry seed description,10,40,,Seed,TRUE,readysoil
+300012,wheat_seed,seed,wheat seed description,15,40,,null,TRUE,readysoil
+300013,fertilizer,fertilizer,fertilizer description,20,40,,null,TRUE,readysoil
+300014,good_fertilizer,fertilizer,good fertilizer description,30,40,,null,TRUE,readysoil

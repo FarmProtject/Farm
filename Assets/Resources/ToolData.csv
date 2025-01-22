@@ -1,9 +1,11 @@
-id,name,type,description,price,maxstack,icon,useeffect,throwable
-100001,괭이,tools,기본적인 괭이.,100,1,,null,TRUE
-100002,좋은 괭이,tools,일반적인 것보다 조금 더 좋은 괭이.,150,1,,null,TRUE
-100011,도끼,tools,기본적인 도끼.,100,1,,null,TRUE
-100012,좋은 도끼,tools,일반적인 것보다 조금 더 좋은 도끼.,150,1,,null,TRUE
-100021,물뿌리개,tools,기본적인 물뿌리개.,100,1,,null,TRUE
-100022,좋은 물뿌리개,tools,일반적인 것보다 조금 더 좋은 물뿌리개.,150,1,,null,TRUE
-100101,나무 검,weapon,나무로 만든 검.,200,1,,null,TRUE
-100102,강철 검,weapon,강철로 만든 검.,300,1,,null,TRUE
+id,name,type,description,price,maxstack,icon,useeffect,canbedestroy,layer
+100001,hoe,tools,normal hoe description,100,1,,Hoe,TRUE,soil
+100002,good_hoe,tools,better hoe description,150,1,,null,TRUE,soil
+100011,axe,tools,normal axe description,100,1,,null,TRUE,wood
+100012,good_axe,tools,better axe description,150,1,,null,TRUE,wood
+100021,watering_can,tools,normal watering can description,100,1,,null,TRUE,readysoil
+100022,good_watering_can,tools,better watering can description,150,1,,null,TRUE,readysoil
+100031,sickle,tools,normal sickle description,100,1,,null,TRUE,crops
+100032,good_sickle,tools,better sickle description,150,1,,null,TRUE,crops
+100101,wooden_sword,weapon,wooden sword description,200,1,,null,TRUE,default
+100102,iron_sword,weapon,iron sword description,300,1,,null,TRUE,default
