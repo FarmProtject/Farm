@@ -148,6 +148,8 @@ public class UIManager : MonoBehaviour,Isubject
         {
             shopPopUpObj.SetActive(true);
         }
+        shopPopUp.UpdateMyData();
+        
         
     }
     public void ShopPopUpClose()

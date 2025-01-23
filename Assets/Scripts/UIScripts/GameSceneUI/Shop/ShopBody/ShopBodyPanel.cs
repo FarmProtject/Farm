@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class ShopBodyPanel : UIBase,IObserver,Isubject,IBeginDragHandler,IDragHandler,IEndDragHandler
+public class ShopBodyPanel : UIBase,IObserver,Isubject//,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     ShopPanel shopPanel;
     List<IObserver> observers = new List<IObserver>();
@@ -54,7 +54,7 @@ public class ShopBodyPanel : UIBase,IObserver,Isubject,IBeginDragHandler,IDragHa
             obs.Invoke();
         }
     }
-
+    /*
     public void OnBeginDrag(PointerEventData eventData)
     {
         throw new System.NotImplementedException();
@@ -69,4 +69,5 @@ public class ShopBodyPanel : UIBase,IObserver,Isubject,IBeginDragHandler,IDragHa
     {
         throw new System.NotImplementedException();
     }
+    */
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 public class ShopPopUpCancleButton : UIBase,IObserver
 {
+    [SerializeField]
     Button myButton;
     GameObject popUpPanel;
     protected override void Start()

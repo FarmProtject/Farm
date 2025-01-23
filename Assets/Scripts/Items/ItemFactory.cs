@@ -95,6 +95,9 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
+        if (TrySetValue(data.datas[index], "id", ref item.id))
+        {
+        }
         /*if (TrySetValue(data.datas[index], "type", ref item.type))
         {
         }*/

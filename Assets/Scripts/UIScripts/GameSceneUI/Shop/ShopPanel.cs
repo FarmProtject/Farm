@@ -40,6 +40,7 @@ public class ShopPanel : UIBase, Isubject
     private void OnDisable()
     {
         itemDict.Clear();
+        
     }
     #endregion
     #region UISet

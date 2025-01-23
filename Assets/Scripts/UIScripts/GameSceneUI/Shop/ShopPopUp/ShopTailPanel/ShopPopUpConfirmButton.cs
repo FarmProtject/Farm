@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 public class ShopPopUpConfirmButton : UIBase,IObserver
 {
+    [SerializeField]
     Button myButton;
     GameObject popUpPanel;
     protected override void Start()

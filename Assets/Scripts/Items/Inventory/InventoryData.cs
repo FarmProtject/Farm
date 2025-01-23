@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class InventoryData 
 {
     [SerializeField]
@@ -102,13 +102,9 @@ public class InventoryData
 
     ItemBase DeepCopyItemData(ItemBase original)
     {
-        return new ItemBase
-        {
-            id = original.id,
-            itemCount = original.itemCount,
-            maxStack = original.maxStack,
-            
-        };
+        var item = GameManager.instance.itemFactory.GetItemData(original.id);
+        item.itemCount = original.itemCount;
+        return item;
     }
     public void InventorySlotSwap(int first,int second)
     {
@@ -134,5 +130,22 @@ public class InventoryData
         }
         EventManager.instance.OnInventoryUpdate.Invoke();
     }
-    
+
+    public void DecreaseItemCount(ItemBase item, int count)
+    {
+        var targetItem = inventory.FirstOrDefault(i => i == item);
+        if(targetItem != null)
+        {
+            if (targetItem.itemCount < count)
+            {
+                count = targetItem.itemCount;
+            }
+
+            targetItem.itemCount -= count;
+        }
+        if(targetItem.itemCount == 0)
+        {
+            inventory.Remove(targetItem);
+        }
+    }
 }

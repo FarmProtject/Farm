@@ -1,10 +1,17 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 public class ShopPopUpPanel : UIBase, Isubject
 {
     List<IObserver> observers = new List<IObserver>();
-
+    [SerializeField]
+    Image ItemImage;
+    [SerializeField]
+    TextMeshProUGUI itemName;
+    [SerializeField]
+    TextMeshProUGUI itemCount;
     public ItemBase item;
     public void Attach(IObserver observer)
     {
@@ -33,6 +40,7 @@ public class ShopPopUpPanel : UIBase, Isubject
     protected override void Start()
     {
         base.Start();
+        
     }
     protected override void OnStart()
     {
@@ -42,7 +50,30 @@ public class ShopPopUpPanel : UIBase, Isubject
             observers.Add(obs);
         }
         Notyfy();
+        this.gameObject.SetActive(false);
+    }
+    
+    public void UpdateMyData()
+    {
+        item = GameManager.instance.UIManager.shopManager.buyingItem;
+        SetImage();
+        SetItemCount();
+        SetItemName();
     }
 
+    void SetImage()
+    {
+        Debug.Log("Need to Write SetImage in ShopPopUpPanel");
+    }
+    void SetItemCount()
+    {
+        itemCount.text =  item.itemCount.ToString();
+        Debug.Log("Need to Write ItemCOunt in ShopPopUpPanel");
+    }
+    void SetItemName()
+    {
+        itemName.text = item.name;
+        Debug.Log("Need to Write SetItemName in ShopPopUpPanel");
+    }
 
 }

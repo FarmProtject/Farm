@@ -12,6 +12,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     TextMeshProUGUI ItemName;
     [SerializeField]
     TextMeshProUGUI itemPrice;
+    [SerializeField]
     Button myButton;
 
     List<IObserver> observers = new List<IObserver>();
@@ -24,6 +25,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
         baseWidth = shopBody.gameObject.GetComponent<RectTransform>().rect.width;
         baseHeight = shopBody.gameObject.GetComponent<RectTransform>().rect.height;
         myButton = transform.GetComponent<Button>();
+        AddButtonFunction();
     }
     private void OnEnable()
     {
@@ -42,6 +44,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     {
         base.OnStart();
         Notyfy();
+        
     }
     #endregion
     #region observer pattern
@@ -91,11 +94,19 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     }
     #endregion
     #region Button
+    void AddButtonFunction()
+    {
+        myButton.onClick.AddListener(ButtonFunction);
+        Debug.Log(11111111);
+    }
 
     void ButtonFunction()
     {
         GameManager.instance.UIManager.shopManager.SetBuyingItem(itemData);
+        GameManager.instance.UIManager.shopManager.shopState = ShopState.buy;
         GameManager.instance.UIManager.ShopPopUpOpen();
+        GameManager.instance.UIManager.shopManager.AddConfirmFunction();
+        
     }
 
     public void ShopSlotUIData()
@@ -110,6 +121,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     void SetSlotPrice()
     {
         itemPrice.text = itemData.price.ToString();
+        //itemPrice.text = itemData.id.ToString();
     }
     void SetSlotImage()
     {
