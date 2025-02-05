@@ -33,7 +33,7 @@ public class ShopManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         shopConfirmButton = GameObject.Find("ShopConfirmButton").transform.GetComponent<Button>();
-        
+        SetField();
     }
 
     private void Start()
@@ -90,11 +90,13 @@ public class ShopManager : MonoBehaviour
     */
     void AddBuyingFunction()
     {
+        shopConfirmButton.onClick.RemoveAllListeners();
         shopConfirmButton.onClick.AddListener(BuyItem);
     }
 
     public void AddSellFunction()
     {
+        shopConfirmButton.onClick.RemoveAllListeners();
         shopConfirmButton.onClick.AddListener(SellItem);
     }
     #region 팝업 인풋필드
@@ -104,9 +106,11 @@ public class ShopManager : MonoBehaviour
         {
             case ShopState.buy:
                 BuyCheck();
+                SetSumPrice();
                 break;
             case ShopState.sell:
                 SellCheck();
+                SetSumPrice();
                 break;
             default:
                 break;
@@ -164,7 +168,12 @@ public class ShopManager : MonoBehaviour
     {
         int price = item.price * itemCount;
         int returnCount = itemCount;
-        if (returnCount < player.gold) // 플레이어의 총 골드보다 아이템 가격의 총합이 높다면 아이템 갯수 재설정
+        if(player == null)
+        {
+            Debug.Log("Player Null In CheckBuyMaxCount");
+            return 0;
+        }
+        if (price > player.gold) // 플레이어의 총 골드보다 아이템 가격의 총합이 높다면 아이템 갯수 재설정
         {
             returnCount = player.gold / item.price;
         }
@@ -173,9 +182,10 @@ public class ShopManager : MonoBehaviour
     int CheckBuyPrice(ItemBase item,int itemCount)
     {
         int price = item.price * itemCount;
+        Debug.Log(price);
         if(price > player.gold)
         {
-            itemCount = player.gold / item.price;
+            item.itemCount = player.gold / item.price;
             price = item.price * itemCount;
         }
         SetSumPrice();

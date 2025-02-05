@@ -25,21 +25,36 @@ public class ShopPopUpInputField : UIBase
     void SetInputFiledValue()
     {
         inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
-        inputField.onEndEdit.AddListener(OnEndEdit);
+        //inputField.onEndEdit.AddListener(OnEndEdit);
+        inputField.onValueChanged.AddListener(OnValueChange);
     }
 
     void OnEndEdit(string input)
     {
         if(int.TryParse(input,out int result))
         {
-            itemCount = Int32.Parse(inputField.text);
+            itemCount =  Convert.ToInt32(inputField.text);
+            Debug.Log(itemCount);
             shopManager.item.itemCount = itemCount;
             shopManager.SetInputField();
+            
             Debug.Log("On End Edit!");
         }
         else
         {
             Debug.Log("Input isn't Integer");
+        }
+    }
+    private void OnValueChange(string input)
+    {
+        if (int.TryParse(input, out int result))
+        {
+            itemCount = Convert.ToInt32(inputField.text);
+            shopManager.item.itemCount = itemCount;
+            Debug.Log(shopManager.item.itemCount);
+            shopManager.SetInputField();
+            Debug.Log("  shop   " + shopManager.item.itemCount);
+            Debug.Log("On End Edit!");
         }
     }
 

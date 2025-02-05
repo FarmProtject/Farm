@@ -16,7 +16,11 @@ public class InventoryData
     public void AddinInventory(ItemBase item)
     {
         ItemBase addedItem;
-        
+        if (item.itemCount <= 0)
+        {
+            Debug.Log("Item Count < 0 In inventoryData AddinVentoryFcuntion");
+            return;
+        }
         addedItem = OnGetItemCheck(item);
         if(addedItem == null)
         {
@@ -160,19 +164,23 @@ public class InventoryData
             {
                 inventory[i] = DeepCopyItemData(item);
                 inventory[i].itemCount = item.itemCount;
+                Debug.Log("AddItem!");
                 item.itemCount = 0;
                 return;
             }
         }
         inventory.Add(DeepCopyItemData(item));
+
+
         inventory[inventory.Count - 1].itemCount = item.itemCount;
         item.itemCount = 0;
+        EventManager.instance.OnInventoryUpdate.Invoke();
     }
 
 
     ItemBase DeepCopyItemData(ItemBase original)
     {
-        var item = GameManager.instance.itemFactory.GetItemData(original.id);
+        var item = GameManager.instance.itemFactory.ItemMake(original.id);
         item.itemCount = original.itemCount;
         return item;
     }

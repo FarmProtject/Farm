@@ -15,8 +15,15 @@ public class EventManager : MonoBehaviour
     private void Awake()
     {
         SetUpField();
+        
     }
-
+    private void Start()
+    {
+        if (OnInventoryUpdate != null)
+        {
+            OnInventoryUpdate.Invoke();
+        }
+    }
     void Update()
     {
         UpdateEvents();

@@ -15,6 +15,7 @@ public class PlayerEntity : LivingEntity
     public InventoryData inventory = new InventoryData();
     int maxInventory = 30;
     public int gold;
+    [SerializeField]public List<ItemBase> inventoryList = new List<ItemBase>();
     private void Awake()
     {
         if (GameManager.instance.playerEntity == null)
@@ -28,6 +29,7 @@ public class PlayerEntity : LivingEntity
         SetMoveState(MoveState.walk);
         SetInventoryNull();
         gold = 999;
+        inventoryList = inventory.inventory;
     }
 
     #region 플레이어의 정보 초기화
