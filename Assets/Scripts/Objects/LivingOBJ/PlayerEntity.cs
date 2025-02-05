@@ -27,6 +27,7 @@ public class PlayerEntity : LivingEntity
         base.Start();
         SetMoveState(MoveState.walk);
         SetInventoryNull();
+        gold = 999;
     }
 
     #region 플레이어의 정보 초기화
@@ -45,7 +46,7 @@ public class PlayerEntity : LivingEntity
         runSpeed = 4f;
         walkSpeed = 2f;
     }
-    void SetInventoryNull()
+    public void SetInventoryNull()
     {
         for(int i = 0; i<maxInventory; i++)
         {

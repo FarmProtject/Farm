@@ -55,7 +55,7 @@ public class ShopPopUpPanel : UIBase, Isubject
     
     public void UpdateMyData()
     {
-        item = GameManager.instance.UIManager.shopManager.buyingItem;
+        item = GameManager.instance.UIManager.shopManager.item;
         SetImage();
         SetItemCount();
         SetItemName();

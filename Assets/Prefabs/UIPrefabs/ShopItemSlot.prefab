@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8315766172495164819}
   - component: {fileID: 701209378410334845}
   - component: {fileID: 2751844132207714000}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemImagePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8233145346533709373}
   - component: {fileID: 3948262662032184208}
   - component: {fileID: 607157311834643925}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,9 +251,9 @@ GameObject:
   - component: {fileID: 161485061794372035}
   - component: {fileID: 4493539765538529563}
   - component: {fileID: 840149851334659458}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ShopItemSlot
-  m_TagString: Untagged
+  m_TagString: ShopUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   onRight: 0
   ItemName: {fileID: 607157311834643925}
   itemPrice: {fileID: 3728838263875813075}
+  myButton: {fileID: 0}
 --- !u!114 &840149851334659458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +399,7 @@ GameObject:
   - component: {fileID: 246762769750679271}
   - component: {fileID: 3081245973790240445}
   - component: {fileID: 3728838263875813075}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +536,7 @@ GameObject:
   - component: {fileID: 9172126405535784487}
   - component: {fileID: 3963281240464943492}
   - component: {fileID: 187502495263740692}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemNamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +636,7 @@ GameObject:
   - component: {fileID: 64768842743785664}
   - component: {fileID: 2168294426591390716}
   - component: {fileID: 5328048059498864941}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemPricePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +735,7 @@ GameObject:
   - component: {fileID: 213469702925366848}
   - component: {fileID: 559915928053027106}
   - component: {fileID: 6540408781756043404}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ItemImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

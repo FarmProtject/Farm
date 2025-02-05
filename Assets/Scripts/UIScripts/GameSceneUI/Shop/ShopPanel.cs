@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-public class ShopPanel : UIBase, Isubject
+using UnityEngine.EventSystems;
+public class ShopPanel : UIBase, Isubject , IPointerClickHandler
 {
     List<IObserver> observers = new List<IObserver>();
     List<GameObject> slots = new List<GameObject>();
@@ -92,7 +92,7 @@ public class ShopPanel : UIBase, Isubject
         buyingItem = itemDict[id];
     }
 
-    public void PopUpOpen(int index)
+    public void BuyingPopUpOpen(int index)
     {
         SetSelectItem(index);
         if (itemDict.ContainsKey(index))
@@ -105,6 +105,7 @@ public class ShopPanel : UIBase, Isubject
         }
         
     }
+
     #endregion
     #region SetSlotDatas
     void SetSlotCount()
@@ -150,6 +151,11 @@ public class ShopPanel : UIBase, Isubject
         GameObject go = Instantiate(slotPrefab);
         slots.Add(go);
         go.transform.SetParent(SlotContents.transform);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("OnClick ShopPanel");
     }
     #endregion
 }

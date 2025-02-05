@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class UIManager : MonoBehaviour,Isubject
 {
 
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour,Isubject
 
     public ShopManager shopManager;
 
+    public GraphicRaycaster grapicRaycaster;
+    public EventSystem eventSystem;
     private void Awake()
     {
         dialogueObj = GameObject.Find("DialoguePanel");
@@ -40,6 +43,8 @@ public class UIManager : MonoBehaviour,Isubject
         {
             shopManager = GameObject.Find("ShopManager").transform.GetComponent<ShopManager>();
         }
+        grapicRaycaster = GameObject.Find("Canvas").transform.GetComponent<GraphicRaycaster>();
+        eventSystem = GameObject.Find("EventSystem").transform.GetComponent<EventSystem>();
     }
 
     void Start()

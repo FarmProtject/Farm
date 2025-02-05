@@ -41,7 +41,7 @@ public class FieldItemScript : MonoBehaviour
         if(other.tag == "Player")
         {
             Debug.Log("playerEnter!");
-            GameManager.instance.playerEntity.inventory.OnGetItemCheck(this.item);
+            GameManager.instance.playerEntity.inventory.AddinInventory(this.item);
             itemCount = item.itemCount;
             
         }

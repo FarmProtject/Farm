@@ -11,6 +11,74 @@ public class InventoryData
     public InventoryItemPanel inventoryUI;
     int gold;
     
+
+
+    public void AddinInventory(ItemBase item)
+    {
+        ItemBase addedItem;
+        
+        addedItem = OnGetItemCheck(item);
+        if(addedItem == null)
+        {
+            Debug.Log("Can't Get Item! ");
+            return;
+        }
+        if(item == addedItem)
+        {
+            Debug.Log("Same Script");
+            AddNewItem(item);
+        }
+        else
+        {
+            int index = -1;
+            index = CheckSameItem(item);
+            inventory[index].AddStack(addedItem, addedItem.itemCount);
+            AddinInventory(item);
+        }
+        EventManager.instance.OnInventoryUpdate.Invoke();
+    }
+
+    public ItemBase OnGetItemCheck(ItemBase item)
+    {
+        int index = CheckSameItem(item);
+        if (index == -1)//인벤토리에 같은 아이템이 있는지 체크
+        {//같은아이템 존재X
+            if (InventorySlotCheck())//인벤토리 여분 확인
+            {
+                //return item; 
+                return item;//AddNewItem(item);
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {//같은 아이템O
+            int amount = item.itemCount;
+            int rest = 0;
+            amount = inventory[index].maxStack - inventory[index].itemCount;
+            ItemBase getItem = GameManager.instance.itemFactory.ItemMake(item.id);
+            getItem.itemCount = amount;
+            rest = item.itemCount - amount;
+            item.itemCount = rest;
+            if (amount > 0)
+            {
+                Debug.Log("work!");
+            }
+            else
+            {
+                Debug.Log("InventoryDataOnGetItemCheck Error");
+                return null;
+            }
+            return getItem;
+            
+        }
+        
+    }
+
+    /*
     public void OnGetItemCheck(ItemBase item)
     {
         int index = CheckSameItem(item);
@@ -18,8 +86,10 @@ public class InventoryData
         {//같은아이템 존재X
             if (InventorySlotCheck())//인벤토리 여분 확인
             {
+                //return item; 
                 AddNewItem(item);
             }
+        
             else
             {
                 Debug.Log("Find New Item Inventory Full");
@@ -45,7 +115,7 @@ public class InventoryData
         }
         EventManager.instance.OnInventoryUpdate.Invoke();
     }
-
+    */
 
     bool InventorySlotCheck()
     {

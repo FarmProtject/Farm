@@ -106,7 +106,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
         GameManager.instance.UIManager.shopManager.shopState = ShopState.buy;
         GameManager.instance.UIManager.ShopPopUpOpen();
         GameManager.instance.UIManager.shopManager.AddConfirmFunction();
-        
+        //GameManager.instance.UIManager.shopManager.SetEachPrice();
     }
 
     public void ShopSlotUIData()
