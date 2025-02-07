@@ -1,0 +1,29 @@
+id,kr,en
+item_name_100001,괭이,Hoe
+item_name_100002,좋은 괭이,Good Hoe
+item_name_300001,체력 포션,Potion
+item_name_300002,고급 체력 포션,Gogup Potion
+item_name_300003,최고급 체력 포션,Choigogup Potion
+item_name_300004,공격력 포션,Attackpower Potion
+item_name_300005,방어력 포션,Deffencse Potion
+item_name_300006,이동속도 포션,Speed Potion
+item_name_300011,씨앗1,Seed1
+item_name_300012,씨앗2,Seed2
+item_name_300013,비료1,Fertilizer1
+item_name_300014,비료2,Fertilizer2
+item_desc_100001,기본적인 괭이,basic hoe
+item_desc_100002,일반적인 것보다 조금 더 좋은 괭이,a slightly better hoe
+item_desc_300001,체력 회복 포션,Potion
+item_desc_300002,체력을 많이 회복시켜주는 포션,Gogup Potion
+item_desc_300003,체력을 매우 많이 회복시켜주는 포션,Choigogup Potion
+item_desc_300004,공격력 버프 포션,Attackpower Potion
+item_desc_300005,방어력 버프 포션,Deffencse Potion
+item_desc_300006,이동속도 버프 포션,Speed Potion
+item_desc_300011,씨앗1설명,Seed1
+item_desc_300012,씨앗2설명,Seed2
+item_desc_300013,비료1설명,Fertilizer1
+item_desc_300014,비료2설명,Fertilizer2
+ui_shop_name,상점,Shop
+ui_bag_name,가방,Bag
+noti_shop_nomoney,돈이 부족해 구매할 수 없습니다,I don't have enough money to buy it
+noti_common_wait,지금은 할 수 없습니다,I can't do it now

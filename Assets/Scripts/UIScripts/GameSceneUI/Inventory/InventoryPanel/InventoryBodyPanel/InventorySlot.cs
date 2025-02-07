@@ -58,6 +58,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     float rayCastRange = 100f;
     [SerializeField]
     string shopTag = "ShopUI";
+    [SerializeField]
+    int itemcount;
     private void Awake()
     {
         myItemImageObj = transform.GetChild(1).gameObject;
@@ -253,6 +255,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         GameManager.instance.UIManager.shopManager.shopState = ShopState.sell;
         GameManager.instance.UIManager.shopManager.item = GameManager.instance.playerEntity.inventory.inventory[slotNumber];
+        GameManager.instance.UIManager.shopManager.AddConfirmFunction();
         GameManager.instance.UIManager.ShopPopUpOpen();
         ItemPickUpCancle();
         RemoveMyActions();

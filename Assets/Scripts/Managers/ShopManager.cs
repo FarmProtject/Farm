@@ -14,8 +14,9 @@ public class ShopManager : MonoBehaviour
     public ItemBase item;
     [SerializeField]
     int tradePrice;
-    //[SerializeField]
-    //int itemCount;
+    [SerializeField]
+    public int itemCount;
+    GameObject popUpOBJ;
     [SerializeField]
     Button shopConfirmButton;
     public ShopState shopState;
@@ -59,17 +60,27 @@ public class ShopManager : MonoBehaviour
         {
             player = GameManager.instance.playerEntity;
         }
+        if(popUpOBJ == null)
+        {
+            popUpOBJ = GameObject.Find("ShopPopUpPanel");
+        }
     }
 
     public void AddConfirmFunction()
     {
+        if (shopConfirmButton.onClick != null)
+        {
+            shopConfirmButton.onClick.RemoveAllListeners();
+        }
         switch (shopState)
         {
             case ShopState.buy:
                 AddBuyingFunction();
+                Debug.Log("buy function added in ShopManager");
                 break;
             case ShopState.sell:
                 AddSellFunction();
+                Debug.Log("sell Function aDded in ShopManager");
                 break;
             default:
                 break;
@@ -147,7 +158,16 @@ public class ShopManager : MonoBehaviour
             Debug.Log("item Null in ShopManager SetSumPrice");
             return;
         }
-        sumPriceText.text = (item.price * item.itemCount).ToString();
+        switch (shopState)
+        {
+            case ShopState.buy:
+                break;
+            case ShopState.sell:
+                break;
+            default:
+                break;
+        }
+        sumPriceText.text = (item.price * itemCount).ToString();
     }
     #endregion
     #region 아이템구매
@@ -157,12 +177,15 @@ public class ShopManager : MonoBehaviour
         item = GameManager.instance.playerEntity.inventory.OnGetItemCheck(item);
         item.itemCount = CheckBuyMaxCount(item, buyItemCount);
         tradePrice = CheckBuyPrice(item, item.itemCount);
+        itemCount = item.itemCount;
     }
     void BuyItem()
     {
         BuyCheck();
         player.gold -= tradePrice;
         player.inventory.AddinInventory(item);
+        Debug.Log("item buy");
+        popUpOBJ.SetActive(false);
     }
     int CheckBuyMaxCount(ItemBase item,int itemCount)
     {
@@ -193,7 +216,7 @@ public class ShopManager : MonoBehaviour
     }
     #endregion
     #region 아이템판매
-    int SetSellMaxCount(ItemBase item, int itemCount)
+    int CheckSellMaxCount(ItemBase item, int itemCount)
     {
         int returnCount = itemCount;
         if(item.itemCount < returnCount)
@@ -209,11 +232,16 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Can't Find Item In player Inventory in ShopManager Sellcheck");
             return;
         }
-        SetSellMaxCount(item, item.itemCount);
+        itemCount = CheckSellMaxCount(item, itemCount);
     }
     #endregion
     public void SellItem()
     {
-        GameManager.instance.playerEntity.inventory.DecreaseItemCount(item, item.itemCount);
+        player.gold += item.price * itemCount;
+        Debug.Log("sell");
+        GameManager.instance.playerEntity.inventory.DecreaseItemCount(item, itemCount);
+        
+        EventManager.instance.OnInventoryUpdate.Invoke();
+        popUpOBJ.SetActive(false);
     }
 }

@@ -25,7 +25,7 @@ public class ShopPopUpInputField : UIBase
     void SetInputFiledValue()
     {
         inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
-        //inputField.onEndEdit.AddListener(OnEndEdit);
+        inputField.onEndEdit.AddListener(OnEndEdit);
         inputField.onValueChanged.AddListener(OnValueChange);
     }
 
@@ -57,7 +57,36 @@ public class ShopPopUpInputField : UIBase
             Debug.Log("On End Edit!");
         }
     }
-
+    void SetItemData(string input)
+    {
+        switch (shopManager.shopState)
+        {
+            case ShopState.buy:
+                if (int.TryParse(input, out int result))
+                {
+                    itemCount = Convert.ToInt32(inputField.text);
+                    shopManager.item.itemCount = itemCount;
+                    Debug.Log(shopManager.item.itemCount);
+                    shopManager.SetInputField();
+                    Debug.Log("  shop   " + shopManager.item.itemCount);
+                    Debug.Log("On End Edit!");
+                }
+                break;
+            case ShopState.sell:
+                if (int.TryParse(input, out result))
+                {
+                    itemCount = Convert.ToInt32(inputField.text);
+                    shopManager.itemCount = itemCount;
+                    Debug.Log(shopManager.item.itemCount);
+                    shopManager.SetInputField();
+                    Debug.Log("  shop   " + shopManager.item.itemCount);
+                    Debug.Log("On End Edit!");
+                }
+                break;
+            default:
+                break;
+        }
+    }
     void SetMaxCount(int count)
     {
         

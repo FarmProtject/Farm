@@ -11897,10 +11897,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69637521e253bde4ea39042cb3901b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tradePrice: 0
+  itemCount: 0
   shopConfirmButton: {fileID: 647219815}
   shopState: 0
   inputFieldOBJ: {fileID: 347473998}
   inputfield: {fileID: 347474001}
+  eachPriceText: {fileID: 1315615826}
+  sumPriceText: {fileID: 142271824}
   player: {fileID: 0}
 --- !u!4 &1220002997
 Transform:

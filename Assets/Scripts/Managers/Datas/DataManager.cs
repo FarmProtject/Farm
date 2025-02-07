@@ -10,24 +10,27 @@ public class DataClass
 public class DataManager : MonoBehaviour
 {
     public string dataPath;
+
+    string stringDataPath = "StringData";
     CSVReader csvReader = new CSVReader();
 
     public DataClass itemDatas = new DataClass();
 
     public Dictionary<int, ItemBase> items = new Dictionary<int, ItemBase>();
 
+    public Dictionary<string, Dictionary<string,object>> stringDatas = new Dictionary<string, Dictionary<string,object>>();
+
+    
     private void Awake()
     {
         OnAwake();
-        foreach(int i in itemDatas.datas.Keys)
-        {
-            Debug.Log($"Key is { i} value {itemDatas.datas[i]}");
-        }
     }
 
     private void OnAwake()
     {
         AllItemDataRead();
+        StringKeyRead(stringDataPath);
+        KeyDebug();
     }
 
     void AllItemDataRead()
@@ -58,6 +61,35 @@ public class DataManager : MonoBehaviour
             {
                 Debug.Log("Data ParseError!!");
             }
+        }
+    }
+    void StringKeyRead(string path)
+    {
+        List<Dictionary<string, object>> tempDatas = new List<Dictionary<string, object>>();
+        tempDatas = csvReader.Read(path);
+        for(int i = 0; i < tempDatas.Count; i++)
+        {
+            Dictionary<string, object> temp = tempDatas[i];
+            string key;
+            key = temp["id"].ToString();
+            stringDatas.Add(key, tempDatas[i]);
+        }
+    }
+    void KeyDebug()
+    {
+        foreach(var key in stringDatas.Keys)
+        {
+            foreach(var lng in stringDatas[key].Keys)
+            {
+
+
+                Debug.Log($"key : {key} lng : {lng} value : {stringDatas[key][lng]}");
+
+
+            }
+
+
+
         }
     }
 }
