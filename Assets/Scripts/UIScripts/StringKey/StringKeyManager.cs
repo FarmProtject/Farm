@@ -25,13 +25,28 @@ public class StringKeyManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        OnStart();
     }
     void OnStart()
     {
-
+        Notyfy();
     }
+    public string GetStringData(string key)
+    {
 
+        string text;
+        if (stringData != null)
+        {
+
+        }
+        else
+        {
+            SetField();
+        }
+
+        text = stringData[key].ToString();
+        return text;
+    }
     void SetField()
     {
         if(dataManager == null)

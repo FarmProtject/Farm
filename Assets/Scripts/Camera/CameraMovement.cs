@@ -100,7 +100,7 @@ public class CameraMovement : MonoBehaviour
 
     void VertRotate()
     {
-        lookAngle += Input.GetAxis("Mouse Y") * rotationSpeed;
+        lookAngle -= Input.GetAxis("Mouse Y") * rotationSpeed;
         lookAngle = Mathf.Clamp(lookAngle, minAngle, maxAngle);
     }
 

@@ -1076,6 +1076,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &75757906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,6 +1218,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &96255244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,6 +1646,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &136582926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,6 +2938,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &236611356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3771,6 +3775,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &299344823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4704,6 +4709,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &359071890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5412,6 +5418,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &454577066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5705,6 +5712,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &501156716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6310,6 +6318,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &550165321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6572,6 +6581,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &561568405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7082,6 +7092,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &645824602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7444,6 +7455,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &660183887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8299,6 +8311,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &752874638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9859,6 +9872,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &908217709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11002,6 +11016,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1106753580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11218,6 +11233,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1120134341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11570,6 +11586,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1198558101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11711,6 +11728,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1199401984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11980,6 +11998,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1222683714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12121,6 +12140,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1226998112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12220,6 +12240,7 @@ GameObject:
   - component: {fileID: 1241100374}
   - component: {fileID: 1241100375}
   - component: {fileID: 1241100376}
+  - component: {fileID: 1241100377}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12375,6 +12396,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d8351246c3e2c40a788ad510269aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1241100377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241100367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888643054d19a7442a1e2233b24ee3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lng: 0
 --- !u!1 &1245575557
 GameObject:
   m_ObjectHideFlags: 0
@@ -13133,6 +13167,7 @@ GameObject:
   - component: {fileID: 1316624231}
   - component: {fileID: 1316624233}
   - component: {fileID: 1316624232}
+  - component: {fileID: 1316624234}
   m_Layer: 5
   m_Name: ShopHeadText
   m_TagString: ShopUI
@@ -13258,6 +13293,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316624230}
   m_CullTransparentMesh: 1
+--- !u!114 &1316624234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316624230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3fccc2269e9e3d42984926965e25f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringKey: ui_shop_name
+  myText: {fileID: 0}
 --- !u!1 &1346705927
 GameObject:
   m_ObjectHideFlags: 0
@@ -13659,6 +13708,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1351456397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15367,6 +15417,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1515912988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15583,6 +15634,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1542777744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15860,6 +15912,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1552936591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16237,6 +16290,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1619654360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17862,6 +17916,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1760329635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18130,6 +18185,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1786222850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18731,6 +18787,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1879584067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19322,6 +19379,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1941968151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19564,6 +19622,7 @@ MonoBehaviour:
   itemCount: {fileID: 0}
   rayCastRange: 100
   shopTag: ShopUI
+  itemcount: 0
 --- !u!114 &1966233526
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,8 @@ public class SetStringKey : MonoBehaviour,IObserver
     [SerializeField]
     string stringKey;
     [SerializeField]
+    string stringText;
+    [SerializeField]
     TextMeshProUGUI myText;
     StringKeyManager stringKeyManager;
     private void Awake()
@@ -26,7 +28,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     }
     void Onstart()
     {
-
+ 
     }
 
     public string GetmyId()
@@ -39,11 +41,22 @@ public class SetStringKey : MonoBehaviour,IObserver
         return null;
 
     }
+    public string SetStringText()
+    {
+        string text = "";
+        if (stringKey != null)
+        {
+            text = stringKeyManager.GetStringData(stringKey);
+        }
+        else
+        {
+            Debug.Log("stringKey null in SetStringKey SetStringText Function");
+        }
 
+        return text;
+    }
     public void SetMyText(string text)
     {
-
-
         myText.text = text;
     }
 
