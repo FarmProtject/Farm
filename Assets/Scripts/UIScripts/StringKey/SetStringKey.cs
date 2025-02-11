@@ -24,11 +24,13 @@ public class SetStringKey : MonoBehaviour,IObserver
 
     private void Start()
     {
-        
+        Onstart();
     }
     void Onstart()
     {
- 
+        SetMyFont();
+
+
     }
 
     public string GetmyId()
@@ -59,7 +61,15 @@ public class SetStringKey : MonoBehaviour,IObserver
     {
         myText.text = text;
     }
-
+    public void SetMyFont()
+    {
+        if(myText.font != stringKeyManager.font)
+        {
+            myText.font = stringKeyManager.font;
+            myText.UpdateFontAsset();
+            Debug.Log("Font Set");
+        }
+    }
 
     void SetField()
     {

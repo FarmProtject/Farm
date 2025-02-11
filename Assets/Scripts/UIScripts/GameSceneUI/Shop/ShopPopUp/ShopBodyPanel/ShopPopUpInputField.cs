@@ -38,6 +38,7 @@ public class ShopPopUpInputField : UIBase
             shopManager.item.itemCount = itemCount;
             shopManager.SetInputField();
             
+            inputField.text = shopManager.itemCount.ToString();
             Debug.Log("On End Edit!");
         }
         else
@@ -54,6 +55,7 @@ public class ShopPopUpInputField : UIBase
             Debug.Log(shopManager.item.itemCount);
             shopManager.SetInputField();
             Debug.Log("  shop   " + shopManager.item.itemCount);
+            inputField.text = itemCount.ToString();
             Debug.Log("On End Edit!");
         }
     }

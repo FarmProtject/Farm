@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-
+using TMPro;
 enum languges
 {
     kr,
@@ -15,6 +15,8 @@ public class StringKeyManager : MonoBehaviour
     DataManager dataManager;
     Dictionary<string, Dictionary<string, object>> stringData = new Dictionary<string, Dictionary<string, object>>();
     [SerializeField]languges lng;
+    [SerializeField]
+    public TMP_FontAsset font;
     private void Awake()
     {
         OnAwake();
@@ -87,6 +89,7 @@ public class StringKeyManager : MonoBehaviour
             string key = observerList[i].GetmyId();
             string value = stringData[key][lngKey].ToString();
             observerList[i].SetMyText(value);
+            observerList[i].SetMyFont();
         }
     }
 
