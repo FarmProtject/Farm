@@ -64,6 +64,7 @@ public class ItemBase : IStackable
             item.itemCount = 0;
             Debug.Log("itemCount = 0;");
         }
+        Debug.Log("1111111111111111111111111");
         return overflow;
     }
 

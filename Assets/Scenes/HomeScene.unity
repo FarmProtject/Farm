@@ -12409,6 +12409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lng: 0
+  font: {fileID: 11400000, guid: 406d89291e4c8ad41921ef345b1b1619, type: 2}
 --- !u!1 &1245575557
 GameObject:
   m_ObjectHideFlags: 0
@@ -13306,6 +13307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stringKey: ui_shop_name
+  stringText: 
   myText: {fileID: 0}
 --- !u!1 &1346705927
 GameObject:

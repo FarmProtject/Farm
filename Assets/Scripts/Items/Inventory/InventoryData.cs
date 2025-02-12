@@ -15,13 +15,18 @@ public class InventoryData
 
     public void AddinInventory(ItemBase item)
     {
-        ItemBase addedItem;
-        if (item.itemCount <= 0)
+        ItemBase addedItem = OnGetCountCheck(item);
+        if(addedItem != item)
         {
-            Debug.Log("Item Count < 0 In inventoryData AddinVentoryFcuntion");
+            AddinInventory(item);
+            Debug.Log("Loof!");
+        }
+        if ((item!= addedItem && addedItem.itemCount <=0)||(item == addedItem && addedItem.itemCount <=0))
+        {
+            Debug.Log("Item Count <= 0 In inventoryData AddinVentoryFcuntion");
             return;
         }
-        addedItem = OnGetItemCheck(item);
+        addedItem = OnGetItemCheck(addedItem);
         if(addedItem == null)
         {
             Debug.Log("Can't Get Item! ");
@@ -30,18 +35,49 @@ public class InventoryData
         if(item == addedItem)
         {
             Debug.Log("Same Script");
-            AddNewItem(item);
+            AddNewItem(addedItem);
         }
-        else
+        else//같은 아이템이 있거나 획득아이템의 갯수가 최대스택보다 높을경우
         {
             int index = -1;
-            index = CheckSameItem(item);
-            inventory[index].AddStack(addedItem, addedItem.itemCount);
-            AddinInventory(item);
+            index = CheckSameItem(addedItem);
+            if (index != -1)
+            {
+                int prevItemCount = addedItem.itemCount;
+                inventory[index].AddStack(addedItem, addedItem.itemCount);
+                if(prevItemCount!= addedItem.itemCount)
+                {
+                    AddinInventory(addedItem);
+                }
+                else
+                {
+                    Debug.Log("Item Get Loof Stoped");
+                    return;
+                }
+            }
+            else
+            {
+                AddNewItem(addedItem);
+                Debug.Log("More than max Stack");
+            }
+            
         }
         EventManager.instance.OnInventoryUpdate.Invoke();
     }
+    public ItemBase OnGetCountCheck(ItemBase item)
+    {
+        ItemBase getItem = item ;
+        if (item.itemCount > item.maxStack)
+        {
+            getItem = GameManager.instance.itemFactory.ItemMake(item.id);
+            getItem.itemCount = getItem.maxStack;
+            item.itemCount -= getItem.maxStack;
+            Debug.Log($"          {item.itemCount}");
+            Debug.Log($"OnGetCountCheck{getItem.itemCount}");
+        }
 
+        return getItem;
+    }
     public ItemBase OnGetItemCheck(ItemBase item)
     {
         int index = CheckSameItem(item);
@@ -49,8 +85,8 @@ public class InventoryData
         {//같은아이템 존재X
             if (InventorySlotCheck())//인벤토리 여분 확인
             {
-                //return item; 
-                return item;//AddNewItem(item);
+                //item = OnGetCountCheck(item); //아이템 갯수확인
+                return item;
             }
 
             else
@@ -184,6 +220,7 @@ public class InventoryData
         item.itemCount = original.itemCount;
         return item;
     }
+    /*
     public void InventorySlotSwap(int first,int second)
     {
         Debug.Log("InventorySlotSwap");
@@ -208,7 +245,39 @@ public class InventoryData
         }
         EventManager.instance.OnInventoryUpdate.Invoke();
     }
+    */
+    public void InventorySlotSwap(int first, int second)
+    {
+        Debug.Log("InventorySlotSwap");
 
+        if (inventory[first] == null)
+            return;
+
+        if (inventory[second] == null)
+        {
+            inventory[second] = inventory[first];
+            inventory[first] = null;
+        }
+        else if (inventory[first].id == inventory[second].id)
+        {
+            // 같은 아이템이면 스택을 합침
+            int transferableAmount = inventory[second].maxStack - inventory[second].itemCount;
+            int moveAmount = Mathf.Min(transferableAmount, inventory[first].itemCount);
+
+            inventory[second].itemCount += moveAmount;
+            inventory[first].itemCount -= moveAmount;
+
+            if (inventory[first].itemCount == 0)
+                inventory[first] = null;
+        }
+        else
+        {
+            // 다른 아이템이면 위치만 교환
+            (inventory[first], inventory[second]) = (inventory[second], inventory[first]);
+        }
+
+        EventManager.instance.OnInventoryUpdate.Invoke();
+    }
     public void DecreaseItemCount(ItemBase item, int count)
     {
         var targetItem = inventory.FirstOrDefault(i => i == item);

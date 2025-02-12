@@ -39,7 +39,6 @@ public class ShopPopUpInputField : UIBase
             shopManager.SetInputField();
             
             inputField.text = shopManager.itemCount.ToString();
-            Debug.Log("On End Edit!");
         }
         else
         {
@@ -54,9 +53,7 @@ public class ShopPopUpInputField : UIBase
             shopManager.item.itemCount = itemCount;
             Debug.Log(shopManager.item.itemCount);
             shopManager.SetInputField();
-            Debug.Log("  shop   " + shopManager.item.itemCount);
             inputField.text = itemCount.ToString();
-            Debug.Log("On End Edit!");
         }
     }
     void SetItemData(string input)
@@ -68,10 +65,7 @@ public class ShopPopUpInputField : UIBase
                 {
                     itemCount = Convert.ToInt32(inputField.text);
                     shopManager.item.itemCount = itemCount;
-                    Debug.Log(shopManager.item.itemCount);
                     shopManager.SetInputField();
-                    Debug.Log("  shop   " + shopManager.item.itemCount);
-                    Debug.Log("On End Edit!");
                 }
                 break;
             case ShopState.sell:
@@ -81,8 +75,6 @@ public class ShopPopUpInputField : UIBase
                     shopManager.itemCount = itemCount;
                     Debug.Log(shopManager.item.itemCount);
                     shopManager.SetInputField();
-                    Debug.Log("  shop   " + shopManager.item.itemCount);
-                    Debug.Log("On End Edit!");
                 }
                 break;
             default:

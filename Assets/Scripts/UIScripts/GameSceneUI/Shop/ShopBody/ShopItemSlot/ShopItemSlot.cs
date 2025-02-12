@@ -97,7 +97,6 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     void AddButtonFunction()
     {
         myButton.onClick.AddListener(ButtonFunction);
-        Debug.Log(11111111);
     }
 
     void ButtonFunction()
