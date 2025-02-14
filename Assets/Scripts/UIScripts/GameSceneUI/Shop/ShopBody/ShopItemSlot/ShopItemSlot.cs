@@ -14,6 +14,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     TextMeshProUGUI itemPrice;
     [SerializeField]
     Button myButton;
+    public SetStringKey stringKey;
 
     List<IObserver> observers = new List<IObserver>();
     #region lifeCycle
@@ -25,6 +26,7 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
         baseWidth = shopBody.gameObject.GetComponent<RectTransform>().rect.width;
         baseHeight = shopBody.gameObject.GetComponent<RectTransform>().rect.height;
         myButton = transform.GetComponent<Button>();
+        stringKey = ItemName.gameObject.transform.GetComponent<SetStringKey>();
         AddButtonFunction();
     }
     private void OnEnable()

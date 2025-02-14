@@ -22,6 +22,11 @@ public class SetStringKey : MonoBehaviour,IObserver
         Attach();
     }
 
+    private void OnEnable()
+    {
+        //EnableFuction();
+    }
+
     private void Start()
     {
         Onstart();
@@ -32,7 +37,14 @@ public class SetStringKey : MonoBehaviour,IObserver
 
 
     }
-
+    public void EnableFuction()
+    {
+        if (stringKey != null)
+        {
+            myText.text = SetStringText();
+        }
+        
+    }
     public string GetmyId()
     {
         if (stringKey != null)
@@ -56,6 +68,11 @@ public class SetStringKey : MonoBehaviour,IObserver
         }
 
         return text;
+    }
+    public void SetMyKey(string key) 
+    {
+        stringKey = key;
+    
     }
     public void SetMyText(string text)
     {

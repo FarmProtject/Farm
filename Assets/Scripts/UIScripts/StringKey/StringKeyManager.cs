@@ -12,6 +12,7 @@ enum languges
 public class StringKeyManager : MonoBehaviour
 {
     List<SetStringKey> observerList = new List<SetStringKey>();
+    List<SetStringKey> shopText = new List<SetStringKey>();
     DataManager dataManager;
     Dictionary<string, Dictionary<string, object>> stringData = new Dictionary<string, Dictionary<string, object>>();
     [SerializeField]languges lng;
@@ -37,6 +38,11 @@ public class StringKeyManager : MonoBehaviour
     {
 
         string text;
+        if(lng == languges.none)
+        {
+            lng = languges.en;
+        }
+        string lngKey = lng.ToString();
         if (stringData != null)
         {
 
@@ -46,7 +52,7 @@ public class StringKeyManager : MonoBehaviour
             SetField();
         }
 
-        text = stringData[key].ToString();
+        text = stringData[key][lngKey].ToString();
         return text;
     }
     void SetField()
@@ -76,6 +82,12 @@ public class StringKeyManager : MonoBehaviour
         }
     }
 
+    public void NotyfyAll()
+    {
+        Notyfy();
+        NotyfyShop();
+    }
+
     public void Notyfy()
     {
         if(lng == languges.none)
@@ -93,5 +105,24 @@ public class StringKeyManager : MonoBehaviour
         }
     }
 
+    public void NotyfyShop()
+    {
+        if(lng == languges.none)
+        {
+            lng = languges.en;
+        }
+        string lngKey = lng.ToString();
+
+        for(int i = 0; i<shopText.Count; i++)
+        {
+            string key = shopText[i].GetmyId();
+            string value = stringData[key][lngKey].ToString();
+            shopText[i].SetMyText(value);
+            shopText[i].SetMyFont();
+
+        }
+
+
+    }
 
 }
