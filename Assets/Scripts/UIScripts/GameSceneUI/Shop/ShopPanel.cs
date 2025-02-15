@@ -142,8 +142,10 @@ public class ShopPanel : UIBase, Isubject , IPointerClickHandler
         for(int i = 0; i < itemDict.Count; i++)
         {
             ShopItemSlot slot = slots[i].transform.GetComponent<ShopItemSlot>();
+            string idKey = itemList[i].id.ToString();
             slot.itemData = itemList[i];
-            slot.stringKey.SetMyKey($"item_name_{itemList[i].id.ToString()}");
+            
+            slot.stringKey.SetItemKey(idKey);
             slot.ShopSlotUIData();
             slot.stringKey.EnableFuction();
         }

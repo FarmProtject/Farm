@@ -69,10 +69,21 @@ public class SetStringKey : MonoBehaviour,IObserver
 
         return text;
     }
-    public void SetMyKey(string key) 
+    public void SetItemKey(string key) 
     {
-        stringKey = key;
-    
+        stringKey = "item_name_"+key;
+    }
+    public void SetItemDiscKey(string key)
+    {
+        stringKey = "item_desc_" + key;
+    }
+    public void SetNotiCommonKey(string key)
+    {
+        stringKey = "noti_common_" + key;
+    }
+    public void SetNotiShopKey(string key)
+    {
+        stringKey = "noti_shop_" + key;
     }
     public void SetMyText(string text)
     {

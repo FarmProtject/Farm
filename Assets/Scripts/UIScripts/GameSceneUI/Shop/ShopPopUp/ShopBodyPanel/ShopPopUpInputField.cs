@@ -27,6 +27,16 @@ public class ShopPopUpInputField : UIBase
         inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
         inputField.onEndEdit.AddListener(OnEndEdit);
         inputField.onValueChanged.AddListener(OnValueChange);
+        if (plusButton != null)
+        {
+            plusButton.onClick.AddListener(PlusItemCount);
+            Debug.Log(11);
+        }
+        if(minusButton != null)
+        {
+            minusButton.onClick.AddListener(MinusItemCount);
+            Debug.Log(111);
+        }
     }
 
     void OnEndEdit(string input)
@@ -35,10 +45,12 @@ public class ShopPopUpInputField : UIBase
         {
             itemCount =  Convert.ToInt32(inputField.text);
             Debug.Log(itemCount);
-            shopManager.item.itemCount = itemCount;
-            shopManager.SetInputField();
-            
-            inputField.text = shopManager.itemCount.ToString();
+            if(itemCount < 0)
+            {
+                itemCount = 0;
+                Debug.Log("item Count Less than 0 In ShopPopUpInputField");
+            }
+            UpdateInputField();
         }
         else
         {
@@ -50,10 +62,7 @@ public class ShopPopUpInputField : UIBase
         if (int.TryParse(input, out int result))
         {
             itemCount = Convert.ToInt32(inputField.text);
-            shopManager.item.itemCount = itemCount;
-            Debug.Log(shopManager.item.itemCount);
-            shopManager.SetInputField();
-            inputField.text = itemCount.ToString();
+            UpdateInputField();
         }
     }
     void SetItemData(string input)
@@ -81,23 +90,42 @@ public class ShopPopUpInputField : UIBase
                 break;
         }
     }
-    void SetMaxCount(int count)
+    void UpdateInputField() 
     {
-        
-    }
-    void SetItemCOunt()
-    {
-        
-    }
-
-    void PlusItemCount(int count)
-    {
+        shopManager.item.itemCount = itemCount;
+        shopManager.SetInputField();
+        inputField.text = shopManager.itemCount.ToString();
 
     }
 
-    void MinusItemCount(int count)
+    void PlusItemCount()
     {
+        Debug.Log(itemCount);
+        itemCount++;
+        if (itemCount < 0)
+        {
+            itemCount = 0;
+        }
+        UpdateInputField();
+        if (shopManager.itemCount != itemCount)
+        {
+            itemCount = shopManager.itemCount;
+        }
+    }
 
+    void MinusItemCount()
+    {
+        Debug.Log(itemCount);
+        itemCount--;
+        if (itemCount < 0)
+        {
+            itemCount = 0;
+        }
+        UpdateInputField();
+        if (shopManager.itemCount != itemCount)
+        {
+            itemCount = shopManager.itemCount;
+        }
     }
 
 
