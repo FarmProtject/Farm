@@ -44,6 +44,8 @@ public class InvenWheelAction : IClickAction
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int slotNumber;
+    [SerializeField]
+    ItemBase item;
     public Image itemSprite;
     InventoryData inven;
     Image backGround;
@@ -60,6 +62,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     string shopTag = "ShopUI";
     [SerializeField]
     int itemcount;
+    [SerializeField]
+    GameObject tooltipOBJ;
+    ToolTipPanel tooltipPanel;
     private void Awake()
     {
         myItemImageObj = transform.GetChild(1).gameObject;
@@ -68,6 +73,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         backGround = myBackGroundOBJ.transform.GetComponent<Image>();
         itemCount = GetComponentInChildren<TextMeshProUGUI>();
         myButton = GetComponent<Button>();
+        if (tooltipOBJ != null)
+        {
+            tooltipPanel = tooltipOBJ.transform.GetComponent<ToolTipPanel>();
+        }
         //inven = GameManager.instance.playerEntity.inventory;
         //GameManager.instance.playerEntity.SetInventoryNull();
         SetImageSize();
@@ -83,7 +92,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         wheelAction = new InvenWheelAction();
         
     }
-
+    public ItemBase GetItem()
+    {
+        return item;
+    }
     void UpDateMySlot()
     {
         if (GameManager.instance.playerEntity.inventory.inventory.Count > slotNumber)
@@ -107,7 +119,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             return;
         }
-        var item = inven.inventory[slotNumber];
+        item = inven.inventory[slotNumber];
         if(item!=null)
         {
             if (item.itemCount == 0)
@@ -296,11 +308,19 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Point In!");
+        if (item != null)
+        {
+            tooltipOBJ.SetActive(true);
+        }
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Point out!");
+        if (tooltipOBJ.activeSelf)
+        {
+            tooltipOBJ.SetActive(false);
+        }
+        
     }
 }
