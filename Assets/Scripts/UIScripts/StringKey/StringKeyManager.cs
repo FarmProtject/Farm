@@ -51,7 +51,16 @@ public class StringKeyManager : MonoBehaviour
         {
             SetField();
         }
-
+        if(key == null || lngKey == null)
+        {
+            Debug.Log("key is Null");
+            return null;
+        }
+        if (!stringData.ContainsKey(key) || !stringData[key].ContainsKey(lngKey))
+        {
+            Debug.Log("key Wasn't Contain");
+            return null;
+        }
         text = stringData[key][lngKey].ToString();
         return text;
     }
@@ -99,6 +108,16 @@ public class StringKeyManager : MonoBehaviour
         for(int i = 0; i < observerList.Count; i++)
         {
             string key = observerList[i].GetmyId();
+            if(key == null || lngKey == null)
+            {
+                Debug.Log("Key is Null");
+                return;
+            }
+            if(!stringData.ContainsKey(key) || !stringData[key].ContainsKey(lngKey))
+            {
+                Debug.Log("key Wasn't Contain");
+                return;
+            }
             string value = stringData[key][lngKey].ToString();
             observerList[i].SetMyText(value);
             observerList[i].SetMyFont();

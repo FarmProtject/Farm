@@ -24,7 +24,7 @@ public class SetStringKey : MonoBehaviour,IObserver
 
     private void OnEnable()
     {
-        //EnableFuction();
+        EnableFuction();
     }
 
     private void Start()
@@ -85,10 +85,28 @@ public class SetStringKey : MonoBehaviour,IObserver
     {
         stringKey = "noti_shop_" + key;
     }
+    
+    public void SetTypeKey(string key)
+    {
+
+    }
+    public void SetCountKey(string key)
+    {
+
+    }
+    public void SetMaxCountKey(string key)
+    {
+
+    }
+    public void SetEffectKey(string key)
+    {
+
+    }
     public void SetMyText(string text)
     {
         myText.text = text;
     }
+
     public void SetMyFont()
     {
         if(myText.font != stringKeyManager.font)
