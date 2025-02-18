@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
-public class ToolTipPanel : UIBase
+public class ToolTipPanel : UIBase,Isubject
 {
     ItemBase item;
     [SerializeField]
@@ -28,6 +28,8 @@ public class ToolTipPanel : UIBase
     GameObject bodyPanel;
     [SerializeField]
     GameObject tailPanel;
+
+    List<IObserver> observers = new List<IObserver>();
     private void Awake()
     {
         this.gameObject.SetActive(false);
@@ -36,7 +38,15 @@ public class ToolTipPanel : UIBase
     {
         UpdateItemInfo();
     }
-
+    protected override void OnStart()
+    {
+        base.OnStart();
+        Notyfy();
+    }
+    protected override void Start()
+    {
+        OnStart();
+    }
     void UpdateItem()
     {
         item = slot.GetItem();
@@ -56,6 +66,30 @@ public class ToolTipPanel : UIBase
             maxCountText.SetMaxCountKey(key);
             usingEffectText.SetEffectKey(key);
             goldValue.text = item.price.ToString();
+        }
+    }
+
+    public void Attach(IObserver observer)
+    {
+        if (!observers.Contains(observer))
+        {
+            observers.Add(observer);
+        }
+    }
+
+    public void Detach(IObserver observer)
+    {
+        if (observers.Contains(observer))
+        {
+            observers.Remove(observer);
+        }
+    }
+
+    public void Notyfy()
+    {
+        foreach(IObserver obs in observers)
+        {
+            obs.Invoke();
         }
     }
 }

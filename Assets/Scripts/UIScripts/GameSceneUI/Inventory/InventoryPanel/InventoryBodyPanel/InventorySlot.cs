@@ -92,6 +92,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         wheelAction = new InvenWheelAction();
         
     }
+
     public ItemBase GetItem()
     {
         return item;

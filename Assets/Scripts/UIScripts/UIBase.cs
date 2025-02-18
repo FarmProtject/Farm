@@ -55,7 +55,42 @@ public class UIBase : MonoBehaviour
         baseWidth = transform.parent.transform.GetComponent<RectTransform>().rect.width;
         baseHeight = transform.parent.transform.GetComponent<RectTransform>().rect.height;
     }
+    public void GetStart()
+    {
+        OnStart();
+    }
+    public void SetLocalPosition()
+    {
+        
+        if (myRect == null)
+        {
+            myRect = this.transform.GetComponent<RectTransform>();
+        }
+        SetBaseSize();
+        SetUISize();
+        myRect.localPosition = new Vector2(0, 0);
+        myPos = new Vector2(0, 0);
+        
+        myRect.anchoredPosition = Vector2.zero;
+        if (onTop != 0)
+        {
+            myPosOnTop();
+        }
+        if (onBottom != 0)
+        {
+            myPosOnBottom();
+        }
+        if (onLeft != 0)
+        {
+            myPosOnLeft();
+        }
+        if (onRight != 0)
+        {
+            myPosOnRight();
+        }
 
+        myRect.localPosition = myPos;
+    }
     protected virtual void SetPosition()
     {
         if(myRect == null)
@@ -152,5 +187,11 @@ public class UIBase : MonoBehaviour
         Vector2 myRightPos = new Vector2(baseWidth - myWidth - onRight,0);
         myPos += myRightPos;
     }
-
+    public void ChildsSetLocal()
+    {
+        foreach(UIBase childs in GetComponentsInChildren<UIBase>())
+        {
+            childs.SetLocalPosition();
+        }
+    }
 }
