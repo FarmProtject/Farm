@@ -10,5 +10,6 @@ public class ToolTipChilds : UIBase
     protected override void OnStart()
     {
         base.OnStart();
+        Debug.Log(this.gameObject.name);
     }
 }

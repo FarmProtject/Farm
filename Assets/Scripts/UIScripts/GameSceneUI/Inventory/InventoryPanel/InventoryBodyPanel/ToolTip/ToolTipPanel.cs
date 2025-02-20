@@ -37,6 +37,7 @@ public class ToolTipPanel : UIBase,Isubject
     private void OnEnable()
     {
         UpdateItemInfo();
+        Debug.Log(this.transform.position);
     }
     protected override void OnStart()
     {
@@ -92,4 +93,59 @@ public class ToolTipPanel : UIBase,Isubject
             obs.Invoke();
         }
     }
+
+    void SetMyDirection()
+    { 
+        Vector2 pos = this.transform.position;
+        float centerX = Screen.width / 2;
+        float centerY = Screen.height / 2;
+        Vector2 centerPos = new Vector2(centerX, centerY);
+        //기본위치 우상단
+        if (myPos.x >= centerX)
+        { //해당 UI의 위치가2,4분면일경우
+            if (myPos.y >= centerY)
+            { // 해당 UI가 2분면일경우
+                SetPosToRight();
+            }
+            else
+            {//해당 UI가 4분면일경우
+
+                SetPosBotRight();
+
+            }
+        }
+        else
+        {//해당 UI가 1,3분면일경우
+            if (myPos.y >= centerY) //1분면일경우
+            {
+                SePosTopLeft();
+            }
+            else
+            {//3분면일경우
+                SetPosBotLeft();
+            }
+        }
+    }
+    #region 팝업위치조절 기본위치 우상단
+    void SePosTopLeft()
+    { // 1사분면 마우스의 우하단 위치
+        Vector2 pos = new Vector2(myPos.x, myPos.y - myHeight);
+        myPos = pos;
+    }
+    void SetPosToRight()
+    { // 2사분면 마우스의 좌하단 위치
+        Vector2 pos = new Vector2(myPos.x - myWidth, myPos.y - myHeight);
+        myPos = pos;
+    }
+    void SetPosBotLeft()
+    {//3사분면 마우스의 우상단 위치
+        //기본위치
+    }
+    void SetPosBotRight()
+    {//4사분면 마우스의 좌상단 위치
+        Vector2 pos = new Vector2(myPos.x - myWidth, myPos.y);
+        myPos = pos;
+    }
+
+    #endregion
 }

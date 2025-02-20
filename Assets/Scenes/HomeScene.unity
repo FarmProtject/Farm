@@ -1498,10 +1498,10 @@ MonoBehaviour:
   myPos: {x: 0, y: 0}
   myWidth: 300
   myHeight: 20
-  onTop: 5
-  onBottom: 0
-  onLeft: 0
-  onRight: 10
+  onTop: 0
+  onBottom: 5
+  onLeft: 10
+  onRight: 0
 --- !u!1 &335008373
 GameObject:
   m_ObjectHideFlags: 0
@@ -9159,6 +9159,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50.599976
       objectReference: {fileID: 0}
+    - target: {fileID: 4096495689177131533, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096495689177131533, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4096495689177131533, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4219517293686577612, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
@@ -9177,19 +9189,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4734784302000397368, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4734784302000397368, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_Pivot.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4734784302000397368, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4734784302000397368, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 97.49997
       objectReference: {fileID: 0}
     - target: {fileID: 6451533188765925964, guid: e9695edcdabacca45af99ad51b1fa4e4, type: 3}
       propertyPath: m_Pivot.x
