@@ -5158,6 +5158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataPath: 
+  stringDataPath: StringData
 --- !u!114 &1241100374
 MonoBehaviour:
   m_ObjectHideFlags: 0

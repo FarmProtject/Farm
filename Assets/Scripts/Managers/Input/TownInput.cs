@@ -182,6 +182,7 @@ public class TownInput : InputBase
             int slotNumber = gameManager.keySettings.quickSlotKeys[key];
             if (Input.GetKeyDown(key))
             {
+                /*
                 quickSlot.quickUse.SetItem(gameManager.keySettings.quickSlots[slotNumber].item);
                 if ((quickSlot.quickUse.item) is FarmItem farmItem)
                 {//농장에서 사용 가능 한 아이템일경우 레이캐스트로 사용가능여부 판별등에 쓸 레이어 정보 갱신
@@ -190,7 +191,7 @@ public class TownInput : InputBase
                 else
                 {
                     gameManager.farmManager.InvokeLayerChange("Default");//아닐경우 디폴트레이어로 갱신
-                }
+                }*/
             }
         }
     }

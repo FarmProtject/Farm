@@ -55,27 +55,34 @@ public class ItemFactory : MonoBehaviour
         ItemBase item;
         switch (type)
         {
-            case ItemType.readySoilItem:
-                item = new ReadySoilItem();
+            case ItemType.Material:
+                item = new MaterialItem();
                 break;
-            case ItemType.soilItem:
-                item = new SoilItem();
+            case ItemType.Tool:
+                item = new ToolItem();
                 break;
-            case ItemType.equipmentItem:
-                item = new EquipItem();
+            case ItemType.Potion:
+                item = new PotionItem();
                 break;
-            case ItemType.harvestItem:
-                item = new HarvestItem();
+            case ItemType.Seed:
+                item = new SeedItem();
                 break;
-            case ItemType.consumableItem:
-                item = new ConsumItem();
+            case ItemType.Fertilizer:
+                item = new FertilizerItem();
+                break;
+            case ItemType.Weapon:
+                item = new WeaponItem();
+                break;
+            case ItemType.Equipment:
+                item = new EquipmentItem();
                 break;
             case ItemType.None:
                 item = new ItemBase();
+                Debug.Log("Item Type Error!");
                 break;
             default:
                 item = new ItemBase();
-                Debug.Log("ItemTypeError");
+                Debug.Log("Item Type Error!");
                 break;
         }
         return SetItemData(index,item);
@@ -160,13 +167,14 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
+        /*
         if(item is FarmItem farmItem)
         {
             if (TrySetValue(data.datas[index], "layer", ref farmItem.layer))
             {
 
             }
-        }
+        }*/
         SetItemFunction(ref item);
         return item;
     }
