@@ -1,10 +1,10 @@
-id,name,type,description,price,maxstack,icon,damage,defence,speed,slot,useeffect,canbedestroy
-200101,leather_gloves,equipment,leather gloves description,150,1,,0,10,0,hand,null,TRUE
-200102,iron_gloves,equipment,iron gloves description,200,1,,0,15,0,hand,null,TRUE
-200201,leather_armor,equipment,leather armor description,200,1,,0,20,0,body,null,TRUE
-200202,iron_armor,equipment,iron armor description,250,1,,0,25,0,body,null,TRUE
-200301,leather_shoes,equipment,leather shoes description,150,1,,0,0,5,foot,null,TRUE
-200302,iron_shoes,equipment,iron shoes description,200,1,,0,0,10,foot,null,TRUE
-200401,neckless,equipment,neckless description,300,1,,10,0,0,accessories,null,TRUE
-200402,gen_neckless,equipment,gem neckless description,450,1,,20,0,0,accessories,null,TRUE
-200601,precious_neckless,equipment,precious neckless description. can not be destroy,0,1,,20,0,0,accessories,null,FALSE
+id,name,type,description,price,maxstack,icon,statid,slot,useeffect,canbedestroy
+200101,leather_gloves,equipment,leather gloves description,150,1,,200101,hand,200101,TRUE
+200102,iron_gloves,equipment,iron gloves description,200,1,,200102,hand,200102,TRUE
+200201,leather_armor,equipment,leather armor description,200,1,,200201,body,200201,TRUE
+200202,iron_armor,equipment,iron armor description,250,1,,200202,body,200202,TRUE
+200301,leather_shoes,equipment,leather shoes description,150,1,,200301,foot,200301,TRUE
+200302,iron_shoes,equipment,iron shoes description,200,1,,200302,foot,200302,TRUE
+200401,neckless,equipment,neckless description,300,1,,200401,accessories,200401,TRUE
+200402,gen_neckless,equipment,gem neckless description,450,1,,200402,accessories,200402,TRUE
+200601,precious_neckless,equipment,precious neckless description. can not be destroy,0,1,,200601,accessories,200601,FALSE
