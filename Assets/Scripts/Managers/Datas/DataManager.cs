@@ -12,7 +12,15 @@ public class DataTable
 {
     public Dictionary<int, List<PairData>> table = new Dictionary<int, List<PairData>>();
 }
-
+public class DropTable
+{
+    public int id;
+    public string key;
+    public int dropItem;
+    public int dropRation;
+    public int minDropCount;
+    public int maxDropCount;
+}
 public class PairData
 {
     string key;
@@ -49,6 +57,7 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     string stringDataPath = "String";
     public Dictionary<string, Dictionary<string, object>> stringDatas = new Dictionary<string, Dictionary<string, object>>();
+
     [SerializeField]
     string itemDataPath = "itemData";
     public DataClass itemDatas = new DataClass();
@@ -61,6 +70,8 @@ public class DataManager : MonoBehaviour
     string equipItemDataPath = "EquipItemData";
     [SerializeField]
     string equipentsStatTableDataPath = "equipmentStatTable";
+    public Dictionary<int, Dictionary<string, object>> equipStatDatas = new Dictionary<int, Dictionary<string, object>>();
+
     [SerializeField]
     string gameConfigDataPath = "GameConfig";
     [SerializeField]
@@ -100,6 +111,97 @@ public class DataManager : MonoBehaviour
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
         ItemDataRead("ConsumData", itemDatas);*/
+    }
+
+    void LoadMultiKey(string path, Dictionary<int, Dictionary<string, object>> newData)
+    {
+        List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();
+        tempList = csvReader.Read(path);
+
+        for(int i = 0; i < tempList.Count; i++)
+        {
+            Dictionary<string, object> temp = tempList[i];
+            int index;
+            if (!temp.ContainsKey("id"))
+            {
+                Debug.Log("Table don't have id");
+                return;
+            }
+            if(!temp.ContainsKey("groupId") && int.TryParse(temp["id"].ToString(),out index))
+            {
+                foreach(string key in temp.Keys)
+                {
+                    if (newData.ContainsKey(index))
+                    {
+                        newData[index].Add(key, int.Parse(temp[key].ToString()));
+                    }
+                    else
+                    {
+                        Dictionary<string, object> tempDict = new Dictionary<string, object>();
+                        tempDict.Add(key, temp[key]);
+                        newData.Add(index, tempDict);
+                    }
+                }
+            }
+            else if(temp.ContainsKey("groupId")&& int.TryParse(temp["groupId"].ToString(), out index))
+            {
+                
+                foreach (string key in temp.Keys)
+                {
+                    if (newData.ContainsKey(index))
+                    {
+                        newData[index].Add(key, int.Parse(temp[key].ToString()));
+                    }
+                    else
+                    {
+                        Dictionary<string, object> tempDict = new Dictionary<string, object>();
+                        tempDict.Add(key, temp[key]);
+                        newData.Add(index, tempDict);
+                    }
+
+
+                }
+
+
+
+            }
+        }
+    
+    
+    }
+
+    void DropTableRead(string path,Dictionary<string,List<DropTable>> dropTable)
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(path);
+        for(int i = 0; i < temp.Count; i++)
+        {
+            DropTable tempTable = new DropTable();
+            int index;
+            if (int.TryParse(temp[i]["id"].ToString(),out index))
+            {
+                tempTable.id = index;
+            }
+            if (temp[i].ContainsKey("keys"))
+            {
+                tempTable.key = temp[i]["keys"].ToString();
+            }
+            if (int.TryParse(temp[i]["dropItem"].ToString(), out index))
+            {
+                tempTable.dropItem = index;
+            }
+            if (int.TryParse(temp[i]["dropRation"].ToString(), out index))
+            {
+                tempTable.dropRation = index;
+            }
+            if (int.TryParse(temp[i]["minDropCount"].ToString(), out index))
+            {
+                tempTable.minDropCount = index;
+            }
+            if (int.TryParse(temp[i]["maxDropCount"].ToString(), out index))
+            {
+                tempTable.maxDropCount = index;
+            }
+        }
     }
     /*
     void TableRead(string path, DataTable newData)

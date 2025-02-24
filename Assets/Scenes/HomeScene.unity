@@ -5159,6 +5159,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataPath: 
   stringDataPath: StringData
+  itemDataPath: itemData
+  effectDataPath: effect
+  consumItemDataPath: consumableItemData
+  equipItemDataPath: EquipItemData
+  equipentsStatTableDataPath: equipmentStatTable
+  gameConfigDataPath: GameConfig
+  harvestDataPath: harvestData
+  harvestItemDataPath: harvestItemData
+  materialDataPath: MaterialData
+  readySoilItemDataPath: readySoilItemData
+  shpoDataPath: Shop
+  soilItemDataPath: soilItemData
+  toolDataPath: ToolData
 --- !u!114 &1241100374
 MonoBehaviour:
   m_ObjectHideFlags: 0
