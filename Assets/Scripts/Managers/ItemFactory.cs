@@ -142,45 +142,29 @@ public class ItemFactory : MonoBehaviour
         {
 
         }
-        /*
-        if (TrySetValue(data.datas[index], "useeffect", ref item.useeffect))
-        {
-
-        }*/
         if (TrySetValue(data.datas[index], "throwable", ref item.throwable))
         {
 
         }
-        if (TrySetValue(data.datas[index], "damage", ref item.damage))
+        if(item is EquipmentItem equipItem)
         {
-
+            SetEquipStat(item.id, ref equipItem);
         }
-        if (TrySetValue(data.datas[index], "defense", ref item.defense))
-        {
-
-        }
-        if (TrySetValue(data.datas[index], "speed", ref item.speed))
-        {
-
-        }
-        if (TrySetValue(data.datas[index], "slot", ref item.slot))
-        {
-
-        }
-        /*
-        if(item is FarmItem farmItem)
-        {
-            if (TrySetValue(data.datas[index], "layer", ref farmItem.layer))
-            {
-
-            }
-        }*/
         SetItemFunction(ref item);
         return item;
     }
     public void SetItemFunction(ref ItemBase item)
     {
         
+    }
+    public void SetEquipStat(int index,ref EquipmentItem item)
+    {
+        if (!dataManager.equipStat.ContainsKey(index))
+        {
+            Debug.Log("id Dind't Contain in ItemFactory SetEqupStatFunction");
+            return;
+        }
+        item.equipStats = DeepCopyStatDict(dataManager.equipStat[index]);
     }
     bool TrySetValue<T>(Dictionary<string,object> data , string key,ref T target)
     {
@@ -214,5 +198,17 @@ public class ItemFactory : MonoBehaviour
 
 
         return false;
+    }
+    Dictionary<string,int> DeepCopyStatDict(Dictionary<string,int> origin)
+    {
+        Dictionary<string, int> newDict = new Dictionary<string, int>();
+        foreach(string key in origin.Keys)
+        {
+            newDict.Add(key, origin[key]);
+
+
+        }
+
+        return newDict;
     }
 }

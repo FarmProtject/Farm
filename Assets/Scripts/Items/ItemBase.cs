@@ -24,8 +24,8 @@ public class ItemBase : IStackable
     public string name;
     public Rarity rarity;
     public ItemType type;
-    public string stat { get; set; }
-    public IItemEffect useeffect;
+    //public string stat { get; set; }
+    public string useeffectKey;
     public string description;
     public int price;
     public string icon;

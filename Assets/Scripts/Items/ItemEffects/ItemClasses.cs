@@ -41,5 +41,5 @@ public class WeaponItem : ItemBase
 }
 public class EquipmentItem : ItemBase
 {
-    Dictionary<string, int> equipStats = new Dictionary<string, int>();
+    public Dictionary<string, int> equipStats = new Dictionary<string, int>();
 }
