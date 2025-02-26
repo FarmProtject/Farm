@@ -1,0 +1,17 @@
+﻿folder,filename,#주석#
+Drop\\,dropItemGroup,드랍 테이블
+Farm\\,harvest,농사 관련
+Shop\\,shop,상점
+,gameConfig,각종 값
+,string,문자열 관리
+Item\\,consumableItemData,
+Item\\,EquipItemData,
+Item\\,equipmentStatTable,
+Item\\,equipmentStatTable,
+Item\\,harvestItemData,
+Item\\,itemData,
+Item\\,MaterialData,
+Item\\,readySoilItemData,
+Item\\,soilItemData,
+Item\\,ToolData,
+Skill\\,effect,
