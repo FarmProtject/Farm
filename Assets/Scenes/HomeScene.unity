@@ -5159,6 +5159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataPath: 
   stringDataPath: StringData
+  fileNamePath: FilePath
   itemDataPath: itemData
   effectDataPath: effect
   consumItemDataPath: consumableItemData
@@ -5172,6 +5173,7 @@ MonoBehaviour:
   shpoDataPath: Shop
   soilItemDataPath: soilItemData
   toolDataPath: ToolData
+  dropTablePath: dropItemGroupTable
 --- !u!114 &1241100374
 MonoBehaviour:
   m_ObjectHideFlags: 0

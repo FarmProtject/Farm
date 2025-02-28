@@ -55,57 +55,71 @@ public class DataManager : MonoBehaviour
 {
     public string dataPath = "DataTables\\";
     [SerializeField]
-    string stringDataPath = "String";
+    string stringDataPath = "String";//done
     public Dictionary<string, Dictionary<string, object>> stringDatas = new Dictionary<string, Dictionary<string, object>>();
 
     [SerializeField]
-    string itemDataPath = "itemData";
+    string fileNamePath = "FilePath";//done
+    public List<Dictionary<string, string>> fileNames = new List<Dictionary<string, string>>();
+
+
+    [SerializeField]
+    string itemDataPath = "itemData";//done
     public DataClass itemDatas = new DataClass();
     public Dictionary<int, ItemBase> items = new Dictionary<int, ItemBase>();
 
     [SerializeField]
     string effectDataPath = "effect";
+    public Dictionary<int, Dictionary<string, string>> effectData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
-    string consumItemDataPath = "consumableItemData";
+    string consumItemDataPath = "consumableItemData"; //id를 키로, 각 
+    public Dictionary<int, Dictionary<string, string>> consumItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string equipItemDataPath = "EquipItemData";
+    public Dictionary<int, Dictionary<string, string>> equiItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
-    string equipentsStatTableDataPath = "equipmentStatTable"; //멀티키 형태, LoadMultiKey 실행
+    string equipentsStatTableDataPath = "equipmentStatTable"; //멀티키 형태, LoadMultiKey 실행 //done
     public Dictionary<int, Dictionary<string, object>> equipStatDatas = new Dictionary<int, Dictionary<string, object>>();
     public Dictionary<int, Dictionary<string, int>> equipStat = new Dictionary<int, Dictionary<string, int>>();
 
     [SerializeField]
     string gameConfigDataPath = "GameConfig";
+    public Dictionary<string,Dictionary<string, string>> gameConfigData = new Dictionary<string, Dictionary<string, string>>();
 
     [SerializeField]
     string harvestDataPath = "harvestData";
-    public Dictionary<string, Dictionary<string, object>> harvestData = new Dictionary<string, Dictionary<string, object>>();
+    public Dictionary<string, Dictionary<string, string>> harvestData = new Dictionary<string, Dictionary<string, string>>();
 
     [SerializeField]
     string harvestItemDataPath = "harvestItemData";
+    public Dictionary<int, Dictionary<string, string>> harvestItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string materialDataPath = "MaterialData";
+    public Dictionary<int, Dictionary<string, string>> marterialItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string readySoilItemDataPath = "readySoilItemData";
+    public Dictionary<int, Dictionary<string, string>> readySoilItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
-    string shpoDataPath = "Shop"; //멀티키형태 , LoadMultiKey 실행
+    string shpoDataPath = "Shop"; //멀티키형태 , LoadMultiKey 실행 //done
     public Dictionary<int, Dictionary<string, object>> shopData;
     public Dictionary<int, Dictionary<string, int>> shops;
 
     [SerializeField]
     string soilItemDataPath = "soilItemData";
+    public Dictionary<int, Dictionary<string, string>> soilItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string toolDataPath = "ToolData";
+    public Dictionary<int, Dictionary<string, string>> toolData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
-    string dropTablePath = "dropItemGroupTable";//전용함수 사용 DropTableRead
+    string dropTablePath = "dropItemGroupTable";//전용함수 사용 DropTableRead //done
     Dictionary<string, List<DropTable>> dropTable = new Dictionary<string, List<DropTable>>();
 
     CSVReader csvReader = new CSVReader();
@@ -118,8 +132,9 @@ public class DataManager : MonoBehaviour
 
     private void OnAwake()
     {
+        SetFileNames();
         AllItemDataRead();
-        StringKeyRead(dataPath + stringDataPath);
+        StringKeyRead(stringDataPath);
         KeyDebug();
     }
 
@@ -133,8 +148,8 @@ public class DataManager : MonoBehaviour
     }
     void ReadMultiKey()
     {
-        LoadMultiKey(dataPath + shpoDataPath,shopData);
-        LoadMultiKey(dataPath + equipItemDataPath,equipStatDatas);
+        LoadMultiKey(shpoDataPath,shopData);
+        LoadMultiKey(equipItemDataPath,equipStatDatas);
         MultiObToInt(shopData,shops);
         MultiObToInt(equipStatDatas,equipStat);
     }
@@ -142,7 +157,92 @@ public class DataManager : MonoBehaviour
     {
         DropTableRead(dropTablePath,dropTable);
     }
+    #region 파일이름세팅
+    void SetFileNames()
+    {
+        DataNameRead();
+        SetFileNameField();
+    }
+    void DataNameRead()
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(fileNamePath);
+        for (int i = 0; i < temp.Count; i++)
+        {
 
+            foreach (string keys in temp[i].Keys)
+            {
+                if (keys == "#주석#")
+                {
+                    return;
+                }
+                Dictionary<string, string> tempDict = new Dictionary<string, string>();
+                tempDict.Add(keys, temp[i][keys].ToString());
+                fileNames.Add(tempDict);
+            }
+        }
+    }
+    void SetFileNameField()
+    {
+        for(int i = 0; i <fileNames.Count;i++)
+        {
+            if(fileNames[i]["fieldName"] == nameof(dropTablePath))
+            {
+                dropTablePath = dataPath+fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(harvestItemDataPath))
+            {
+                harvestItemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(shpoDataPath))
+            {
+                shpoDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(stringDataPath))
+            {
+                stringDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(consumItemDataPath))
+            {
+                consumItemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(equipItemDataPath))
+            {
+                equipItemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(equipentsStatTableDataPath))
+            {
+                equipentsStatTableDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(harvestDataPath))
+            {
+                harvestDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(itemDataPath))
+            {
+                itemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(materialDataPath))
+            {
+                materialDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(readySoilItemDataPath))
+            {
+                readySoilItemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(soilItemDataPath))
+            {
+                soilItemDataPath = dataPath + fileNames[i]["folder"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            {
+                toolDataPath = dataPath + fileNames[i]["folder"];
+            }
+
+
+        }
+    }
+
+    #endregion
     void LoadMultiKey(string path, Dictionary<int, Dictionary<string, object>> newData)
     {
         List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();

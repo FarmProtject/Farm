@@ -15,7 +15,7 @@ public class QuickSlotItemClick : IClickAction
     {
         if (item != null && item.itemCount != 0)
         {
-            item.useeffect.function();
+            //item.useeffect.function();
         }
         else
         {
