@@ -78,7 +78,7 @@ public class DataManager : MonoBehaviour
 
     [SerializeField]
     string equipItemDataPath = "EquipItemData";
-    public Dictionary<int, Dictionary<string, string>> equiItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, string>> equipItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string equipentsStatTableDataPath = "equipmentStatTable"; //멀티키 형태, LoadMultiKey 실행 //done
@@ -91,7 +91,7 @@ public class DataManager : MonoBehaviour
 
     [SerializeField]
     string harvestDataPath = "harvestData";
-    public Dictionary<string, Dictionary<string, string>> harvestData = new Dictionary<string, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, string>> harvestData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string harvestItemDataPath = "harvestItemData";
@@ -99,7 +99,7 @@ public class DataManager : MonoBehaviour
 
     [SerializeField]
     string materialDataPath = "MaterialData";
-    public Dictionary<int, Dictionary<string, string>> marterialItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField]
     string readySoilItemDataPath = "readySoilItemData";
@@ -140,11 +140,21 @@ public class DataManager : MonoBehaviour
 
     void AllItemDataRead()
     {
-        DataRead(dataPath + itemDataPath, itemDatas);
+        DataRead(itemDataPath, itemDatas);
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
         ItemDataRead("ConsumData", itemDatas);*/
+    }
+    void ReadStringData()
+    {
+        ReadToString(effectData,effectDataPath);
+        ReadToString(consumItemData, consumItemDataPath);
+        ReadToString(equipItemData, equipItemDataPath);
+        //ReadToString(gameConfigData, gameConfigDataPath);
+        ReadToString(harvestData, harvestDataPath);
+        ReadToString(harvestItemData,harvestItemDataPath);
+        ReadToString(materialItemData, materialDataPath);
     }
     void ReadMultiKey()
     {
@@ -243,6 +253,7 @@ public class DataManager : MonoBehaviour
     }
 
     #endregion
+    #region 멀티키 리드
     void LoadMultiKey(string path, Dictionary<int, Dictionary<string, object>> newData)
     {
         List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();
@@ -294,7 +305,8 @@ public class DataManager : MonoBehaviour
 
 
     }
-
+    #endregion
+    #region 드롭테이블 리드
     void DropTableRead(string path, Dictionary<string, List<DropTable>> dropTable)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(path);
@@ -328,6 +340,8 @@ public class DataManager : MonoBehaviour
             }
         }
     }
+    #endregion
+    #region 멀티키 인트형식 리드
     void MultiObToInt(Dictionary<int,Dictionary<string,object>> origin,Dictionary<int,Dictionary<string,int>> newData)
     {//장비 스탯데이터 읽어 온 후 int형식으로 변환
         Dictionary<int, Dictionary<string, object>> data = origin;
@@ -347,6 +361,7 @@ public class DataManager : MonoBehaviour
 
         }
     }
+    #endregion
     void DataRead(string path, DataClass newData)
     {
         List<Dictionary<string, object>> tempDataList = new List<Dictionary<string, object>>();
@@ -395,7 +410,23 @@ public class DataManager : MonoBehaviour
 
         }
     }
+    void ReadToString(Dictionary<int,Dictionary<string,string>>data , string dataPath)
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
+        for(int i = 0; i < temp.Count; i++)
+        {
+            foreach(string key in temp[i].Keys)
+            {
+                Dictionary<string, object> tempOrigin = temp[i];
+                Dictionary<string, string> tempData = new Dictionary<string, string>();
+                int id = int.Parse(temp[i]["id"].ToString());
+                tempData.Add(key, tempOrigin[key].ToString());
+                data.Add(id,tempData);
+            }
+        }
+
+    }
     
 
 }
