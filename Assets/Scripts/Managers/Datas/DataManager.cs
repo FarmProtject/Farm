@@ -148,13 +148,16 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
-        ReadToString(effectData,effectDataPath);
-        ReadToString(consumItemData, consumItemDataPath);
-        ReadToString(equipItemData, equipItemDataPath);
+        IntKeyReadToString(effectData,effectDataPath);
+        IntKeyReadToString(consumItemData, consumItemDataPath);
+        IntKeyReadToString(equipItemData, equipItemDataPath);
         //ReadToString(gameConfigData, gameConfigDataPath);
-        ReadToString(harvestData, harvestDataPath);
-        ReadToString(harvestItemData,harvestItemDataPath);
-        ReadToString(materialItemData, materialDataPath);
+        IntKeyReadToString(harvestData, harvestDataPath);
+        IntKeyReadToString(harvestItemData,harvestItemDataPath);
+        IntKeyReadToString(materialItemData, materialDataPath);
+        IntKeyReadToString(readySoilItemData, readySoilItemDataPath);
+        IntKeyReadToString(soilItemData, soilItemDataPath);
+        IntKeyReadToString(toolData,toolDataPath);
     }
     void ReadMultiKey()
     {
@@ -173,22 +176,43 @@ public class DataManager : MonoBehaviour
         DataNameRead();
         SetFileNameField();
     }
+
+    void KeyStringDataRead(Dictionary<string,Dictionary<string,string>> dataDict,string dataPath)
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
+
+        for(int i = 0; i < temp.Count; i++)
+        {
+            Dictionary<string, object> tempDict = temp[i];
+
+            foreach(string key in tempDict.Keys)
+            {
+                string data = tempDict[key].ToString();
+                string dataKey = temp[i]["key"].ToString();
+
+            }
+
+        }
+
+
+    }
+
     void DataNameRead()
     {
         List<Dictionary<string, object>> temp = csvReader.Read(fileNamePath);
         for (int i = 0; i < temp.Count; i++)
         {
-
+            Dictionary<string, string> tempDict = new Dictionary<string, string>();
             foreach (string keys in temp[i].Keys)
             {
+                
                 if (keys == "#¡÷ºÆ#")
                 {
                     return;
                 }
-                Dictionary<string, string> tempDict = new Dictionary<string, string>();
                 tempDict.Add(keys, temp[i][keys].ToString());
-                fileNames.Add(tempDict);
             }
+            fileNames.Add(tempDict);
         }
     }
     void SetFileNameField()
@@ -410,23 +434,56 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    void ReadToString(Dictionary<int,Dictionary<string,string>>data , string dataPath)
+    void IntKeyReadToString(Dictionary<int,Dictionary<string,string>>data , string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
         for(int i = 0; i < temp.Count; i++)
         {
-            foreach(string key in temp[i].Keys)
+            int index;
+            if (int.TryParse(temp[i]["id"].ToString(),out index) )
             {
                 Dictionary<string, object> tempOrigin = temp[i];
                 Dictionary<string, string> tempData = new Dictionary<string, string>();
-                int id = int.Parse(temp[i]["id"].ToString());
-                tempData.Add(key, tempOrigin[key].ToString());
-                data.Add(id,tempData);
+
+                foreach(string key in temp[i].Keys)
+                {
+                    tempData.Add(key, temp[i][key].ToString());
+
+                }
+                data.Add(index, tempData);
+
             }
         }
 
     }
-    
+    void ReadGameConfig(string dataPath)
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
+
+        for(int i = 0; i< temp.Count; i++)
+        {
+            Dictionary<string, string> tempData = new Dictionary<string, string>();
+            string dataKey = null;
+            foreach(string key in temp[i].Keys)
+            {
+                if(key == "key")
+                {
+                    dataKey = temp[i][key].ToString();
+                }
+                tempData.Add(key, temp[i][key].ToString());
+
+            }
+            if(dataKey != null)
+            {
+                gameConfigData.Add(dataKey, tempData);
+            }
+            else
+            {
+                Debug.Log("GameConfig Key Null");
+            }
+
+        }
+    }
 
 }

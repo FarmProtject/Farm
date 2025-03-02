@@ -13,4 +13,4 @@ Item\\,MaterialData,,materialDataPath
 Item\\,readySoilItemData,,readySoilItemDataPath
 Item\\,soilItemData,,soilItemDataPath
 Item\\,ToolData,,toolDataPath
-Skill\\,effect,,
+Skill\\,effect,,effectDataPath
