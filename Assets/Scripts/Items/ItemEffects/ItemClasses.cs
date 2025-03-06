@@ -13,33 +13,49 @@ public enum ItemType
     Equipment,
     None
 }
+public enum ItemCategory
+{
+    consumable,
+    equipment,
+    harvest,
+    readySoil,
+    soil
+}
 
+public class EffectItem : ItemBase
+{
+    public string useEffectKey;
+}
 public class MaterialItem : ItemBase
 {
 
 }
 
-public class ToolItem : ItemBase
+public class ToolItem : EffectItem
 {
 
 }
-public class PotionItem : ItemBase
+public class PotionItem : EffectItem
 {
 
 }
-public class SeedItem : ItemBase
+public class SeedItem : EffectItem
 {
     
 }
-public class FertilizerItem : ItemBase
+public class FertilizerItem : EffectItem
 {
 
 }
-public class WeaponItem : ItemBase
+public class WeaponItem : EffectItem
 {
 
 }
-public class EquipmentItem : ItemBase
+public class EquipmentItem : EffectItem
 {
     public Dictionary<string, int> equipStats = new Dictionary<string, int>();
+}
+public class ConsumItem : EffectItem
+{
+
 }

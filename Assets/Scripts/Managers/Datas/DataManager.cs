@@ -203,6 +203,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<string, List<DropTable>> dropTable = new Dictionary<string, List<DropTable>>();
 
     private CSVReader csvReader = new CSVReader();
+
     private void Awake()
     {
         OnAwake();
@@ -228,6 +229,7 @@ public class DataManager : MonoBehaviour
     {
         IntKeyReadToString(effectData,effectDataPath);
         IntKeyReadToString(consumItemData, consumItemDataPath);
+
         IntKeyReadToString(equipItemData, equipItemDataPath);
         //ReadToString(gameConfigData, gameConfigDataPath);
         IntKeyReadToString(harvestData, harvestDataPath);

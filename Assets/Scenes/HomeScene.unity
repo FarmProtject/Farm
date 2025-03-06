@@ -5157,22 +5157,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e1cac893bcfb442ae430055034779a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stringDataPath: String
-  fileNamePath: FilePath
-  itemDataPath: itemData
-  effectDataPath: effect
-  consumItemDataPath: consumableItemData
-  equipItemDataPath: EquipItemData
-  equipentsStatTableDataPath: equipmentStatTable
-  gameConfigDataPath: GameConfig
-  harvestDataPath: harvestData
-  harvestItemDataPath: harvestItemData
+  stringDataPath: 
+  fileNamePath: 
+  itemDataPath: 
+  effectDataPath: 
+  consumItemDataPath: 
+  equipItemDataPath: 
+  equipentsStatTableDataPath: 
+  gameConfigDataPath: 
+  harvestDataPath: 
+  harvestItemDataPath: 
   materialDataPath: MaterialData
-  readySoilItemDataPath: readySoilItemData
-  shopDataPath: Shop
-  soilItemDataPath: soilItemData
-  toolDataPath: ToolData
-  dropTablePath: dropItemGroupTable
+  readySoilItemDataPath: 
+  shopDataPath: 
+  soilItemDataPath: 
+  toolDataPath: 
+  dropTablePath: 
 --- !u!114 &1241100374
 MonoBehaviour:
   m_ObjectHideFlags: 0
