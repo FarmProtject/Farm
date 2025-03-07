@@ -220,7 +220,7 @@ public class DataManager : MonoBehaviour
 
     void AllItemDataRead()
     {
-        //DataRead(itemDataPath, itemDatas);
+        DataRead(itemDataPath, itemDatas);
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
@@ -298,19 +298,8 @@ public class DataManager : MonoBehaviour
             }
             fileNames.Add(tempDict);
         }
-        fileNameDebug();
     }
 
-    void fileNameDebug()
-    {
-        for(int i = 0; i < fileNames.Count; i++)
-        {
-            foreach(string name in fileNames[i].Keys)
-            {
-                Debug.Log($"Key : {name}   Value  : {fileNames[i][name]} ");
-            }
-        }
-    }
     void SetFileNameField()
     {
         if (dataPath == null)
