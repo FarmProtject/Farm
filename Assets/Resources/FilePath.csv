@@ -1,8 +1,8 @@
 ﻿folder,filename,#주석#,fieldName
 Drop,dropItemGroup,드랍 테이블,dropTablePath
 Farm,harvest,농사 관련,harvestItemDataPath
-Shop,shop,상점,shpoDataPath
-Config,gameConfig,각종 값,gameConfigDataPath
+Shop,shop,상점,shopDataPath
+Config,GameConfig,각종 값,gameConfigDataPath
 Config,string,문자열 관리,stringDataPath
 Item,consumableItemData,,consumItemDataPath
 Item,EquipItemData,,equipItemDataPath

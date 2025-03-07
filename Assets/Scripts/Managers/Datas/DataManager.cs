@@ -212,6 +212,7 @@ public class DataManager : MonoBehaviour
     private void OnAwake()
     {
         SetFileNames();
+
         AllItemDataRead();
         StringKeyRead(stringDataPath);
         KeyDebug();
@@ -231,7 +232,7 @@ public class DataManager : MonoBehaviour
         IntKeyReadToString(consumItemData, consumItemDataPath);
 
         IntKeyReadToString(equipItemData, equipItemDataPath);
-        //ReadToString(gameConfigData, gameConfigDataPath);
+        KeyStringDataRead(gameConfigData, gameConfigDataPath);
         IntKeyReadToString(harvestData, harvestDataPath);
         IntKeyReadToString(harvestItemData, harvestItemDataPath);
         IntKeyReadToString(materialItemData, materialDataPath);
@@ -279,11 +280,9 @@ public class DataManager : MonoBehaviour
 
     void DataNameRead()
     {
-        if (fileNamePath == null)
-        {
-            Debug.Log("file name Null Set Default value");
+
             fileNamePath = "FilePath";
-        }
+
         List<Dictionary<string, object>> temp = csvReader.Read(fileNamePath);
         for (int i = 0; i < temp.Count; i++)
         {
@@ -293,11 +292,23 @@ public class DataManager : MonoBehaviour
 
                 if (keys == "#ÁÖ¼®#")
                 {
-                    return;
+                    continue;
                 }
                 tempDict.Add(keys, temp[i][keys].ToString());
             }
             fileNames.Add(tempDict);
+        }
+        fileNameDebug();
+    }
+
+    void fileNameDebug()
+    {
+        for(int i = 0; i < fileNames.Count; i++)
+        {
+            foreach(string name in fileNames[i].Keys)
+            {
+                Debug.Log($"Key : {name}   Value  : {fileNames[i][name]} ");
+            }
         }
     }
     void SetFileNameField()
@@ -360,7 +371,14 @@ public class DataManager : MonoBehaviour
             {
                 toolDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-
+            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            {
+                GameConfigDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+            }
+            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            {
+                effectDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+            }
 
         }
     }
