@@ -136,7 +136,7 @@ public class DataManager : MonoBehaviour
         set => harvestDataPath = value.Replace(dataPath, "");
     }
 
-    public Dictionary<int, Dictionary<string, string>> harvestData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> harvestData = new Dictionary<int, Dictionary<string, object>>();
 
     [SerializeField, ReadOnly] private string harvestItemDataPath;
     public string HarvestItemDataPath
@@ -212,15 +212,17 @@ public class DataManager : MonoBehaviour
     private void OnAwake()
     {
         SetFileNames();
-
-        AllItemDataRead();
+        FileNameDebug();
+        AllDataRead();
         StringKeyRead(stringDataPath);
-        KeyDebug();
+        ReadStringData();
+        ReadMultiKey();
     }
 
-    void AllItemDataRead()
+    void AllDataRead()
     {
         DataRead(itemDataPath, itemDatas);
+        ReadGameConfig(gameConfigDataPath);
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
@@ -228,14 +230,13 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
+        Debug.Log(effectDataPath+" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        DebugEffcetDict();
         IntKeyReadToString(effectData, effectDataPath);
+        
         IntKeyReadToString(consumItemData, consumItemDataPath);
-
         IntKeyReadToString(equipItemData, equipItemDataPath);
-        KeyStringDataRead(gameConfigData, gameConfigDataPath);
-        IntKeyReadToString(harvestData, harvestDataPath);
         IntKeyReadToString(harvestItemData, harvestItemDataPath);
-        IntKeyReadToString(materialItemData, materialDataPath);
         IntKeyReadToString(readySoilItemData, readySoilItemDataPath);
         IntKeyReadToString(soilItemData, soilItemDataPath);
         IntKeyReadToString(toolData, toolDataPath);
@@ -244,8 +245,10 @@ public class DataManager : MonoBehaviour
     {
         LoadMultiKey(shopDataPath, shopData);
         LoadMultiKey(equipItemDataPath, equipStatDatas);
+        LoadMultiKey(HarvestDataPath,harvestData);
         MultiObToInt(shopData, shops);
         MultiObToInt(equipStatDatas, equipStat);
+        ShopDebug();
     }
     void ReadDropTable()
     {
@@ -257,7 +260,38 @@ public class DataManager : MonoBehaviour
         DataNameRead();
         SetFileNameField();
     }
+    void FileNameDebug()
+    {
+        for(int i = 0; i < fileNames.Count; i++)
+        {
+            foreach(string key in fileNames[i].Keys)
+            {
+                
+                Debug.Log($"key : {key} value : {fileNames[i][key]}");
 
+
+            }
+        }
+    }
+    void DebugEffcetDict()
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(effectDataPath);
+        for(int i = 0; i < effectData.Count; i++)
+        {
+            foreach(string key in temp[i].Keys)
+            {
+                Debug.Log($"Key : {key}   value : {temp[i][key]}" );
+            }
+        }
+        /*
+        foreach(int index in effectData.Keys)
+        {
+            foreach(string key in effectData[index].Keys)
+            {
+                Debug.Log($"key : {key} value : {effectData[index][key]}");
+            }
+        }*/
+    }
     void KeyStringDataRead(Dictionary<string, Dictionary<string, string>> dataDict, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
@@ -360,11 +394,11 @@ public class DataManager : MonoBehaviour
             {
                 toolDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            if (fileNames[i]["fieldName"] == nameof(gameConfigDataPath))
             {
-                GameConfigDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+                gameConfigDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            if (fileNames[i]["fieldName"] == nameof(effectDataPath))
             {
                 effectDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
@@ -526,19 +560,6 @@ public class DataManager : MonoBehaviour
             stringDatas.Add(key, tempDatas[i]);
         }
     }
-    void KeyDebug()
-    {
-        foreach (var key in stringDatas.Keys)
-        {
-            foreach (var lng in stringDatas[key].Keys)
-            {
-                Debug.Log($"key : {key} lng : {lng} value : {stringDatas[key][lng]}");
-            }
-
-
-
-        }
-    }
     void IntKeyReadToString(Dictionary<int, Dictionary<string, string>> data, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
@@ -590,5 +611,14 @@ public class DataManager : MonoBehaviour
 
         }
     }
-
+    void ShopDebug()
+    {
+        foreach(int index in shopData.Keys)
+        {
+            foreach(string keys in shopData[index].Keys)
+            {
+                Debug.Log(shopData[index][keys]);
+            }
+        }
+    }
 }

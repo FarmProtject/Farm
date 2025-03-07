@@ -245,7 +245,7 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.equipment:
                 return dataManager.equipItemData;
             case ItemCategory.harvest:
-                return dataManager.harvestData;
+                return dataManager.harvestItemData;
             case ItemCategory.readySoil:
                 return dataManager.readySoilItemData;
             case ItemCategory.soil:
