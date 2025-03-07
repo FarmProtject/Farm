@@ -55,7 +55,7 @@ public class DataManager : MonoBehaviour
 {
     public string dataPath { get; private set; } = "DataTables\\";
 
-    [SerializeField] private string stringDataPath = "String";
+    [SerializeField, ReadOnly] private string stringDataPath;
     public string StringDataPath
     {
         get => $"{dataPath}{stringDataPath}";
@@ -64,7 +64,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<string, Dictionary<string, object>> stringDatas = new Dictionary<string, Dictionary<string, object>>();
 
-    [SerializeField] private string fileNamePath = "FilePath";
+    [SerializeField, ReadOnly] private string fileNamePath;
     public string FileNamePath
     {
         get => $"{dataPath}{fileNamePath}";
@@ -73,7 +73,7 @@ public class DataManager : MonoBehaviour
 
     public List<Dictionary<string, string>> fileNames = new List<Dictionary<string, string>>();
 
-    [SerializeField] private string itemDataPath = "itemData";
+    [SerializeField, ReadOnly] private string itemDataPath;
     public string ItemDataPath
     {
         get => $"{dataPath}{itemDataPath}";
@@ -83,7 +83,7 @@ public class DataManager : MonoBehaviour
     public DataClass itemDatas = new DataClass();
     public Dictionary<int, ItemBase> items = new Dictionary<int, ItemBase>();
 
-    [SerializeField] private string effectDataPath = "effect";
+    [SerializeField, ReadOnly] private string effectDataPath;
     public string EffectDataPath
     {
         get => $"{dataPath}{effectDataPath}";
@@ -92,7 +92,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> effectData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string consumItemDataPath = "consumableItemData";
+    [SerializeField, ReadOnly] private string consumItemDataPath;
     public string ConsumItemDataPath
     {
         get => $"{dataPath}{consumItemDataPath}";
@@ -101,7 +101,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> consumItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string equipItemDataPath = "EquipItemData";
+    [SerializeField, ReadOnly] private string equipItemDataPath;
     public string EquipItemDataPath
     {
         get => $"{dataPath}{equipItemDataPath}";
@@ -110,7 +110,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> equipItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string equipentsStatTableDataPath = "equipmentStatTable";
+    [SerializeField, ReadOnly] private string equipentsStatTableDataPath;
     public string EquipmentsStatTableDataPath
     {
         get => $"{dataPath}{equipentsStatTableDataPath}";
@@ -120,7 +120,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, Dictionary<string, object>> equipStatDatas = new Dictionary<int, Dictionary<string, object>>();
     public Dictionary<int, Dictionary<string, int>> equipStat = new Dictionary<int, Dictionary<string, int>>();
 
-    [SerializeField] private string gameConfigDataPath = "GameConfig";
+    [SerializeField, ReadOnly] private string gameConfigDataPath;
     public string GameConfigDataPath
     {
         get => $"{dataPath}{gameConfigDataPath}";
@@ -129,7 +129,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<string, Dictionary<string, string>> gameConfigData = new Dictionary<string, Dictionary<string, string>>();
 
-    [SerializeField] private string harvestDataPath = "harvestData";
+    [SerializeField, ReadOnly] private string harvestDataPath;
     public string HarvestDataPath
     {
         get => $"{dataPath}{harvestDataPath}";
@@ -138,7 +138,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> harvestData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string harvestItemDataPath = "harvestItemData";
+    [SerializeField, ReadOnly] private string harvestItemDataPath;
     public string HarvestItemDataPath
     {
         get => $"{dataPath}{harvestItemDataPath}";
@@ -147,7 +147,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> harvestItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string materialDataPath = "MaterialData";
+    [SerializeField, ReadOnly] private string materialDataPath;
     public string MaterialDataPath
     {
         get => $"{dataPath}{materialDataPath}";
@@ -156,7 +156,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string readySoilItemDataPath = "readySoilItemData";
+    [SerializeField, ReadOnly] private string readySoilItemDataPath;
     public string ReadySoilItemDataPath
     {
         get => $"{dataPath}{readySoilItemDataPath}";
@@ -165,7 +165,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> readySoilItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string shopDataPath = "Shop";
+    [SerializeField, ReadOnly] private string shopDataPath;
     public string ShopDataPath
     {
         get => $"{dataPath}{shopDataPath}";
@@ -175,7 +175,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, Dictionary<string, object>> shopData = new Dictionary<int, Dictionary<string, object>>();
     public Dictionary<int, Dictionary<string, int>> shops = new Dictionary<int, Dictionary<string, int>>();
 
-    [SerializeField] private string soilItemDataPath = "soilItemData";
+    [SerializeField, ReadOnly] private string soilItemDataPath;
     public string SoilItemDataPath
     {
         get => $"{dataPath}{soilItemDataPath}";
@@ -184,7 +184,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> soilItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string toolDataPath = "ToolData";
+    [SerializeField, ReadOnly] private string toolDataPath;
     public string ToolDataPath
     {
         get => $"{dataPath}{toolDataPath}";
@@ -193,7 +193,7 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, Dictionary<string, string>> toolData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField] private string dropTablePath = "dropItemGroupTable";
+    [SerializeField, ReadOnly] private string dropTablePath;
     public string DropTablePath
     {
         get => $"{dataPath}{dropTablePath}";
@@ -227,28 +227,28 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
-        IntKeyReadToString(effectData,effectDataPath);
+        IntKeyReadToString(effectData, effectDataPath);
         IntKeyReadToString(consumItemData, consumItemDataPath);
 
         IntKeyReadToString(equipItemData, equipItemDataPath);
         //ReadToString(gameConfigData, gameConfigDataPath);
         IntKeyReadToString(harvestData, harvestDataPath);
-        IntKeyReadToString(harvestItemData,harvestItemDataPath);
+        IntKeyReadToString(harvestItemData, harvestItemDataPath);
         IntKeyReadToString(materialItemData, materialDataPath);
         IntKeyReadToString(readySoilItemData, readySoilItemDataPath);
         IntKeyReadToString(soilItemData, soilItemDataPath);
-        IntKeyReadToString(toolData,toolDataPath);
+        IntKeyReadToString(toolData, toolDataPath);
     }
     void ReadMultiKey()
     {
-        LoadMultiKey(shopDataPath,shopData);
-        LoadMultiKey(equipItemDataPath,equipStatDatas);
-        MultiObToInt(shopData,shops);
-        MultiObToInt(equipStatDatas,equipStat);
+        LoadMultiKey(shopDataPath, shopData);
+        LoadMultiKey(equipItemDataPath, equipStatDatas);
+        MultiObToInt(shopData, shops);
+        MultiObToInt(equipStatDatas, equipStat);
     }
     void ReadDropTable()
     {
-        DropTableRead(dropTablePath,dropTable);
+        DropTableRead(dropTablePath, dropTable);
     }
     #region 파일이름세팅
     void SetFileNames()
@@ -257,15 +257,15 @@ public class DataManager : MonoBehaviour
         SetFileNameField();
     }
 
-    void KeyStringDataRead(Dictionary<string,Dictionary<string,string>> dataDict,string dataPath)
+    void KeyStringDataRead(Dictionary<string, Dictionary<string, string>> dataDict, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
-        for(int i = 0; i < temp.Count; i++)
+        for (int i = 0; i < temp.Count; i++)
         {
             Dictionary<string, object> tempDict = temp[i];
 
-            foreach(string key in tempDict.Keys)
+            foreach (string key in tempDict.Keys)
             {
                 string data = tempDict[key].ToString();
                 string dataKey = temp[i]["key"].ToString();
@@ -279,13 +279,18 @@ public class DataManager : MonoBehaviour
 
     void DataNameRead()
     {
+        if (fileNamePath == null)
+        {
+            Debug.Log("file name Null Set Default value");
+            fileNamePath = "FilePath";
+        }
         List<Dictionary<string, object>> temp = csvReader.Read(fileNamePath);
         for (int i = 0; i < temp.Count; i++)
         {
             Dictionary<string, string> tempDict = new Dictionary<string, string>();
             foreach (string keys in temp[i].Keys)
             {
-                
+
                 if (keys == "#주석#")
                 {
                     return;
@@ -297,63 +302,63 @@ public class DataManager : MonoBehaviour
     }
     void SetFileNameField()
     {
-        if(dataPath == null)
+        if (dataPath == null)
         {
-            dataPath = "DataTables\\"; 
+            dataPath = "DataTables\\";
         }
-        for(int i = 0; i <fileNames.Count;i++)
+        for (int i = 0; i < fileNames.Count; i++)
         {
-            if(fileNames[i]["fieldName"] == nameof(dropTablePath))
+            if (fileNames[i]["fieldName"] == nameof(dropTablePath))
             {
-                dropTablePath = fileNames[i]["folder"]+fileNames[i]["filename"];
+                dropTablePath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(harvestItemDataPath))
             {
-                harvestItemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                harvestItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(shopDataPath))
             {
-                shopDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                shopDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(stringDataPath))
             {
-                stringDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                stringDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(consumItemDataPath))
             {
-                consumItemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                consumItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(equipItemDataPath))
             {
-                equipItemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                equipItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(equipentsStatTableDataPath))
             {
-                equipentsStatTableDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                equipentsStatTableDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(harvestDataPath))
             {
-                harvestDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                harvestDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(itemDataPath))
             {
-                itemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                itemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(materialDataPath))
             {
-                materialDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                materialDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(readySoilItemDataPath))
             {
-                readySoilItemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                readySoilItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(soilItemDataPath))
             {
-                soilItemDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                soilItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             if (fileNames[i]["fieldName"] == nameof(toolDataPath))
             {
-                toolDataPath = fileNames[i]["folder"] + fileNames[i]["filename"];
+                toolDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
 
 
@@ -450,17 +455,17 @@ public class DataManager : MonoBehaviour
     }
     #endregion
     #region 멀티키 인트형식 리드
-    void MultiObToInt(Dictionary<int,Dictionary<string,object>> origin,Dictionary<int,Dictionary<string,int>> newData)
+    void MultiObToInt(Dictionary<int, Dictionary<string, object>> origin, Dictionary<int, Dictionary<string, int>> newData)
     {//장비 스탯데이터 읽어 온 후 int형식으로 변환
         Dictionary<int, Dictionary<string, object>> data = origin;
         Dictionary<string, int> temp = new Dictionary<string, int>();
-        foreach(int index in equipStatDatas.Keys)
+        foreach (int index in equipStatDatas.Keys)
         {
 
-            foreach(string key in data[index].Keys)
+            foreach (string key in data[index].Keys)
             {
                 int stat;
-                if(!temp.ContainsKey(key)&& int.TryParse(data[index][key].ToString(), out stat))
+                if (!temp.ContainsKey(key) && int.TryParse(data[index][key].ToString(), out stat))
                 {
                     temp.Add(key, stat);
                 }
@@ -473,7 +478,7 @@ public class DataManager : MonoBehaviour
     void DataRead(string path, DataClass newData)
     {
         List<Dictionary<string, object>> tempDataList = new List<Dictionary<string, object>>();
-        if(path == null)
+        if (path == null)
         {
             Debug.Log("data is Null");
         }
@@ -501,7 +506,7 @@ public class DataManager : MonoBehaviour
     {
         List<Dictionary<string, object>> tempDatas = new List<Dictionary<string, object>>();
         tempDatas = csvReader.Read(path);
-        if(tempDatas == null)
+        if (tempDatas == null)
         {
             Debug.Log($"Data Error {path}");
             return;
@@ -527,19 +532,19 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    void IntKeyReadToString(Dictionary<int,Dictionary<string,string>>data , string dataPath)
+    void IntKeyReadToString(Dictionary<int, Dictionary<string, string>> data, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
-        for(int i = 0; i < temp.Count; i++)
+        for (int i = 0; i < temp.Count; i++)
         {
             int index;
-            if (int.TryParse(temp[i]["id"].ToString(),out index) )
+            if (int.TryParse(temp[i]["id"].ToString(), out index))
             {
                 Dictionary<string, object> tempOrigin = temp[i];
                 Dictionary<string, string> tempData = new Dictionary<string, string>();
 
-                foreach(string key in temp[i].Keys)
+                foreach (string key in temp[i].Keys)
                 {
                     tempData.Add(key, temp[i][key].ToString());
 
@@ -554,20 +559,20 @@ public class DataManager : MonoBehaviour
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
-        for(int i = 0; i< temp.Count; i++)
+        for (int i = 0; i < temp.Count; i++)
         {
             Dictionary<string, string> tempData = new Dictionary<string, string>();
             string dataKey = null;
-            foreach(string key in temp[i].Keys)
+            foreach (string key in temp[i].Keys)
             {
-                if(key == "key")
+                if (key == "key")
                 {
                     dataKey = temp[i][key].ToString();
                 }
                 tempData.Add(key, temp[i][key].ToString());
 
             }
-            if(dataKey != null)
+            if (dataKey != null)
             {
                 gameConfigData.Add(dataKey, tempData);
             }
