@@ -428,6 +428,10 @@ public class DataManager : MonoBehaviour
                 {
                     if (newData.ContainsKey(index))
                     {
+                        if(key == "id")
+                        {
+                            continue;
+                        }
                         newData[index].Add(key, int.Parse(temp[key].ToString()));
                     }
                     else
@@ -445,7 +449,7 @@ public class DataManager : MonoBehaviour
                 {
                     if (newData.ContainsKey(index))
                     {
-                        newData[index].Add(key, int.Parse(temp[key].ToString()));
+                        newData[index].Add(key, int.Parse(temp[key].ToString())); 
                     }
                     else
                     {
