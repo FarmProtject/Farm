@@ -8,9 +8,9 @@ public class DataClass
     public Dictionary<int, Dictionary<string, object>> datas = new Dictionary<int, Dictionary<string, object>>();
 }
 
-public class DataTable
+public class StringKeyDatas
 {
-    public Dictionary<int, List<PairData>> table = new Dictionary<int, List<PairData>>();
+    public Dictionary<string, object> datas = new Dictionary<string, object>();
 }
 public class DropTable
 {
@@ -21,36 +21,7 @@ public class DropTable
     public int minDropCount;
     public int maxDropCount;
 }
-public class PairData
-{
-    string key;
-    object value;
 
-    public PairData(string key, object value)
-    {
-        this.key = key;
-        this.value = value;
-    }
-    public string GetKey()
-    {
-        return key;
-    }
-    public string GetStringValue()
-    {
-
-        return value.ToString();
-    }
-    public int GetIntegerValue()
-    {
-        int val;
-        if (Int32.TryParse(value.ToString(), out val))
-        {
-            return val;
-        }
-        Debug.Log("Can't Parse Integer");
-        return val;
-    }
-}
 public class DataManager : MonoBehaviour
 {
     public string dataPath { get; private set; } = "DataTables\\";
@@ -117,7 +88,7 @@ public class DataManager : MonoBehaviour
         set => equipentsStatTableDataPath = value.Replace(dataPath, "");
     }
 
-    public Dictionary<int, Dictionary<string, object>> equipStatDatas = new Dictionary<int, Dictionary<string, object>>();
+    public Dictionary<int, List<StringKeyDatas>> equipStatDatas = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> equipStat = new Dictionary<int, Dictionary<string, int>>();
 
     [SerializeField, ReadOnly] private string gameConfigDataPath;
@@ -136,7 +107,7 @@ public class DataManager : MonoBehaviour
         set => harvestDataPath = value.Replace(dataPath, "");
     }
 
-    public Dictionary<int, Dictionary<string, object>> harvestData = new Dictionary<int, Dictionary<string, object>>();
+    public Dictionary<int, List<StringKeyDatas>> harvestData = new Dictionary<int, List<StringKeyDatas>>();
 
     [SerializeField, ReadOnly] private string harvestItemDataPath;
     public string HarvestItemDataPath
@@ -172,7 +143,7 @@ public class DataManager : MonoBehaviour
         set => shopDataPath = value.Replace(dataPath, "");
     }
 
-    public Dictionary<int, Dictionary<string, object>> shopData = new Dictionary<int, Dictionary<string, object>>();
+    public Dictionary<int, List<StringKeyDatas>> shopData = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> shops = new Dictionary<int, Dictionary<string, int>>();
 
     [SerializeField, ReadOnly] private string soilItemDataPath;
@@ -212,7 +183,7 @@ public class DataManager : MonoBehaviour
     private void OnAwake()
     {
         SetFileNames();
-        FileNameDebug();
+        //FileNameDebug();
         AllDataRead();
         StringKeyRead(stringDataPath);
         ReadStringData();
@@ -230,10 +201,10 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
-        Debug.Log(effectDataPath+" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        DebugEffcetDict();
+        Debug.Log(effectDataPath + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //DebugEffcetDict();
         IntKeyReadToString(effectData, effectDataPath);
-        
+
         IntKeyReadToString(consumItemData, consumItemDataPath);
         IntKeyReadToString(equipItemData, equipItemDataPath);
         IntKeyReadToString(harvestItemData, harvestItemDataPath);
@@ -243,13 +214,48 @@ public class DataManager : MonoBehaviour
     }
     void ReadMultiKey()
     {
-        LoadMultiKey(shopDataPath, shopData);
-        LoadMultiKey(equipItemDataPath, equipStatDatas);
-        LoadMultiKey(HarvestDataPath,harvestData);
-        MultiObToInt(shopData, shops);
-        MultiObToInt(equipStatDatas, equipStat);
-        ShopDebug();
+        LoadMulti(shopDataPath, shopData);
+        LoadMulti(equipentsStatTableDataPath, equipStatDatas);
+        LoadMulti(harvestDataPath, harvestData);
+        HarvestDataDebug();
+        //MultiObToInt(shopData, shops);
+        //MultiObToInt(equipStatDatas, equipStat);
+
     }
+
+    #region debugs
+    void DebugEffcetDict()
+    {
+        List<Dictionary<string, object>> temp = csvReader.Read(effectDataPath);
+        for (int i = 0; i < effectData.Count; i++)
+        {
+            foreach (string key in temp[i].Keys)
+            {
+                Debug.Log($"Key : {key}   value : {temp[i][key]}");
+            }
+        }
+
+    }
+    void HarvestDataDebug()
+    {
+        foreach(int index in harvestData.Keys)
+        {
+            for(int i = 0; i < harvestData[index].Count; i++)
+            {
+                foreach(string key in harvestData[index][i].datas.Keys)
+                {
+                    Debug.Log($"ID : {index} Key : {key} Value {harvestData[index][i].datas[key].ToString()} ");
+
+
+
+
+                }
+
+
+            }
+        }
+    }
+    #endregion
     void ReadDropTable()
     {
         DropTableRead(dropTablePath, dropTable);
@@ -262,36 +268,18 @@ public class DataManager : MonoBehaviour
     }
     void FileNameDebug()
     {
-        for(int i = 0; i < fileNames.Count; i++)
+        for (int i = 0; i < fileNames.Count; i++)
         {
-            foreach(string key in fileNames[i].Keys)
+            foreach (string key in fileNames[i].Keys)
             {
-                
+
                 Debug.Log($"key : {key} value : {fileNames[i][key]}");
 
 
             }
         }
     }
-    void DebugEffcetDict()
-    {
-        List<Dictionary<string, object>> temp = csvReader.Read(effectDataPath);
-        for(int i = 0; i < effectData.Count; i++)
-        {
-            foreach(string key in temp[i].Keys)
-            {
-                Debug.Log($"Key : {key}   value : {temp[i][key]}" );
-            }
-        }
-        /*
-        foreach(int index in effectData.Keys)
-        {
-            foreach(string key in effectData[index].Keys)
-            {
-                Debug.Log($"key : {key} value : {effectData[index][key]}");
-            }
-        }*/
-    }
+    
     void KeyStringDataRead(Dictionary<string, Dictionary<string, string>> dataDict, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
@@ -315,7 +303,7 @@ public class DataManager : MonoBehaviour
     void DataNameRead()
     {
 
-            fileNamePath = "FilePath";
+        fileNamePath = "FilePath";
 
         List<Dictionary<string, object>> temp = csvReader.Read(fileNamePath);
         for (int i = 0; i < temp.Count; i++)
@@ -408,6 +396,37 @@ public class DataManager : MonoBehaviour
 
     #endregion
     #region 멀티키 리드
+
+    void LoadMulti(string path, Dictionary<int, List<StringKeyDatas>> newData)
+    {
+        List<Dictionary<string, object>> tempList = csvReader.Read(path);
+
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            List<StringKeyDatas> datas = new List<StringKeyDatas>();
+            Dictionary<string, object> temp = tempList[i];
+            
+            int index;
+            
+            if (temp.ContainsKey("groupId") && int.TryParse(temp["groupId"].ToString(), out index))
+            {
+                StringKeyDatas keyData = new StringKeyDatas();
+                keyData.datas = temp;
+                if (newData.ContainsKey(index))
+                {
+                    newData[index].Add(keyData);
+                }
+                else
+                {
+                    List<StringKeyDatas> dataList = new List<StringKeyDatas>();
+                    dataList.Add(keyData);
+                    newData.Add(index, dataList);
+                }
+            }
+            
+        }
+    }
+    /*
     void LoadMultiKey(string path, Dictionary<int, Dictionary<string, object>> newData)
     {
         List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();
@@ -463,6 +482,7 @@ public class DataManager : MonoBehaviour
 
 
     }
+    */
     #endregion
     #region 드롭테이블 리드
     void DropTableRead(string path, Dictionary<string, List<DropTable>> dropTable)
@@ -615,14 +635,5 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    void ShopDebug()
-    {
-        foreach(int index in shopData.Keys)
-        {
-            foreach(string keys in shopData[index].Keys)
-            {
-                Debug.Log(shopData[index][keys]);
-            }
-        }
-    }
+    
 }
