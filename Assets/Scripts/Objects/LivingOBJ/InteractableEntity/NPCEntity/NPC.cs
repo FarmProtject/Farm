@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPC : InteractableEntity,IInteractable
 {
-
+    protected int id;
     protected override void OnAwake()
     {
         base.OnAwake();

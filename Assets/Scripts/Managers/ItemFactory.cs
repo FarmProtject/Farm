@@ -185,6 +185,26 @@ public class ItemFactory : MonoBehaviour
             return;
         }
         item.equipStats = DeepCopyStatDict(dataManager.equipStat[index]);
+
+
+        List<StringKeyDatas> datas = dataManager.equipStatDatas[index];
+        for(int i = 0; i < datas.Count; i++)
+        {
+            Dictionary<string, int> data = new Dictionary<string, int>();
+            foreach(string key in datas[i].datas.Keys)
+            {
+                int value;
+                if(int.TryParse(datas[i].datas[key].ToString(), out value))
+                {
+                    data.Add(key, value);
+                }
+                else
+                {
+                    Debug.Log("Data Parsing Error");
+                }
+            }
+            item.equipStats = DeepCopyStatDict(data);
+        }
     }
 
     public void SetEquipData()

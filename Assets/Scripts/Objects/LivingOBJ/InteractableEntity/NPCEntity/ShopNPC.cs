@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShopNPC : NPC, IInteractable
 {
-
+    
     List<int> shopItems = new List<int>();
-
+    
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -32,7 +32,19 @@ public class ShopNPC : NPC, IInteractable
     }
     void SetItemData()
     {
-        Debug.Log("Need write SetItemData Function in ShopNPC");
+        
+        DataManager dataManager = GameManager.instance.dataManager;
+        List<StringKeyDatas> shopData = dataManager.shopData[id];
+        if (!dataManager.shopData.ContainsKey(id))
+        {
+            Debug.Log("Don't Contain Id!");
+        }
+        for(int i = 0; i < shopData.Count; i++)
+        {
+            int itemId = int.Parse(shopData[i].datas["itemId"].ToString());
+            shopItems.Add(itemId); 
+        }
+        
     }
 
     void GiveItemDataToShop()

@@ -217,7 +217,7 @@ public class DataManager : MonoBehaviour
         LoadMulti(shopDataPath, shopData);
         LoadMulti(equipentsStatTableDataPath, equipStatDatas);
         LoadMulti(harvestDataPath, harvestData);
-        HarvestDataDebug();
+        //HarvestDataDebug();
         //MultiObToInt(shopData, shops);
         //MultiObToInt(equipStatDatas, equipStat);
 
@@ -400,7 +400,7 @@ public class DataManager : MonoBehaviour
     void LoadMulti(string path, Dictionary<int, List<StringKeyDatas>> newData)
     {
         List<Dictionary<string, object>> tempList = csvReader.Read(path);
-
+        // 그룹ID를 인덱스로 가지는 데이터 리스트
         for (int i = 0; i < tempList.Count; i++)
         {
             List<StringKeyDatas> datas = new List<StringKeyDatas>();
