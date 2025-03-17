@@ -97,7 +97,9 @@ public class UIBase : MonoBehaviour
         {
             myRect = this.transform.GetComponent<RectTransform>();
         }
+
         myRect.anchoredPosition = Vector2.zero;
+        /*   //OnEnabl에 넣을 시에 포지션이 계속 더해짐
         if(onTop != 0)
         {
             myPosOnTop();
@@ -114,7 +116,8 @@ public class UIBase : MonoBehaviour
         {
             myPosOnRight();
         }
-
+        */
+        SeMyPos();
         myRect.anchoredPosition = myPos;
     }
     protected virtual void SetUIImage()
@@ -165,6 +168,29 @@ public class UIBase : MonoBehaviour
         myRect.anchorMax = anchorMax;
         
         myRect.sizeDelta = new Vector2(0, 0);
+    }
+
+    protected void SeMyPos()
+    {
+        Vector2 myPos = new Vector2();
+
+        if (onLeft != 0)
+        {
+            myPos.x += onLeft;
+        }
+        if(onRight != 0)
+        {
+            myPos.x += baseWidth - myWidth - onRight;
+        }
+        if (onBottom != 0)
+        {
+            myPos.y += onBottom;
+        }
+        if(onTop != 0)
+        {
+            myPos.y += baseHeight - onTop - myHeight;
+        }
+        this.myPos = myPos;
     }
 
     protected void myPosOnTop()

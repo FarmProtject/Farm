@@ -63,6 +63,7 @@ public class StringKeyManager : MonoBehaviour
         }
         if (stringData.ContainsKey(key) && stringData[key].ContainsKey(lngKey))
         {
+            Debug.Log("Key Contain");
             text = stringData[key][lngKey].ToString();
         }
         else

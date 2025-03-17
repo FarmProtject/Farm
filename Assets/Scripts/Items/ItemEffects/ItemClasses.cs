@@ -48,5 +48,5 @@ public class EquipmentItem : EffectItem
 {
     public Dictionary<string, int> equipStats = new Dictionary<string, int>();
 }
-pu
+
 

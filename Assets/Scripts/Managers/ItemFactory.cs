@@ -141,13 +141,17 @@ public class ItemFactory : MonoBehaviour
         switch (item.category)
         {
             case ItemCategory.farming:
+                if(item is Farming farm)
+                {
+                    farm.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                }
                 break;
             case ItemCategory.equipment:
                 if (item is EquipmentItem equip)
                 {
                     SetEquipStat(item.id, ref equip);
                     string slot = CategoryToTable(item.category)[item.id]["slot"].ToString();
-                    equip.useEffectKey = CategoryToTable(item.category)[item.id]["useeffect"].ToString();
+                    //equip.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
                     equip.slot = (EquipSlot)Enum.Parse(typeof(EquipSlot), slot);
                 }
                 break;
@@ -160,6 +164,10 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.material:
                 break;
             case ItemCategory.tools:
+                if (item is Tools tool)
+                {
+                    tool.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                }
                 break;
             case ItemCategory.none:
                 break;
@@ -257,7 +265,7 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.consumable:
                 return dataManager.consumItemData;
             case ItemCategory.material:
-                return dataManager.materialItemData;
+                return null;//dataManager.items;
             case ItemCategory.none:
                 return null;
             default:

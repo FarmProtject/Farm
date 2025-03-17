@@ -60,43 +60,16 @@ public class DataManager : MonoBehaviour
 
     [SerializeField, ReadOnly] private string farmingItemDataPath;
     public Dictionary<int, Dictionary<string, string>> farmingItemData = new Dictionary<int, Dictionary<string, string>>();
-
+    /*
     [SerializeField, ReadOnly] private string materialItemDataPath;
     public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
-
+    */
     [SerializeField, ReadOnly] string toolItemDataPath;
     public Dictionary<int, Dictionary<string, string>> toolItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField,ReadOnly] string harvestDataPath;
     public Dictionary<int, List<StringKeyDatas>> harvestData = new Dictionary<int, List<StringKeyDatas>>();
-    /*
-    [SerializeField, ReadOnly] private string harvestItemDataPath;
-    public string HarvestItemDataPath
-    {
-        get => $"{dataPath}{harvestItemDataPath}";
-        set => harvestItemDataPath = value.Replace(dataPath, "");
-    }
     
-    public Dictionary<int, Dictionary<string, string>> harvestItemData = new Dictionary<int, Dictionary<string, string>>();
-
-    [SerializeField, ReadOnly] private string materialDataPath;
-    public string MaterialDataPath
-    {
-        get => $"{dataPath}{materialDataPath}";
-        set => materialDataPath = value.Replace(dataPath, "");
-    }
-
-    public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
-
-    [SerializeField, ReadOnly] private string readySoilItemDataPath;
-    public string ReadySoilItemDataPath
-    {
-        get => $"{dataPath}{readySoilItemDataPath}";
-        set => readySoilItemDataPath = value.Replace(dataPath, "");
-    }
-
-    public Dictionary<int, Dictionary<string, string>> readySoilItemData = new Dictionary<int, Dictionary<string, string>>();
-    */
     [SerializeField, ReadOnly] private string shopDataPath;
     public string ShopDataPath
     {
@@ -173,7 +146,7 @@ public class DataManager : MonoBehaviour
         IntKeyReadToString(equipItemData, equipItemDataPath);
         IntKeyReadToString(toolItemData, toolItemDataPath);
         IntKeyReadToString(farmingItemData, farmingItemDataPath);
-        IntKeyReadToString(materialItemData, materialItemDataPath);
+        //IntKeyReadToString(materialItemData, materialItemDataPath);
     }
     void ReadMultiKey()
     {
@@ -344,14 +317,16 @@ public class DataManager : MonoBehaviour
             {
                 consumItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(materialItemDataPath))
-            {
-                materialItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
-            }
             if (fileNames[i]["fieldName"] == nameof(toolItemDataPath))
             {
                 toolItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
+            /*
+            if (fileNames[i]["fieldName"] == nameof(materialItemDataPath))
+            {
+                materialItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+            }
+            */
 
 
             if (fileNames[i]["fieldName"] == nameof(gameConfigDataPath))
