@@ -27,67 +27,20 @@ public class DataManager : MonoBehaviour
     public string dataPath { get; private set; } = "DataTables\\";
 
     [SerializeField, ReadOnly] private string stringDataPath;
-    public string StringDataPath
-    {
-        get => $"{dataPath}{stringDataPath}";
-        set => stringDataPath = value.Replace(dataPath, "");
-    }
-
     public Dictionary<string, Dictionary<string, object>> stringDatas = new Dictionary<string, Dictionary<string, object>>();
 
     [SerializeField, ReadOnly] private string fileNamePath;
-    public string FileNamePath
-    {
-        get => $"{dataPath}{fileNamePath}";
-        set => fileNamePath = value.Replace(dataPath, "");
-    }
-
     public List<Dictionary<string, string>> fileNames = new List<Dictionary<string, string>>();
 
     [SerializeField, ReadOnly] private string itemDataPath;
-    public string ItemDataPath
-    {
-        get => $"{dataPath}{itemDataPath}";
-        set => itemDataPath = value.Replace(dataPath, "");
-    }
-
     public DataClass itemDatas = new DataClass();
     public Dictionary<int, ItemBase> items = new Dictionary<int, ItemBase>();
 
     [SerializeField, ReadOnly] private string effectDataPath;
-    public string EffectDataPath
-    {
-        get => $"{dataPath}{effectDataPath}";
-        set => effectDataPath = value.Replace(dataPath, "");
-    }
-
     public Dictionary<int, Dictionary<string, string>> effectData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField, ReadOnly] private string consumItemDataPath;
-    public string ConsumItemDataPath
-    {
-        get => $"{dataPath}{consumItemDataPath}";
-        set => consumItemDataPath = value.Replace(dataPath, "");
-    }
-
-    public Dictionary<int, Dictionary<string, string>> consumItemData = new Dictionary<int, Dictionary<string, string>>();
-
-    [SerializeField, ReadOnly] private string equipItemDataPath;
-    public string EquipItemDataPath
-    {
-        get => $"{dataPath}{equipItemDataPath}";
-        set => equipItemDataPath = value.Replace(dataPath, "");
-    }
-
-    public Dictionary<int, Dictionary<string, string>> equipItemData = new Dictionary<int, Dictionary<string, string>>();
-
+    
     [SerializeField, ReadOnly] private string equipentsStatTableDataPath;
-    public string EquipmentsStatTableDataPath
-    {
-        get => $"{dataPath}{equipentsStatTableDataPath}";
-        set => equipentsStatTableDataPath = value.Replace(dataPath, "");
-    }
-
     public Dictionary<int, List<StringKeyDatas>> equipStatDatas = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> equipStat = new Dictionary<int, Dictionary<string, int>>();
 
@@ -99,23 +52,31 @@ public class DataManager : MonoBehaviour
     }
 
     public Dictionary<string, Dictionary<string, string>> gameConfigData = new Dictionary<string, Dictionary<string, string>>();
+    [SerializeField, ReadOnly] private string consumItemDataPath;
+    public Dictionary<int, Dictionary<string, string>> consumItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField, ReadOnly] private string harvestDataPath;
-    public string HarvestDataPath
-    {
-        get => $"{dataPath}{harvestDataPath}";
-        set => harvestDataPath = value.Replace(dataPath, "");
-    }
+    [SerializeField, ReadOnly] private string equipItemDataPath;
+    public Dictionary<int, Dictionary<string, string>> equipItemData = new Dictionary<int, Dictionary<string, string>>();
 
+    [SerializeField, ReadOnly] private string farmingItemDataPath;
+    public Dictionary<int, Dictionary<string, string>> farmingItemData = new Dictionary<int, Dictionary<string, string>>();
+
+    [SerializeField, ReadOnly] private string materialItemDataPath;
+    public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
+
+    [SerializeField, ReadOnly] string toolItemDataPath;
+    public Dictionary<int, Dictionary<string, string>> toolItemData = new Dictionary<int, Dictionary<string, string>>();
+
+    [SerializeField,ReadOnly] string harvestDataPath;
     public Dictionary<int, List<StringKeyDatas>> harvestData = new Dictionary<int, List<StringKeyDatas>>();
-
+    /*
     [SerializeField, ReadOnly] private string harvestItemDataPath;
     public string HarvestItemDataPath
     {
         get => $"{dataPath}{harvestItemDataPath}";
         set => harvestItemDataPath = value.Replace(dataPath, "");
     }
-
+    
     public Dictionary<int, Dictionary<string, string>> harvestItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField, ReadOnly] private string materialDataPath;
@@ -135,14 +96,14 @@ public class DataManager : MonoBehaviour
     }
 
     public Dictionary<int, Dictionary<string, string>> readySoilItemData = new Dictionary<int, Dictionary<string, string>>();
-
+    */
     [SerializeField, ReadOnly] private string shopDataPath;
     public string ShopDataPath
     {
         get => $"{dataPath}{shopDataPath}";
         set => shopDataPath = value.Replace(dataPath, "");
     }
-
+    
     public Dictionary<int, List<StringKeyDatas>> shopData = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> shops = new Dictionary<int, Dictionary<string, int>>();
 
@@ -152,7 +113,7 @@ public class DataManager : MonoBehaviour
         get => $"{dataPath}{soilItemDataPath}";
         set => soilItemDataPath = value.Replace(dataPath, "");
     }
-
+    /*
     public Dictionary<int, Dictionary<string, string>> soilItemData = new Dictionary<int, Dictionary<string, string>>();
 
     [SerializeField, ReadOnly] private string toolDataPath;
@@ -170,7 +131,8 @@ public class DataManager : MonoBehaviour
         get => $"{dataPath}{dropTablePath}";
         set => dropTablePath = value.Replace(dataPath, "");
     }
-
+    */
+    [SerializeField, ReadOnly] string dropTablePath;
     public Dictionary<string, List<DropTable>> dropTable = new Dictionary<string, List<DropTable>>();
 
     private CSVReader csvReader = new CSVReader();
@@ -204,14 +166,14 @@ public class DataManager : MonoBehaviour
     {
         
         //DebugEffcetDict();
+        //DebugEffcetDict();
         IntKeyReadToString(effectData, effectDataPath);
 
         IntKeyReadToString(consumItemData, consumItemDataPath);
         IntKeyReadToString(equipItemData, equipItemDataPath);
-        IntKeyReadToString(harvestItemData, harvestItemDataPath);
-        IntKeyReadToString(readySoilItemData, readySoilItemDataPath);
-        IntKeyReadToString(soilItemData, soilItemDataPath);
-        IntKeyReadToString(toolData, toolDataPath);
+        IntKeyReadToString(toolItemData, toolItemDataPath);
+        IntKeyReadToString(farmingItemData, farmingItemDataPath);
+        IntKeyReadToString(materialItemData, materialItemDataPath);
     }
     void ReadMultiKey()
     {
@@ -348,10 +310,6 @@ public class DataManager : MonoBehaviour
             {
                 dropTablePath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(harvestItemDataPath))
-            {
-                harvestItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
-            }
             if (fileNames[i]["fieldName"] == nameof(shopDataPath))
             {
                 shopDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
@@ -360,14 +318,7 @@ public class DataManager : MonoBehaviour
             {
                 stringDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(consumItemDataPath))
-            {
-                consumItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
-            }
-            if (fileNames[i]["fieldName"] == nameof(equipItemDataPath))
-            {
-                equipItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
-            }
+            
             if (fileNames[i]["fieldName"] == nameof(equipentsStatTableDataPath))
             {
                 equipentsStatTableDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
@@ -380,22 +331,29 @@ public class DataManager : MonoBehaviour
             {
                 itemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(materialDataPath))
+            
+            if (fileNames[i]["fieldName"] == nameof(farmingItemDataPath))
             {
-                materialDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+                farmingItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(readySoilItemDataPath))
+            if (fileNames[i]["fieldName"] == nameof(equipItemDataPath))
             {
-                readySoilItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+                equipItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(soilItemDataPath))
+            if (fileNames[i]["fieldName"] == nameof(consumItemDataPath))
             {
-                soilItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+                consumItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            if (fileNames[i]["fieldName"] == nameof(toolDataPath))
+            if (fileNames[i]["fieldName"] == nameof(materialItemDataPath))
             {
-                toolDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+                materialItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
+            if (fileNames[i]["fieldName"] == nameof(toolItemDataPath))
+            {
+                toolItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+            }
+
+
             if (fileNames[i]["fieldName"] == nameof(gameConfigDataPath))
             {
                 gameConfigDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];

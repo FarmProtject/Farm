@@ -49,40 +49,31 @@ public class ItemFactory : MonoBehaviour
     public ItemBase ItemMake(int index)
     {
         ItemType type = ItemType.None;
-
-        TryConvertEnum(dataManager.itemDatas.datas[index], "type", ref type);
+        ItemCategory category = ItemCategory.none;
+        TryConvertEnum(dataManager.itemDatas.datas[index], "category", ref type);
         //TrySetValue(dataManager.itemDatas.datas[index],"type", ref type);
-        ItemBase item;
-        switch (type)
+        ItemBase item = new ItemBase();
+        switch (category)
         {
-            case ItemType.Material:
-                item = new MaterialItem();
+            case ItemCategory.farming:
+                item = new Farming();
                 break;
-            case ItemType.Tool:
-                item = new ToolItem();
-                break;
-            case ItemType.Potion:
-                item = new PotionItem();
-                break;
-            case ItemType.Seed:
-                item = new SeedItem();
-                break;
-            case ItemType.Fertilizer:
-                item = new FertilizerItem();
-                break;
-            case ItemType.Weapon:
-                item = new WeaponItem();
-                break;
-            case ItemType.Equipment:
+            case ItemCategory.equipment:
                 item = new EquipmentItem();
                 break;
-            case ItemType.None:
+            case ItemCategory.consumable:
+                item = new Consumable();
+                break;
+            case ItemCategory.material:
+                item = new MaterialItem();
+                break;
+            case ItemCategory.tools:
+                item = new Tools();
+                break;
+            case ItemCategory.none:
                 item = new ItemBase();
-                Debug.Log("Item Type Error!");
                 break;
             default:
-                item = new ItemBase();
-                Debug.Log("Item Type Error!");
                 break;
         }
         return SetItemData(index, item);
@@ -149,11 +140,7 @@ public class ItemFactory : MonoBehaviour
         }
         switch (item.category)
         {
-            case ItemCategory.consumable:
-                if (item is ConsumItem consum)
-                {
-                    consum.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
-                }
+            case ItemCategory.farming:
                 break;
             case ItemCategory.equipment:
                 if (item is EquipmentItem equip)
@@ -164,16 +151,21 @@ public class ItemFactory : MonoBehaviour
                     equip.slot = (EquipSlot)Enum.Parse(typeof(EquipSlot), slot);
                 }
                 break;
-            case ItemCategory.harvest:
+            case ItemCategory.consumable:
+                if (item is Consumable consum)
+                {
+                    consum.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                }
                 break;
-            case ItemCategory.readySoil:
+            case ItemCategory.material:
                 break;
-            case ItemCategory.soil:
+            case ItemCategory.tools:
+                break;
+            case ItemCategory.none:
                 break;
             default:
                 break;
         }
-
         return item;
     }
 
@@ -207,10 +199,6 @@ public class ItemFactory : MonoBehaviour
         }
     }
 
-    public void SetEquipData()
-    {
-
-    }
     bool TrySetValue<T>(Dictionary<string, object> data, string key, ref T target)
     {
         if (data.ContainsKey(key) && data[key] != null)
@@ -260,22 +248,26 @@ public class ItemFactory : MonoBehaviour
     {
         switch (category)
         {
-            case ItemCategory.consumable:
-                return dataManager.consumItemData;
+            case ItemCategory.farming:
+                dataManager.
+                break;
+            case ItemCategory.tools:
+                dataManager.
+                break;
             case ItemCategory.equipment:
                 return dataManager.equipItemData;
-            case ItemCategory.harvest:
-                return dataManager.harvestItemData;
-            case ItemCategory.readySoil:
-                return dataManager.readySoilItemData;
-            case ItemCategory.soil:
-                return dataManager.soilItemData;
+                break;
+            case ItemCategory.consumable:
+                return dataManager.consumItemData;
+                break;
+            case ItemCategory.material:
+                return dataManager.materialItemData;
+                break;
+            case ItemCategory.none:
+                break;
             default:
-                return null;
+                break;
         }
-
-
-
 
     }
 }
