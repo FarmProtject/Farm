@@ -249,24 +249,19 @@ public class ItemFactory : MonoBehaviour
         switch (category)
         {
             case ItemCategory.farming:
-                dataManager.
-                break;
+                return dataManager.farmingItemData;
             case ItemCategory.tools:
-                dataManager.
-                break;
+                return dataManager.toolItemData;
             case ItemCategory.equipment:
                 return dataManager.equipItemData;
-                break;
             case ItemCategory.consumable:
                 return dataManager.consumItemData;
-                break;
             case ItemCategory.material:
                 return dataManager.materialItemData;
-                break;
             case ItemCategory.none:
-                break;
+                return null;
             default:
-                break;
+                return null;
         }
 
     }
