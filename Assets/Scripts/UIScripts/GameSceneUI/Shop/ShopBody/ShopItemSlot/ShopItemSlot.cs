@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class ShopItemSlot : UIBase,IObserver,Isubject
+using UnityEngine.EventSystems;
+public class ShopItemSlot : UIBase,IObserver,Isubject,IPointerEnterHandler,IPointerExitHandler
 {
     ShopBodyPanel shopBody;
     public ItemBase itemData;
@@ -15,7 +16,8 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     [SerializeField]
     Button myButton;
     public SetStringKey stringKey;
-
+    [SerializeField]
+    ToolTipPanel toolTipPanel;
     List<IObserver> observers = new List<IObserver>();
     #region lifeCycle
     private void Awake()
@@ -128,6 +130,24 @@ public class ShopItemSlot : UIBase,IObserver,Isubject
     void SetSlotImage()
     {
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("Pointer On ShopPanel");
+        toolTipPanel.UpdateItem(itemData);
+        if (!toolTipPanel.gameObject.activeSelf)
+        {
+            toolTipPanel.gameObject.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (toolTipPanel.gameObject.activeSelf)
+        {
+            toolTipPanel.gameObject.SetActive(false);
+        }
     }
     #endregion
 }

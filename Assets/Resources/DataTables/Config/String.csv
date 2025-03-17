@@ -1,53 +1,53 @@
-id,kr,en
-item_name_100001,±ªÀÌ,Hoe
-item_name_100002,ÁÁÀº ±ªÀÌ,Good Hoe
-item_name_300001,Ã¼·Â Æ÷¼Ç,Potion
-item_name_300002,°í±Ş Ã¼·Â Æ÷¼Ç,Gogup Potion
-item_name_300003,ÃÖ°í±Ş Ã¼·Â Æ÷¼Ç,Choigogup Potion
-item_name_300004,°ø°İ·Â Æ÷¼Ç,Attackpower Potion
-item_name_300005,¹æ¾î·Â Æ÷¼Ç,Deffencse Potion
-item_name_300006,ÀÌµ¿¼Óµµ Æ÷¼Ç,Speed Potion
-item_name_300011,¾¾¾Ñ1,Seed1
-item_name_300012,¾¾¾Ñ2,Seed2
-item_name_300013,ºñ·á1,Fertilizer1
-item_name_300014,ºñ·á2,Fertilizer2
-item_desc_100001,±âº»ÀûÀÎ ±ªÀÌ,basic hoe
-item_desc_100002,ÀÏ¹İÀûÀÎ °Íº¸´Ù Á¶±İ ´õ ÁÁÀº ±ªÀÌ,a slightly better hoe
-item_desc_300001,Ã¼·Â È¸º¹ Æ÷¼Ç,Potion
-item_desc_300002,Ã¼·ÂÀ» ¸¹ÀÌ È¸º¹½ÃÄÑÁÖ´Â Æ÷¼Ç,Gogup Potion
-item_desc_300003,Ã¼·ÂÀ» ¸Å¿ì ¸¹ÀÌ È¸º¹½ÃÄÑÁÖ´Â Æ÷¼Ç,Choigogup Potion
-item_desc_300004,°ø°İ·Â ¹öÇÁ Æ÷¼Ç,Attackpower Potion
-item_desc_300005,¹æ¾î·Â ¹öÇÁ Æ÷¼Ç,Deffencse Potion
-item_desc_300006,ÀÌµ¿¼Óµµ ¹öÇÁ Æ÷¼Ç,Speed Potion
-item_desc_300011,¾¾¾Ñ1¼³¸í,Seed1
-item_desc_300012,¾¾¾Ñ2¼³¸í,Seed2
-item_desc_300013,ºñ·á1¼³¸í,Fertilizer1
-item_desc_300014,ºñ·á2¼³¸í,Fertilizer2
-ui_shop_name,»óÁ¡,Shop
-ui_bag_name,°¡¹æ,Bag
-noti_shop_nomoney,µ·ÀÌ ºÎÁ·ÇØ ±¸¸ÅÇÒ ¼ö ¾ø½À´Ï´Ù,I don't have enough money to buy it
-noti_common_wait,Áö±İÀº ÇÒ ¼ö ¾ø½À´Ï´Ù,I can't do it now
-itemtype_soil,³ó±â±¸,Farming Gear
-itemtype_readySoil,³ó±â±¸,Farming Gear
-itemtype_harvest,³ó±â±¸,Farming Gear
-itemtype_potion,Æ÷¼Ç,Potion
-itemtype_material,Àç·á,Material
-itemstat_attack,°ø°İ·Â + {0},Attack + {0}
-itemstat_defence,¹æ¾î·Â + {0},Deffence + {0}
-itemstat_movespeed,ÀÌµ¿¼Óµµ + {0},Move Speed + {0}
+ï»¿id,kr,en
+item_name_100001,ê´­ì´,Hoe
+item_name_100002,ì¢‹ì€ ê´­ì´,Good Hoe
+item_name_300001,ì²´ë ¥ í¬ì…˜,Potion
+item_name_300002,ê³ ê¸‰ ì²´ë ¥ í¬ì…˜,Gogup Potion
+item_name_300003,ìµœê³ ê¸‰ ì²´ë ¥ í¬ì…˜,Choigogup Potion
+item_name_300004,ê³µê²©ë ¥ í¬ì…˜,Attackpower Potion
+item_name_300005,ë°©ì–´ë ¥ í¬ì…˜,Deffencse Potion
+item_name_300006,ì´ë™ì†ë„ í¬ì…˜,Speed Potion
+item_name_300011,ì”¨ì•—1,Seed1
+item_name_300012,ì”¨ì•—2,Seed2
+item_name_300013,ë¹„ë£Œ1,Fertilizer1
+item_name_300014,ë¹„ë£Œ2,Fertilizer2
+item_desc_100001,ê¸°ë³¸ì ì¸ ê´­ì´,basic hoe
+item_desc_100002,ì¼ë°˜ì ì¸ ê²ƒë³´ë‹¤ ì¡°ê¸ˆ ë” ì¢‹ì€ ê´­ì´,a slightly better hoe
+item_desc_300001,ì²´ë ¥ íšŒë³µ í¬ì…˜,Potion
+item_desc_300002,ì²´ë ¥ì„ ë§ì´ íšŒë³µì‹œì¼œì£¼ëŠ” í¬ì…˜,Gogup Potion
+item_desc_300003,ì²´ë ¥ì„ ë§¤ìš° ë§ì´ íšŒë³µì‹œì¼œì£¼ëŠ” í¬ì…˜,Choigogup Potion
+item_desc_300004,ê³µê²©ë ¥ ë²„í”„ í¬ì…˜,Attackpower Potion
+item_desc_300005,ë°©ì–´ë ¥ ë²„í”„ í¬ì…˜,Deffencse Potion
+item_desc_300006,ì´ë™ì†ë„ ë²„í”„ í¬ì…˜,Speed Potion
+item_desc_300011,ì”¨ì•—1ì„¤ëª…,Seed1
+item_desc_300012,ì”¨ì•—2ì„¤ëª…,Seed2
+item_desc_300013,ë¹„ë£Œ1ì„¤ëª…,Fertilizer1
+item_desc_300014,ë¹„ë£Œ2ì„¤ëª…,Fertilizer2
+ui_shop_name,ìƒì ,Shop
+ui_bag_name,ê°€ë°©,Bag
+noti_shop_nomoney,ëˆì´ ë¶€ì¡±í•´ êµ¬ë§¤í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤,I don't have enough money to buy it
+noti_common_wait,ì§€ê¸ˆì€ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤,I can't do it now
+itemtype_soil,ë†ê¸°êµ¬,Farming Gear
+itemtype_readySoil,ë†ê¸°êµ¬,Farming Gear
+itemtype_harvest,ë†ê¸°êµ¬,Farming Gear
+itemtype_potion,í¬ì…˜,Potion
+itemtype_material,ì¬ë£Œ,Material
+itemstat_attack,ê³µê²©ë ¥ + {0},Attack + {0}
+itemstat_defence,ë°©ì–´ë ¥ + {0},Deffence + {0}
+itemstat_movespeed,ì´ë™ì†ë„ + {0},Move Speed + {0}
 common_price,{0} g,{0} g
-common_count,{0}°³,{0}
-common_maxstack,ÃÖ´ë °³¼ö: {0}°³,Max {0}
-Itemtype_material,Àç·á,Material
-Itemtype_tools,µµ±¸,Tools
-Itemtype_potion,¹°¾à,Potion
-Itemtype_seed,¾¾¾Ñ,Seed
-Itemtype_fertilizer,ºñ·á,Fertilizer
-Itemtype_weapon,¹«±â,Weapon
-Itemtype_equipment_hand,Àå°©,Hand
-Itemtype_equipment_body,°©¿Ê,Body
-Itemtype_equipment_foot,½Å¹ß,Foot
-Itemtype_equipment_accessories,Àå½Å±¸,Accessories
-stat_damage,°ø°İ·Â,Damage
-stat_defense,¹æ¾î·Â,Defense
-stat_speed,ÀÌµ¿ ¼Óµµ,Speed
+common_count,{0}ê°œ,{0}
+common_maxstack,ìµœëŒ€ ê°œìˆ˜: {0}ê°œ,Max {0}
+Itemtype_material,ì¬ë£Œ,Material
+Itemtype_tools,ë„êµ¬,Tools
+Itemtype_potion,ë¬¼ì•½,Potion
+Itemtype_seed,ì”¨ì•—,Seed
+Itemtype_fertilizer,ë¹„ë£Œ,Fertilizer
+Itemtype_weapon,ë¬´ê¸°,Weapon
+Itemtype_equipment_hand,ì¥ê°‘,Hand
+Itemtype_equipment_body,ê°‘ì˜·,Body
+Itemtype_equipment_foot,ì‹ ë°œ,Foot
+Itemtype_equipment_accessories,ì¥ì‹ êµ¬,Accessories
+stat_damage,ê³µê²©ë ¥,Damage
+stat_defense,ë°©ì–´ë ¥,Defense
+stat_speed,ì´ë™ ì†ë„,Speed

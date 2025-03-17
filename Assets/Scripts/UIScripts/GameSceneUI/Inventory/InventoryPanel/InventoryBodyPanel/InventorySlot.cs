@@ -92,7 +92,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         wheelAction = new InvenWheelAction();
         
     }
-
+    void ToolTipUpdate()
+    {
+        tooltipPanel.UpdateItem(item);
+    }
     public ItemBase GetItem()
     {
         return item;
@@ -128,6 +131,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 inven.inventory[slotNumber] = null;
             }
         }
+        ToolTipUpdate();
     }
 
     void UpDateSprite()

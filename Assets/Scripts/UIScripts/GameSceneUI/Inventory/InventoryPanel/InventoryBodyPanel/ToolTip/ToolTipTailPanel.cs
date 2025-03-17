@@ -64,4 +64,12 @@ public class ToolTipTailPanel : UIBase, IObserver
             obs.GetStart();
         }
     }
+    public void SetPos(float left, float right, float bottom, float top)
+    {
+        onBottom = bottom;
+        onLeft = left;
+        onRight = right;
+        onTop = top;
+
+    }
 }

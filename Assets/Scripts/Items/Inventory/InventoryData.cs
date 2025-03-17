@@ -15,23 +15,32 @@ public class InventoryData
 
     public void AddinInventory(ItemBase item)
     {
-        ItemBase addedItem = OnGetCountCheck(item);
-        if(addedItem != item)
+        if(item == null || !GameManager.instance.dataManager.items.ContainsKey(item.id))
         {
-            AddinInventory(item);
-            Debug.Log("Loof!");
+            Debug.Log("Item Id isn't Contain or item is Null");
+            return;
         }
-        if ((item!= addedItem && addedItem.itemCount <=0)||(item == addedItem && addedItem.itemCount <=0))
+        ItemBase addedItem = OnGetCountCheck(item);
+        if (addedItem == null)
+        {
+            Debug.Log("Can't make item script");
+            return;
+        }
+        if (addedItem.id != item.id)
+        {
+            Debug.Log("Id isn't same!");
+            AddinInventory(item);
+            
+        }
+        addedItem.itemCount = item.itemCount;
+        if ((item.id != addedItem.id && addedItem.itemCount <=0)||(item.id == addedItem.id && addedItem.itemCount <=0))
         {
             Debug.Log("Item Count <= 0 In inventoryData AddinVentoryFcuntion");
+            Debug.Log($"item count : {item.itemCount} addedItemCount : {addedItem.itemCount}");
             return;
         }
-        addedItem = OnGetItemCheck(addedItem);
-        if(addedItem == null)
-        {
-            Debug.Log("Can't Get Item! ");
-            return;
-        }
+        
+        
         if(item == addedItem)
         {
             Debug.Log("Same Script");
@@ -63,10 +72,12 @@ public class InventoryData
             
         }
         EventManager.instance.OnInventoryUpdate.Invoke();
+        
     }
     public ItemBase OnGetCountCheck(ItemBase item)
     {
-        ItemBase getItem = item ;
+        ItemBase getItem = GameManager.instance.itemFactory.ItemMake(item.id) ;
+        getItem.itemCount = item.itemCount;
         if (item.itemCount > item.maxStack)
         {
             getItem = GameManager.instance.itemFactory.ItemMake(item.id);

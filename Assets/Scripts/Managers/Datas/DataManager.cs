@@ -188,6 +188,7 @@ public class DataManager : MonoBehaviour
         StringKeyRead(stringDataPath);
         ReadStringData();
         ReadMultiKey();
+        StringKeyDebug();
     }
 
     void AllDataRead()
@@ -201,7 +202,7 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
-        Debug.Log(effectDataPath + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        
         //DebugEffcetDict();
         IntKeyReadToString(effectData, effectDataPath);
 
@@ -253,6 +254,19 @@ public class DataManager : MonoBehaviour
 
 
             }
+        }
+    }
+
+    void StringKeyDebug()
+    {
+        foreach(string key in stringDatas.Keys)
+        {
+            foreach(string lg in stringDatas[key].Keys)
+            {
+                Debug.Log($" key : {key}   lng : {lg}    valuy : {stringDatas[key][lg]}");
+            }
+
+
         }
     }
     #endregion

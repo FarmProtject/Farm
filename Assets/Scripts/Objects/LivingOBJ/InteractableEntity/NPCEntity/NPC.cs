@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPC : InteractableEntity,IInteractable
 {
+    [SerializeField]
     protected int id;
     protected override void OnAwake()
     {

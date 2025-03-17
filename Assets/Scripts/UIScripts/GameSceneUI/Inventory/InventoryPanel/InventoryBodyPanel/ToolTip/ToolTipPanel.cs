@@ -11,6 +11,8 @@ public class ToolTipPanel : UIBase,Isubject
     [SerializeField]
     Image itemImage;
     [SerializeField]
+    GameObject headPaenl;
+    [SerializeField]
     SetStringKey headNameText;
     [SerializeField]
     SetStringKey headTypeText;
@@ -25,13 +27,19 @@ public class ToolTipPanel : UIBase,Isubject
     [SerializeField]
     TextMeshProUGUI goldValue;
     [SerializeField]
-    GameObject bodyPanel;
+    GameObject bodyPanelPrefab;
     [SerializeField]
     GameObject tailPanel;
+    ToolTipTailPanel tailPanelSc;
 
+    List<GameObject> bodyPanels = new List<GameObject>();
     List<IObserver> observers = new List<IObserver>();
     private void Awake()
     {
+        if(headPaenl == null)
+        {
+            headPaenl = this.transform.GetChild(0).gameObject;
+        }
         this.gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -48,18 +56,23 @@ public class ToolTipPanel : UIBase,Isubject
     {
         OnStart();
     }
-    void UpdateItem()
+    public void UpdateItem(ItemBase item)
     {
-        item = slot.GetItem();
+        this.item = item;
     }
 
     void UpdateItemInfo()
     {
-        UpdateItem();
+        SetBodyPael();
+        if (tailPanelSc == null)
+        {
+            tailPanelSc = tailPanel.transform.GetComponent<ToolTipTailPanel>();
+        }
         if (item != null)
         {
             string key = item.id.ToString();
             itemImage.sprite = slot.itemSprite.sprite;
+            
             headNameText.SetItemKey(key);
             descText.SetItemDiscKey(key);
             headTypeText.SetTypeKey(key);
@@ -93,7 +106,76 @@ public class ToolTipPanel : UIBase,Isubject
             obs.Invoke();
         }
     }
+    #region 중단세팅 판별
+    void SetBodyPael()
+    {
+        int bodyCount = 0;
+        float tailPanelPos = 0;
+        if(item is EffectItem effectItem)
+        {
+            if (bodyPanels.Count < 1)
+            {
+                GameObject go = Instantiate(bodyPanelPrefab);
+                bodyPanels.Add(go);
+                go.transform.SetParent(this.gameObject.transform);
+                ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
+                ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
+                Vector3 pos = headPaenl.transform.position;
+                panel.transform.position =new Vector2(headPanelSc.myWidth ,headPanelSc.myHeight);
+            }
 
+            if(item is EquipmentItem equipItem)
+            {
+                if (bodyPanels.Count < equipItem.equipStats.Count)
+                {
+                    for(int i = bodyPanels.Count; i < equipItem.equipStats.Count; i++)
+                    {
+                        GameObject go = Instantiate(bodyPanelPrefab);
+                        go.transform.SetParent(this.gameObject.transform);
+                        bodyPanels.Add(go);
+                        ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
+                        ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
+                        Vector3 pos = headPaenl.transform.position;
+                        
+                        panel.transform.position = new Vector2(headPanelSc.myWidth, headPanelSc.myHeight+(panel.myHeight*i));
+                    }
+                }
+            }
+           
+        }
+        else
+        {
+            if (bodyPanels.Count > 1)
+            {
+                for(int i = 0; i > bodyPanels.Count; i++)
+                {
+                    bodyPanels[i].SetActive(false);
+                }
+            }
+        }
+        for(int i = 0; i < bodyPanels.Count; i++)
+        {
+            if (bodyPanels[i].activeSelf)
+            {
+                bodyCount++;
+            }
+        }
+        tailPanelPos += headPaenl.transform.GetComponent<ToolTipTailPanel>().myHeight;
+        tailPanelPos += bodyPanelPrefab.transform.GetComponent<ToolTipBodyPanel>().myHeight * bodyCount;
+        SetTailPanel(tailPanelPos);
+    }
+    #endregion
+    #region 하단패널
+    void SetTailPanel(float onTop)
+    {
+        if(tailPanelSc == null)
+        {
+            tailPanelSc = tailPanel.transform.GetComponent<ToolTipTailPanel>();
+        }
+        tailPanelSc.SetPos(0, 0, 0, onTop);
+        tailPanelSc.Invoke();
+    }
+    #endregion
     void SetMyDirection()
     { 
         Vector2 pos = this.transform.position;

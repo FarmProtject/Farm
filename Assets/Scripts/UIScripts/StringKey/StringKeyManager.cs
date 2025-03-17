@@ -61,7 +61,15 @@ public class StringKeyManager : MonoBehaviour
             Debug.Log("key Wasn't Contain");
             return null;
         }
-        text = stringData[key][lngKey].ToString();
+        if (stringData.ContainsKey(key) && stringData[key].ContainsKey(lngKey))
+        {
+            text = stringData[key][lngKey].ToString();
+        }
+        else
+        {
+            Debug.Log("Key Didn't Contained!");
+            text = "KeyError";
+        }
         return text;
     }
     void SetField()

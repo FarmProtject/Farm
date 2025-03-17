@@ -1143,6 +1143,7 @@ MonoBehaviour:
   onRight: 0
   slot: {fileID: 6269662635439647530}
   itemImage: {fileID: 4665031103251347124}
+  headPaenl: {fileID: 0}
   headNameText: {fileID: 860461971240441658}
   headTypeText: {fileID: 860461971240441658}
   itemCountText: {fileID: 1902497324195583173}

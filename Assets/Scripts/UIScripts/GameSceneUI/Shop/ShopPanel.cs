@@ -48,6 +48,10 @@ public class ShopPanel : UIBase, Isubject , IPointerClickHandler
     {
         foreach(int index in itemIdList)
         {
+            if (!itemDict.ContainsKey(index))
+            {
+
+            }
             itemDict.Add(index, GameManager.instance.itemFactory.GetItemData(index));
             itemList.Add(itemDict[index]);
         }
