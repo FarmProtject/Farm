@@ -52,7 +52,7 @@ item_desc_300001,포션1 설명,Potion 1 Description
 item_desc_300002,포션2 설명,Potion 2 Description
 item_desc_300003,포션3 설명,Potion 3 Description
 item_desc_300004,포션4 설명,Potion 4 Description
-item_desc_300005,포션5 설명,Part 5 Description
+item_desc_300005,포션5 설명,Potion 5 Description
 item_desc_400001,재료1 설명,Material 1 Description
 item_desc_400002,재료2 설명,Material 2 Description
 item_desc_400003,재료3 설명,Material 3 Description
@@ -85,3 +85,31 @@ Itemtype_equipment_accessories,장신구,Accessories
 stat_damage,공격력,Damage
 stat_defense,방어력,Defense
 stat_speed,이동 속도,Speed
+useeffect_name_1001,물뿌리기1,Watering 1 
+useeffect_name_1002,물뿌리기2,Watering 2 
+useeffect_name_1004,씨앗뿌리기,Seeding 
+useeffect_name_1005,비료뿌리기,Fertilizer 
+useeffect_name_1006,개간1,Cultivating 1 
+useeffect_name_1007,개간2,Cultivating 2 
+useeffect_name_1009,땅되돌리기,Remove Soil 
+useeffect_name_2001,체력 지속 회복,HP HoT 
+useeffect_name_2003,체력 퍼센트 회복,HP Percent 
+useeffect_name_2004,독,Poision 
+useeffect_name_2006,독 퍼센트,Poision Percent 
+useeffect_name_2007,공격력 증가,Damage Buff 
+useeffect_name_3001,칼 휘두르기,Slash 
+useeffect_name_3004,체력 회복,HP Heal 
+useeffect_desc_1001,물뿌리기1 설명,Watering 1 description
+useeffect_desc_1002,물뿌리기2 설명,Watering 2 description
+useeffect_desc_1004,씨앗뿌리기 설명,Seeding Description
+useeffect_desc_1005,비료뿌리기 설명,Fertilizer Description
+useeffect_desc_1006,개간1 설명,Cultivating 1 Description
+useeffect_desc_1007,개간2 설명,Cultivating 2 Description
+useeffect_desc_1009,땅되돌리기 설명,Remove Soil Description
+useeffect_desc_2001,체력 지속 회복 설명,HP HoT Description
+useeffect_desc_2003,체력 퍼센트 회복 설명,HP Percent Description
+useeffect_desc_2004,독 설명,Poision Description
+useeffect_desc_2006,독 퍼센트 설명,Poision Percent Description
+useeffect_desc_2007,공격력 증가 설명,Damage Buff Description
+useeffect_desc_3001,칼 휘두르기 설명,Slash Description
+useeffect_desc_3004,체력 회복 설명,HP Heal Description
