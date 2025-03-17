@@ -156,7 +156,7 @@ public class ToolTipPanel : UIBase,Isubject
         {
             if (bodyPanels.Count > 1)
             {
-                for(int i = 0; i > bodyPanels.Count; i++)
+                for(int i = 0; i < bodyPanels.Count; i++)
                 {
                     bodyPanels[i].SetActive(false);
                 }
@@ -182,7 +182,7 @@ public class ToolTipPanel : UIBase,Isubject
         {
             tailPanelSc = tailPanel.transform.GetComponent<ToolTipTailPanel>();
         }
-        onTop += tailPanelSc.myHeight / 2;
+        //onTop += tailPanelSc.myHeight / 2;
         tailPanelSc.SetPos(0, 0, 0, onTop);
         tailPanelSc.Invoke();
     }
