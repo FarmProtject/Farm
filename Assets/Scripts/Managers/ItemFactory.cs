@@ -52,12 +52,11 @@ public class ItemFactory : MonoBehaviour
         ItemCategory category = ItemCategory.none;
         TryConvertEnum(dataManager.itemDatas.datas[index], "category", ref type);
         //TrySetValue(dataManager.itemDatas.datas[index],"type", ref type);
-        ItemBase item;
+        ItemBase item = new ItemBase();
         switch (category)
         {
-            case ItemCategory.farmingTools:
-                item = new FarmingTools();
-                
+            case ItemCategory.farming:
+                item = new Farming();
                 break;
             case ItemCategory.equipment:
                 item = new EquipmentItem();
@@ -68,12 +67,15 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.material:
                 item = new MaterialItem();
                 break;
+            case ItemCategory.tools:
+                item = new Tools();
+                break;
             case ItemCategory.none:
+                item = new ItemBase();
                 break;
             default:
                 break;
         }
-        
         return SetItemData(index, item);
     }
 
@@ -136,10 +138,9 @@ public class ItemFactory : MonoBehaviour
         {
             effectItem.useEffectKey = CategoryToTable(item.category)[effectItem.id]["useEffect"].ToString();
         }
-        
         switch (item.category)
         {
-            case ItemCategory.farmingTools:
+            case ItemCategory.farming:
                 break;
             case ItemCategory.equipment:
                 if (item is EquipmentItem equip)
@@ -157,6 +158,8 @@ public class ItemFactory : MonoBehaviour
                 }
                 break;
             case ItemCategory.material:
+                break;
+            case ItemCategory.tools:
                 break;
             case ItemCategory.none:
                 break;
@@ -196,10 +199,6 @@ public class ItemFactory : MonoBehaviour
         }
     }
 
-    public void SetEquipData()
-    {
-
-    }
     bool TrySetValue<T>(Dictionary<string, object> data, string key, ref T target)
     {
         if (data.ContainsKey(key) && data[key] != null)
@@ -249,7 +248,10 @@ public class ItemFactory : MonoBehaviour
     {
         switch (category)
         {
-            case ItemCategory.farmingTools:
+            case ItemCategory.farming:
+                dataManager.
+                break;
+            case ItemCategory.tools:
                 dataManager.
                 break;
             case ItemCategory.equipment:

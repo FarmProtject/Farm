@@ -15,10 +15,11 @@ public enum ItemType
 }
 public enum ItemCategory
 {
-    farmingTools,
+    farming,
     equipment,
     consumable,
     material,
+    tools,
     none
 }
 
@@ -30,8 +31,11 @@ public class MaterialItem : ItemBase
 {
 
 }
+public class Tools : EffectItem
+{
 
-public class FarmingTools : EffectItem
+}
+public class Farming : EffectItem
 {
 
 }
@@ -44,4 +48,5 @@ public class EquipmentItem : EffectItem
 {
     public Dictionary<string, int> equipStats = new Dictionary<string, int>();
 }
+pu
 
