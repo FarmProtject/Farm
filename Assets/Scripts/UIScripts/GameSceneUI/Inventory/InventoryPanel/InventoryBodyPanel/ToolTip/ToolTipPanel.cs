@@ -44,8 +44,10 @@ public class ToolTipPanel : UIBase,Isubject
     }
     private void OnEnable()
     {
+        
         UpdateItemInfo();
         Debug.Log(this.transform.position);
+        OnStart();
     }
     protected override void OnStart()
     {
@@ -54,7 +56,7 @@ public class ToolTipPanel : UIBase,Isubject
     }
     protected override void Start()
     {
-        OnStart();
+        //OnStart();
     }
     public void UpdateItem(ItemBase item)
     {
@@ -106,9 +108,12 @@ public class ToolTipPanel : UIBase,Isubject
             obs.Invoke();
         }
     }
+    #region 상단 세팅
+    #endregion
     #region 중단세팅 판별
     void SetBodyPael()
     {
+        //headPaenl.transform.position = new Vector3(0, 0, 0);
         int bodyCount = 0;
         float tailPanelPos = 0;
         if(item is EffectItem effectItem)
@@ -120,8 +125,9 @@ public class ToolTipPanel : UIBase,Isubject
                 go.transform.SetParent(this.gameObject.transform);
                 ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
                 ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
-                Vector3 pos = headPaenl.transform.position;
-                panel.transform.position =new Vector2(headPanelSc.myWidth ,headPanelSc.myHeight);
+                //Vector3 pos = headPaenl.transform.position;
+                panel.transform.position =new Vector2(0 ,headPanelSc.myHeight);
+                panel.Invoke();
             }
 
             if(item is EquipmentItem equipItem)
@@ -130,14 +136,17 @@ public class ToolTipPanel : UIBase,Isubject
                 {
                     for(int i = bodyPanels.Count; i < equipItem.equipStats.Count; i++)
                     {
+                        float panelPos;
                         GameObject go = Instantiate(bodyPanelPrefab);
                         go.transform.SetParent(this.gameObject.transform);
                         bodyPanels.Add(go);
                         ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
                         ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
-                        Vector3 pos = headPaenl.transform.position;
-                        
-                        panel.transform.position = new Vector2(headPanelSc.myWidth, headPanelSc.myHeight+(panel.myHeight*i));
+                        //Vector3 pos = headPaenl.transform.position;
+                        panelPos = headPanelSc.myHeight;
+                        panelPos += panel.myHeight / 2;
+                        panel.transform.position = new Vector2(0, panelPos + (panel.myHeight*i));
+                        panel.Invoke();
                     }
                 }
             }
@@ -160,8 +169,9 @@ public class ToolTipPanel : UIBase,Isubject
                 bodyCount++;
             }
         }
-        tailPanelPos += headPaenl.transform.GetComponent<ToolTipTailPanel>().myHeight;
-        tailPanelPos += bodyPanelPrefab.transform.GetComponent<ToolTipBodyPanel>().myHeight * bodyCount;
+        tailPanelPos += headPaenl.transform.GetComponent<ToolTipHeadPanel>().myHeight;
+        //tailPanelPos += bodyPanelPrefab.transform.GetComponent<ToolTipBodyPanel>().myHeight * bodyCount;
+        //tailPanelPos += tailPanel.transform.GetComponent<ToolTipTailPanel>().myHeight / 2;
         SetTailPanel(tailPanelPos);
     }
     #endregion
@@ -172,6 +182,7 @@ public class ToolTipPanel : UIBase,Isubject
         {
             tailPanelSc = tailPanel.transform.GetComponent<ToolTipTailPanel>();
         }
+        onTop += tailPanelSc.myHeight / 2;
         tailPanelSc.SetPos(0, 0, 0, onTop);
         tailPanelSc.Invoke();
     }

@@ -16,6 +16,7 @@ public class ToolTipHeadPanel : UIBase, IObserver
     }
     protected override void OnStart()
     {
+        transform.position = new Vector3(0, 0, 0);
         base.OnStart();
         SetObservers();
         Notyfy();
