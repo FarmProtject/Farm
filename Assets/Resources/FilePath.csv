@@ -1,16 +1,16 @@
-﻿folder,filename,#주석#,fieldName
-Drop,dropItemGroup,드랍 테이블,dropTablePath
-Farm,harvest,농사 관련,harvestDataPath
-Shop,shop,상점,shopDataPath
-Config,GameConfig,각종 값,gameConfigDataPath
-Config,string,문자열 관리,stringDataPath
-Item,consumableItemData,,consumItemDataPath
-Item,EquipItemData,,equipItemDataPath
-Item,equipmentStatTable,,equipentsStatTableDataPath
-Item,harvestItemData,,harvestItemDataPath
-Item,itemData,,itemDataPath
-Item,MaterialData,,materialDataPath
-Item,readySoilItemData,,readySoilItemDataPath
-Item,soilItemData,,soilItemDataPath
-Item,ToolData,,toolDataPath
-Skill,effect,,effectDataPath
+﻿folder,filename,fieldName,#주석#
+Drop,dropItemGroup,dropTablePath,드랍 테이블
+Farm,harvest,harvestDataPath,농사 관련
+Shop,shop,shopDataPath,상점
+Config,GameConfig,gameConfigDataPath,각종 값
+Config,string,stringDataPath,문자열 관리
+Item,consumableItemData,consumItemDataPath,
+Item,EquipItemData,equipItemDataPath,
+Item,equipmentStatTable,equipentsStatTableDataPath,
+Item,harvestItemData,harvestItemDataPath,
+Item,itemData,itemDataPath,
+Item,readySoilItemData,readySoilItemDataPath,
+Item,soilItemData,soilItemDataPath,
+Item,toolItemData,toolDataPath,
+Item,farmItemData,,
+Skill,effect,effectDataPath,

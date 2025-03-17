@@ -1,28 +1,62 @@
 ﻿id,kr,en
 item_name_100001,괭이,Hoe
-item_name_100002,좋은 괭이,Good Hoe
-item_name_300001,체력 포션,Potion
-item_name_300002,고급 체력 포션,Gogup Potion
-item_name_300003,최고급 체력 포션,Choigogup Potion
-item_name_300004,공격력 포션,Attackpower Potion
-item_name_300005,방어력 포션,Deffencse Potion
-item_name_300006,이동속도 포션,Speed Potion
-item_name_300011,씨앗1,Seed1
-item_name_300012,씨앗2,Seed2
-item_name_300013,비료1,Fertilizer1
-item_name_300014,비료2,Fertilizer2
-item_desc_100001,기본적인 괭이,basic hoe
-item_desc_100002,일반적인 것보다 조금 더 좋은 괭이,a slightly better hoe
-item_desc_300001,체력 회복 포션,Potion
-item_desc_300002,체력을 많이 회복시켜주는 포션,Gogup Potion
-item_desc_300003,체력을 매우 많이 회복시켜주는 포션,Choigogup Potion
-item_desc_300004,공격력 버프 포션,Attackpower Potion
-item_desc_300005,방어력 버프 포션,Deffencse Potion
-item_desc_300006,이동속도 버프 포션,Speed Potion
-item_desc_300011,씨앗1설명,Seed1
-item_desc_300012,씨앗2설명,Seed2
-item_desc_300013,비료1설명,Fertilizer1
-item_desc_300014,비료2설명,Fertilizer2
+item_name_100002,물뿌리개,Watering Can
+item_name_100003,검,Sword
+item_name_100004,도끼,Axe
+item_name_100101,씨앗1,Seed 1
+item_name_100102,씨앗2,Seed 2
+item_name_100103,씨앗3,Seed 3
+item_name_100111,비료1,fertilizer 1
+item_name_100112,비료2,fertilizer 2
+item_name_100113,비료3,fertilizer 3
+item_name_200101,투구,Helmet
+item_name_200102,투구,Helmet
+item_name_200201,갑옷,Defense
+item_name_200202,갑옷,Defense
+item_name_200301,장갑,Gloves
+item_name_200302,장갑,Gloves
+item_name_200401,신발,Shoes
+item_name_200402,신발,Shoes
+item_name_200501,장신구,Trinket
+item_name_200502,장신구,Trinket
+item_name_300001,포션1,Potion 1
+item_name_300002,포션2,Potion 2
+item_name_300003,포션3,Potion 3
+item_name_300004,포션4,Potion 4
+item_name_300005,포션5,Part 5
+item_name_400001,재료1,Material 1
+item_name_400002,재료2,Material 2
+item_name_400003,재료3,Material 3
+item_name_400004,재료4,Material 4
+item_desc_100001,괭이 설명,Hoe Description
+item_desc_100002,물뿌리개 설명,Watering Can Description
+item_desc_100003,검 설명,Sword Description
+item_desc_100004,도끼 설명,Axe Description
+item_desc_100101,씨앗1 설명,Seed 1 Description
+item_desc_100102,씨앗2 설명,Seed 2 Description
+item_desc_100103,씨앗3 설명,Seed 3 Description
+item_desc_100111,비료1 설명,fertilizer 1 Description
+item_desc_100112,비료2 설명,fertilizer 2 Description
+item_desc_100113,비료3 설명,fertilizer 3 Description
+item_desc_200101,투구 설명,Helmet Description
+item_desc_200102,투구 설명,Helmet Description
+item_desc_200201,갑옷 설명,Defense Description
+item_desc_200202,갑옷 설명,Defense Description
+item_desc_200301,장갑 설명,Gloves Description
+item_desc_200302,장갑 설명,Gloves Description
+item_desc_200401,신발 설명,Shoes Description
+item_desc_200402,신발 설명,Shoes Description
+item_desc_200501,장신구 설명,Trinket Description
+item_desc_200502,장신구 설명,Trinket Description
+item_desc_300001,포션1 설명,Potion 1 Description
+item_desc_300002,포션2 설명,Potion 2 Description
+item_desc_300003,포션3 설명,Potion 3 Description
+item_desc_300004,포션4 설명,Potion 4 Description
+item_desc_300005,포션5 설명,Part 5 Description
+item_desc_400001,재료1 설명,Material 1 Description
+item_desc_400002,재료2 설명,Material 2 Description
+item_desc_400003,재료3 설명,Material 3 Description
+item_desc_400004,재료4 설명,Material 4 Description
 ui_shop_name,상점,Shop
 ui_bag_name,가방,Bag
 noti_shop_nomoney,돈이 부족해 구매할 수 없습니다,I don't have enough money to buy it

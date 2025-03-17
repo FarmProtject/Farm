@@ -3,8 +3,9 @@
 200102,defence,15
 200201,defence,20
 200202,defence,25
-200301,speed,5
-200302,speed,10
-200401,damage,10
-200402,damage,20
-200601,damage,20
+200301,defence,5
+200302,defence,10
+200401,speed,5
+200402,speed,10
+200501,damage,10
+200502,damage,20
