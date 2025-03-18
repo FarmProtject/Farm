@@ -1,4 +1,4 @@
-﻿groudId,id,statType,statValue
+﻿id,groudId,statType,statValue
 1001,200101,defence,10
 1002,200102,defence,15
 1003,200201,defence,20
@@ -7,5 +7,7 @@
 1006,200302,defence,10
 1007,200401,speed,5
 1008,200402,speed,10
-1009,200501,damage,10
-1010,200502,damage,20
+1009,200402,defence,5
+1010,200501,damage,10
+1011,200502,damage,20
+1012,200502,speed,5
