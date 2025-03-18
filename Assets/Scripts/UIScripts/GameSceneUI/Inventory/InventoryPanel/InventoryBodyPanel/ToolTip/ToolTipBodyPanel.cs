@@ -8,7 +8,7 @@ public class ToolTipBodyPanel : UIBase, IObserver
     List<UIBase> observers = new List<UIBase>();
     private void Awake()
     {
-        OnAwake();
+        //OnAwake();
     }
     protected override void Start()
     {
@@ -16,6 +16,7 @@ public class ToolTipBodyPanel : UIBase, IObserver
     }
     protected override void OnStart()
     {
+        OnAwake();
         base.OnStart();
         SetObservers();
         Notyfy();
@@ -23,6 +24,7 @@ public class ToolTipBodyPanel : UIBase, IObserver
 
     protected override void OnAwake()
     {
+        SetToolTypPanel();
         base.OnAwake();
         tooltipPanel = transform.parent.transform.GetComponent<ToolTipPanel>();
         tooltipPanel.Attach(this);
@@ -30,6 +32,11 @@ public class ToolTipBodyPanel : UIBase, IObserver
     public void Invoke()
     {
         OnStart();
+    }
+
+    void SetToolTypPanel()
+    {
+        tooltipPanel = transform.parent.GetComponent<ToolTipPanel>();
     }
     void SetObservers()
     {

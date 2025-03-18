@@ -88,7 +88,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     
     public void SetTypeKey(string key)
     {
-
+        stringKey = "Itemtype_" + key;
     }
     public void SetCountKey(string key)
     {
@@ -100,7 +100,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     }
     public void SetEffectKey(string key)
     {
-
+        stringKey = "useeffect_name_" + key;
     }
     public void SetMyText(string text)
     {

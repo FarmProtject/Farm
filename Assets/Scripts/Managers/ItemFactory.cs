@@ -184,12 +184,13 @@ public class ItemFactory : MonoBehaviour
 
     public void SetEquipStat(int index, ref EquipmentItem item)
     {
-        if (!dataManager.equipStat.ContainsKey(index))
+        
+        if (!dataManager.equipStatDatas.ContainsKey(index))
         {
             Debug.Log("id Dind't Contain in ItemFactory SetEqupStatFunction");
             return;
         }
-        item.equipStats = DeepCopyStatDict(dataManager.equipStat[index]);
+        //item.equipStats = DeepCopyStatDict(dataManager.equipStatDatas[index]);
 
 
         List<StringKeyDatas> datas = dataManager.equipStatDatas[index];
