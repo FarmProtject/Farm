@@ -123,7 +123,7 @@ public class DataManager : MonoBehaviour
         StringKeyRead(stringDataPath);
         ReadStringData();
         ReadMultiKey();
-        StringKeyDebug();
+        //StringKeyDebug();
     }
 
     void AllDataRead()
@@ -370,7 +370,22 @@ public class DataManager : MonoBehaviour
                     newData.Add(index, dataList);
                 }
             }
-            
+            else if(temp.ContainsKey("id") && int.TryParse(temp["id"].ToString(), out index))
+            {
+                StringKeyDatas keyData = new StringKeyDatas();
+                keyData.datas = temp;
+                if (newData.ContainsKey(index))
+                {
+                    newData[index].Add(keyData);
+                }
+                else
+                {
+                    List<StringKeyDatas> dataList = new List<StringKeyDatas>();
+                    dataList.Add(keyData);
+                    newData.Add(index, dataList);
+                }
+
+            }
         }
     }
     /*

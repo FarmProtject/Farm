@@ -50,16 +50,18 @@ public class ItemFactory : MonoBehaviour
     {
         ItemType type = ItemType.None;
         ItemCategory category = ItemCategory.none;
-        TryConvertEnum(dataManager.itemDatas.datas[index], "category", ref type);
+        TryConvertEnum(dataManager.itemDatas.datas[index], "category", ref category);
         //TrySetValue(dataManager.itemDatas.datas[index],"type", ref type);
-        ItemBase item = new ItemBase();
+        Debug.Log($"Item Category is    {category} ");
+        ItemBase item;
         switch (category)
         {
-            case ItemCategory.farming:
+            case ItemCategory.farm:
                 item = new Farming();
                 break;
             case ItemCategory.equipment:
                 item = new EquipmentItem();
+                Debug.Log("EquipItem Make!!");
                 break;
             case ItemCategory.consumable:
                 item = new Consumable();
@@ -67,13 +69,16 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.material:
                 item = new MaterialItem();
                 break;
-            case ItemCategory.tools:
+            case ItemCategory.tool:
                 item = new Tools();
                 break;
             case ItemCategory.none:
                 item = new ItemBase();
+                Debug.Log("None Type Make!!");
                 break;
             default:
+                Debug.Log("Default Type Make!!");
+                item = new ItemBase();
                 break;
         }
         return SetItemData(index, item);
@@ -134,13 +139,13 @@ public class ItemFactory : MonoBehaviour
         {
             
         }
-        if(item is EffectItem effectItem)
+        if(!(item is EquipmentItem) && item is EffectItem effectItem)
         {
             effectItem.useEffectKey = CategoryToTable(item.category)[effectItem.id]["useEffect"].ToString();
         }
         switch (item.category)
         {
-            case ItemCategory.farming:
+            case ItemCategory.farm:
                 if(item is Farming farm)
                 {
                     farm.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
@@ -150,7 +155,7 @@ public class ItemFactory : MonoBehaviour
                 if (item is EquipmentItem equip)
                 {
                     SetEquipStat(item.id, ref equip);
-                    string slot = CategoryToTable(item.category)[item.id]["slot"].ToString();
+                    string slot = CategoryToTable(item.category)[item.id]["slotType"].ToString();
                     //equip.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
                     equip.slot = (EquipSlot)Enum.Parse(typeof(EquipSlot), slot);
                 }
@@ -163,7 +168,7 @@ public class ItemFactory : MonoBehaviour
                 break;
             case ItemCategory.material:
                 break;
-            case ItemCategory.tools:
+            case ItemCategory.tool:
                 if (item is Tools tool)
                 {
                     tool.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
@@ -256,10 +261,13 @@ public class ItemFactory : MonoBehaviour
     {
         switch (category)
         {
-            case ItemCategory.farming:
+            case ItemCategory.farm:
+                Debug.Log("Get farmingItemData");
                 return dataManager.farmingItemData;
-            case ItemCategory.tools:
+            case ItemCategory.tool:
+                Debug.Log("Get ToolItemData");
                 return dataManager.toolItemData;
+                
             case ItemCategory.equipment:
                 return dataManager.equipItemData;
             case ItemCategory.consumable:

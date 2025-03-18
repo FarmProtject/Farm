@@ -116,8 +116,31 @@ public class ToolTipPanel : UIBase,Isubject
         //headPaenl.transform.position = new Vector3(0, 0, 0);
         int bodyCount = 0;
         float tailPanelPos = 0;
-        if(item is EffectItem effectItem)
+        if (item is EquipmentItem equipItem)
         {
+            Debug.Log($"item is EquipItem {equipItem.equipStats.Count}");
+
+            if (bodyPanels.Count < equipItem.equipStats.Count)
+            {
+                for (int i = bodyPanels.Count; i < equipItem.equipStats.Count; i++)
+                {
+                    float panelPos;
+                    GameObject go = Instantiate(bodyPanelPrefab);
+                    go.transform.SetParent(this.gameObject.transform);
+                    bodyPanels.Add(go);
+                    ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
+                    ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
+                    //Vector3 pos = headPaenl.transform.position;
+                    panelPos = headPanelSc.myHeight;
+                    panelPos += panel.myHeight / 2;
+                    panel.transform.position = new Vector2(0, panelPos + (panel.myHeight * i));
+                    panel.Invoke();
+                }
+            }
+        }
+        else if (item is EffectItem effectItem)
+        {
+            Debug.Log("item is effectItem");
             if (bodyPanels.Count < 1)
             {
                 GameObject go = Instantiate(bodyPanelPrefab);
@@ -130,30 +153,12 @@ public class ToolTipPanel : UIBase,Isubject
                 panel.Invoke();
             }
 
-            if(item is EquipmentItem equipItem)
-            {
-                if (bodyPanels.Count < equipItem.equipStats.Count)
-                {
-                    for(int i = bodyPanels.Count; i < equipItem.equipStats.Count; i++)
-                    {
-                        float panelPos;
-                        GameObject go = Instantiate(bodyPanelPrefab);
-                        go.transform.SetParent(this.gameObject.transform);
-                        bodyPanels.Add(go);
-                        ToolTipBodyPanel panel = go.transform.GetComponent<ToolTipBodyPanel>();
-                        ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
-                        //Vector3 pos = headPaenl.transform.position;
-                        panelPos = headPanelSc.myHeight;
-                        panelPos += panel.myHeight / 2;
-                        panel.transform.position = new Vector2(0, panelPos + (panel.myHeight*i));
-                        panel.Invoke();
-                    }
-                }
-            }
+            
            
         }
         else
         {
+            Debug.Log("Item is ItemBase");
             if (bodyPanels.Count > 1)
             {
                 for(int i = 0; i < bodyPanels.Count; i++)

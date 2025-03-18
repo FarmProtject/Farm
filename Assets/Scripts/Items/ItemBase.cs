@@ -11,6 +11,7 @@ public enum Rarity
 public enum EquipSlot
 {
     None,
+    head,
     hand,
     body,
     foot,

@@ -30,12 +30,10 @@ public class ShopPopUpInputField : UIBase
         if (plusButton != null)
         {
             plusButton.onClick.AddListener(PlusItemCount);
-            Debug.Log(11);
         }
         if(minusButton != null)
         {
             minusButton.onClick.AddListener(MinusItemCount);
-            Debug.Log(111);
         }
     }
 

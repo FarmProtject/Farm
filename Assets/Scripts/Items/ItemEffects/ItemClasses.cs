@@ -15,11 +15,11 @@ public enum ItemType
 }
 public enum ItemCategory
 {
-    farming,
+    farm,
     equipment,
     consumable,
     material,
-    tools,
+    tool,
     none
 }
 
