@@ -6,6 +6,8 @@ public class ToolTipBodyPanel : UIBase, IObserver
     ToolTipPanel tooltipPanel;
 
     List<UIBase> observers = new List<UIBase>();
+
+    public SetStringKey myStringKey;
     private void Awake()
     {
         //OnAwake();

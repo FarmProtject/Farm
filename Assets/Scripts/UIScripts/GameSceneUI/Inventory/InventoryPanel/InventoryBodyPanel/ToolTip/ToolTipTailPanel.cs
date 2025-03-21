@@ -1,10 +1,12 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using TMPro;
 public class ToolTipTailPanel : UIBase, IObserver
 {
     ToolTipPanel tooltipPanel;
-
+    public SetStringKey myDscString;
+    public TextMeshProUGUI myGoldText;
     List<UIBase> observers = new List<UIBase>();
     private void Awake()
     {

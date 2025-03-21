@@ -10,6 +10,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     string stringText;
     [SerializeField]
     TextMeshProUGUI myText;
+    string statValue;
     StringKeyManager stringKeyManager;
     private void Awake()
     {
@@ -45,6 +46,10 @@ public class SetStringKey : MonoBehaviour,IObserver
         }
         
     }
+    public void TextToStringText()
+    {
+        myText.text = stringText;
+    }
     public string GetmyId()
     {
         if (stringKey != null)
@@ -57,17 +62,27 @@ public class SetStringKey : MonoBehaviour,IObserver
     }
     public string SetStringText()
     {
-        string text = "";
-        if (stringKey != null)
+        if (stringKey != null && (stringKey.Contains("stat_")))
         {
-            text = stringKeyManager.GetStringData(stringKey);
+            stringText = stringKeyManager.GetStringData(stringKey) + "  " + statValue;
+            Debug.Log(stringText);
+            Debug.Log("EquipMents Text ");
+        }
+        else if (stringKey != null)
+        {
+            stringText = stringKeyManager.GetStringData(stringKey);
         }
         else
         {
             Debug.Log("stringKey null in SetStringKey SetStringText Function");
         }
 
-        return text;
+        return stringText;
+    }
+    public void UpdateMyText()
+    {
+        SetStringText();
+        EnableFuction();
     }
     public void SetItemKey(string key) 
     {
@@ -90,23 +105,28 @@ public class SetStringKey : MonoBehaviour,IObserver
     {
         stringKey = "Itemtype_" + key;
     }
-    public void SetCountKey(string key)
+    public void SetCommonKey(string key)
     {
+        stringKey = "common_" + key;
 
     }
-    public void SetMaxCountKey(string key)
-    {
 
-    }
     public void SetEffectKey(string key)
     {
-        stringKey = "useeffect_name_" + key;
+        stringKey = "useeffect_desc_" + key;
     }
-    public void SetMyText(string text)
+    public void SetStatKey(string key,string value)
     {
-        myText.text = text;
+        stringKey = "stat_" + key;
+        statValue = value;
     }
 
+    public void SetMyText(string text)
+    {
+        stringText = text;
+        myText.text = stringText;
+    }
+    
     public void SetMyFont()
     {
         if(myText.font != stringKeyManager.font)
@@ -116,7 +136,13 @@ public class SetStringKey : MonoBehaviour,IObserver
             Debug.Log("Font Set");
         }
     }
-
+    public string ValueTextReplace(string replace)
+    {
+        string outPut = stringText.Replace("{0}", replace);
+        stringText = outPut;
+        Debug.Log($"OutPut {outPut}");
+        return outPut;
+    }
     void SetField()
     {
         if(myText == null)

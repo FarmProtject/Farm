@@ -21,8 +21,6 @@ public class ToolTipPanel : UIBase,Isubject
     [SerializeField]
     SetStringKey maxCountText;
     [SerializeField]
-    SetStringKey usingEffectText;
-    [SerializeField]
     SetStringKey descText;
     [SerializeField]
     TextMeshProUGUI goldValue;
@@ -58,6 +56,11 @@ public class ToolTipPanel : UIBase,Isubject
     {
         //OnStart();
     }
+    public void PanelUpdate(ItemBase item)
+    {
+        UpdateItem(item);
+        UpdateItemInfo();
+    }
     public void UpdateItem(ItemBase item)
     {
         this.item = item;
@@ -65,23 +68,20 @@ public class ToolTipPanel : UIBase,Isubject
 
     void UpdateItemInfo()
     {
+        if(item == null)
+        {
+            return;
+        }
+        ActiveFalseBodys();
         SetBodyPael();
+        HeadPanelStringSet();
         if (tailPanelSc == null)
         {
             tailPanelSc = tailPanel.transform.GetComponent<ToolTipTailPanel>();
         }
         if (item != null)
         {
-            string key = item.id.ToString();
             itemImage.sprite = slot.itemSprite.sprite;
-            
-            headNameText.SetItemKey(key);
-            descText.SetItemDiscKey(key);
-            headTypeText.SetTypeKey(key);
-            itemCountText.SetCountKey(key);
-            maxCountText.SetMaxCountKey(key);
-            usingEffectText.SetEffectKey(key);
-            goldValue.text = item.price.ToString();
         }
     }
 
@@ -109,6 +109,36 @@ public class ToolTipPanel : UIBase,Isubject
         }
     }
     #region 상단 세팅
+    void HeadPanelStringSet()
+    {
+        headNameText.SetItemKey(item.id.ToString());
+        GetItemType();
+        itemCountText.SetCommonKey("count");
+        maxCountText.SetCommonKey("maxstack");
+        itemCountText.SetStringText();
+        string countText = itemCountText.ValueTextReplace(item.itemCount.ToString());
+        itemCountText.SetMyText(countText);
+        maxCountText.SetStringText();
+        string maxText = maxCountText.ValueTextReplace( item.maxStack.ToString());
+        maxCountText.SetMyText(maxText);
+        headNameText.EnableFuction();
+        headTypeText.EnableFuction();
+        //headTypeText.EnableFuction();
+        itemCountText.TextToStringText();
+        maxCountText.TextToStringText();
+    }
+
+    void GetItemType()
+    {
+        if(item is EquipmentItem equipItem)
+        {
+            headTypeText.SetTypeKey(item.slot.ToString());
+        }
+        else
+        {
+            headTypeText.SetTypeKey(item.category.ToString());
+        }
+    }
     #endregion
     #region 중단세팅 판별
     void SetBodyPael()
@@ -116,15 +146,19 @@ public class ToolTipPanel : UIBase,Isubject
         //headPaenl.transform.position = new Vector3(0, 0, 0);
         int bodyCount = 0;
         float tailPanelPos = 0;
+        int activedBody = 0 ;
         if (item is EquipmentItem equipItem)
         {
             Debug.Log($"item is EquipItem {equipItem.equipStats.Count}");
-
+            foreach(string key in equipItem.equipStats.Keys)
+            {
+                Debug.Log($" StatKey : {key}   StatValue {equipItem.equipStats[key]}" );
+            }
             if (bodyPanels.Count < equipItem.equipStats.Count)
             {
                 for (int i = bodyPanels.Count; i < equipItem.equipStats.Count; i++)
                 {
-                    float panelPos;
+                    float panelPos=0;
                     GameObject go = Instantiate(bodyPanelPrefab);
                     go.transform.SetParent(this.gameObject.transform);
                     bodyPanels.Add(go);
@@ -132,13 +166,26 @@ public class ToolTipPanel : UIBase,Isubject
                     ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
                     //Vector3 pos = headPaenl.transform.position;
                     panelPos = headPanelSc.myHeight;
-                    panelPos += panel.myHeight / 2;
-                    panel.transform.position = new Vector2(0, panelPos + (panel.myHeight * i));
-                    panel.Invoke();
+                    panelPos += panel.myHeight;
+                    panel.onTop = panelPos + (panel.myHeight * (equipItem.equipStats.Count-i));
+                }
+            }
+            else
+            {
+                for(int i = 0; i < equipItem.equipStats.Count; i++)
+                {
+                    float panelPos = 0;
+                    bodyPanels[i].SetActive(true);
+                    ToolTipBodyPanel panel = bodyPanels[i].transform.GetComponent<ToolTipBodyPanel>();
+                    ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
+                    //Vector3 pos = headPaenl.transform.position;
+                    panelPos = headPanelSc.myHeight;
+                    panelPos += panel.myHeight;
+                    panel.onTop = panelPos + (panel.myHeight * (equipItem.equipStats.Count - i));
                 }
             }
         }
-        else if (item is EffectItem effectItem)
+        else if (!(item is EquipmentItem) && (item is EffectItem effectItem))
         {
             Debug.Log("item is effectItem");
             if (bodyPanels.Count < 1)
@@ -150,11 +197,15 @@ public class ToolTipPanel : UIBase,Isubject
                 ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
                 //Vector3 pos = headPaenl.transform.position;
                 panel.transform.position =new Vector2(0 ,headPanelSc.myHeight);
-                panel.Invoke();
+            }
+            else
+            {
+                bodyPanels[0].SetActive(true);
+                ToolTipBodyPanel panel = bodyPanels[0].transform.GetComponent<ToolTipBodyPanel>();
+                ToolTipHeadPanel headPanelSc = headPaenl.transform.GetComponent<ToolTipHeadPanel>();
+                panel.transform.position = new Vector2(0, headPanelSc.myHeight);
             }
 
-            
-           
         }
         else
         {
@@ -174,10 +225,61 @@ public class ToolTipPanel : UIBase,Isubject
                 bodyCount++;
             }
         }
+        
+        for(int i =0; i < bodyPanels.Count; i++)
+        {
+            if (bodyPanels[i].gameObject.activeSelf)
+            {
+                activedBody++;
+                bodyPanels[i].transform.GetComponent<ToolTipBodyPanel>().Invoke();
+            }
+        }
+
         tailPanelPos += headPaenl.transform.GetComponent<ToolTipHeadPanel>().myHeight;
-        //tailPanelPos += bodyPanelPrefab.transform.GetComponent<ToolTipBodyPanel>().myHeight * bodyCount;
-        //tailPanelPos += tailPanel.transform.GetComponent<ToolTipTailPanel>().myHeight / 2;
+        tailPanelPos += activedBody * bodyPanelPrefab.GetComponent<ToolTipBodyPanel>().myHeight;
+        BodyPanelInfoUpdate();
         SetTailPanel(tailPanelPos);
+    }
+
+    void BodyPanelInfoUpdate()
+    {
+        if (item is EquipmentItem equipitem)
+        {
+            int index = 0;
+            foreach(string key in equipitem.equipStats.Keys)
+            {
+                bodyPanels[index].SetActive(true);
+                SetStringKey stringKey = bodyPanels[index].transform.GetComponent<ToolTipBodyPanel>().myStringKey;
+                if(stringKey == null)
+                {
+                    Debug.Log("stringKey SC is Null!");
+                    return;
+                }
+                Debug.Log($"  Key : {key} Value : {equipitem.equipStats[key]}");
+                stringKey.SetStatKey(key,equipitem.equipStats[key].ToString());
+                stringKey.UpdateMyText();
+                //stringKey.gameObject.SetActive(true);
+                index++;
+                
+            }
+
+        }
+        else if(item is EffectItem effectItem)
+        {
+            bodyPanels[0].SetActive(true);
+            SetStringKey stringKey = bodyPanels[0].transform.GetComponent<ToolTipBodyPanel>().myStringKey;
+            stringKey.SetEffectKey(effectItem.useEffectKey);
+            stringKey.UpdateMyText(); ;
+
+        }
+        
+    }
+    void ActiveFalseBodys()
+    {//바디패널 비활성화
+        for(int i = 0; i < bodyPanels.Count; i++)
+        {
+            bodyPanels[i].SetActive(false);
+        }
     }
     #endregion
     #region 하단패널
@@ -190,6 +292,9 @@ public class ToolTipPanel : UIBase,Isubject
         //onTop += tailPanelSc.myHeight / 2;
         tailPanelSc.SetPos(0, 0, 0, onTop);
         tailPanelSc.Invoke();
+        tailPanelSc.myDscString.SetItemDiscKey(item.id.ToString());
+        tailPanelSc.myDscString.UpdateMyText();
+        tailPanelSc.myGoldText.text = item.price.ToString();
     }
     #endregion
     void SetMyDirection()

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public enum ItemType
 {
-    Material,
-    Tool,
-    Potion,
-    Seed,
-    Fertilizer,
-    Weapon,
+    material,
+    tools,
+    potion,
+    seed,
+    fertilizer,
+    weapon,
     Equipment,
     None
 }

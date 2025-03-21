@@ -110,6 +110,10 @@ public class ShopItemSlot : UIBase,IObserver,Isubject,IPointerEnterHandler,IPoin
         GameManager.instance.UIManager.ShopPopUpOpen();
         GameManager.instance.UIManager.shopManager.AddConfirmFunction();
         Debug.Log("buttonFundtion Added In ShopItemSlot");
+        if(GameManager.instance.UIManager.shopManager.item == null)
+        {
+            GameManager.instance.UIManager.shopManager.SetBuyingItem(itemData);
+        }
         //GameManager.instance.UIManager.shopManager.SetEachPrice();
     }
 

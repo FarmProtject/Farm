@@ -13,6 +13,7 @@ public class ShopPopUpPanel : UIBase, Isubject
     [SerializeField]
     TextMeshProUGUI itemCount;
     public ItemBase item;
+    [SerializeField]TMP_InputField popUpInputPanel;
     public void Attach(IObserver observer)
     {
         if (!observers.Contains(observer))
@@ -67,11 +68,31 @@ public class ShopPopUpPanel : UIBase, Isubject
     }
     void SetItemCount()
     {
-        itemCount.text =  item.itemCount.ToString();
+        if(item == null)
+        {
+            Debug.Log("item is Null");
+            return;
+        }
+        if (popUpInputPanel.text != null)
+        {
+            if (int.TryParse(popUpInputPanel.text, out item.itemCount))
+            {
+                itemCount.text = item.itemCount.ToString();
+            }
+        }
+        else
+        {
+            itemCount.text = item.itemCount.ToString();
+        }
         Debug.Log("Need to Write ItemCOunt in ShopPopUpPanel");
     }
     void SetItemName()
     {
+        if (item == null)
+        {
+            Debug.Log("item is Null");
+            return;
+        }
         itemName.text = item.name;
         Debug.Log("Need to Write SetItemName in ShopPopUpPanel");
     }

@@ -108,6 +108,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             UpDateSprite();
             UpdateItemAmount();
             SetImageSize();
+            tooltipPanel.PanelUpdate(item);
+            
         }
         else
         {
@@ -119,9 +121,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void UpDateData()
     {
-        if (inven.inventory == null || slotNumber<0 || inven.inventory[slotNumber]==null)
+        if (inven.inventory == null || slotNumber<0)
         {
             return;
+        }
+        else if (inven.inventory[slotNumber] == null)
+        {
+            item = null;
         }
         item = inven.inventory[slotNumber];
         if(item!=null)
@@ -175,6 +181,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (GameManager.instance.mouseManager.clickedSlot == null)
         {
             SlotItemPickUp();
+            tooltipOBJ.SetActive(false);
         }
         else
         {
@@ -313,7 +320,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (item != null)
+        if (item != null && item.itemCount!=0)
         {
             tooltipOBJ.SetActive(true);
         }

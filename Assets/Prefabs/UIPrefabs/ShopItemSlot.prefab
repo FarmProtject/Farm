@@ -289,7 +289,7 @@ RectTransform:
   - {fileID: 9098303030411612236}
   - {fileID: 3231024545481780434}
   - {fileID: 4390816008561159256}
-  - {fileID: 6418147239903138320}
+  - {fileID: 3083296221793387768}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -362,7 +362,7 @@ MonoBehaviour:
   itemPrice: {fileID: 3728838263875813075}
   myButton: {fileID: 0}
   stringKey: {fileID: 0}
-  toolTipPanel: {fileID: 8210055836503006925}
+  toolTipPanel: {fileID: 191767432114216785}
 --- !u!114 &840149851334659458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,14 +915,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5db1607a506b594aa8ebe5e0127d7d6, type: 3}
---- !u!224 &6418147239903138320 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8705096954324919134, guid: a5db1607a506b594aa8ebe5e0127d7d6, type: 3}
-  m_PrefabInstance: {fileID: 2440776614297710926}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8210055836503006925 stripped
+--- !u!114 &191767432114216785 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5778288947136950147, guid: a5db1607a506b594aa8ebe5e0127d7d6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2555276089905884703, guid: a5db1607a506b594aa8ebe5e0127d7d6, type: 3}
   m_PrefabInstance: {fileID: 2440776614297710926}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -931,3 +926,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34efdbdea0247bd459bbd8a83f76d1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3083296221793387768 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 798668710692206006, guid: a5db1607a506b594aa8ebe5e0127d7d6, type: 3}
+  m_PrefabInstance: {fileID: 2440776614297710926}
+  m_PrefabAsset: {fileID: 0}

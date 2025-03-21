@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 5}
+  m_AnchoredPosition: {x: -42.2, y: -0.3}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1751293292097402252
@@ -276,3 +276,4 @@ MonoBehaviour:
   onBottom: 60
   onLeft: 0
   onRight: 0
+  myStringKey: {fileID: 6968001438486436076}

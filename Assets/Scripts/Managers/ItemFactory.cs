@@ -123,7 +123,7 @@ public class ItemFactory : MonoBehaviour
 
         }
 
-        if (TrySetValue(data.datas[index], "maxstack", ref item.maxStack))
+        if (TrySetValue(data.datas[index], "maxStack", ref item.maxStack))
         {
 
         }
@@ -193,9 +193,18 @@ public class ItemFactory : MonoBehaviour
         //item.equipStats = DeepCopyStatDict(dataManager.equipStatDatas[index]);
 
 
-        List<StringKeyDatas> datas = dataManager.equipStatDatas[index];
-        for(int i = 0; i < datas.Count; i++)
+        List<StringKeyDatas> datas = dataManager.equipStatDatas[index];//List<Dictionary<string,object>>
+        Dictionary<string, int> newData = new Dictionary<string, int>();
+        for (int i = 0; i < datas.Count; i++)
         {
+            string statType = datas[i].datas["statType"].ToString();
+            int stat = int.Parse(datas[i].datas["statValue"].ToString());
+            if (!newData.ContainsKey(statType))
+            {
+                newData.Add(statType, stat);
+            }
+            /*
+            string key = datas[index].datas["statType"]
             Dictionary<string, int> data = new Dictionary<string, int>();
             foreach(string key in datas[i].datas.Keys)
             {
@@ -208,9 +217,9 @@ public class ItemFactory : MonoBehaviour
                 {
                     Debug.Log("Data Parsing Error");
                 }
-            }
-            item.equipStats = DeepCopyStatDict(data);
+            }*/
         }
+        item.equipStats = (newData);
     }
 
     bool TrySetValue<T>(Dictionary<string, object> data, string key, ref T target)

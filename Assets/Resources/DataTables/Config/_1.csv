@@ -73,15 +73,15 @@ common_price,{0} g,{0} g
 common_count,{0}개,{0}
 common_maxstack,최대 개수: {0}개,Max {0}
 Itemtype_material,재료,Material
-Itemtype_tool,도구,Tools
-Itemtype_consumable,소모품,consumItem
-Itemtype_farm,농장아이템,FarmItem
+Itemtype_tools,도구,Tools
+Itemtype_potion,물약,Potion
+Itemtype_seed,씨앗,Seed
+Itemtype_fertilizer,비료,Fertilizer
 Itemtype_weapon,무기,Weapon
-Itemtype_hand,장갑,Hand
-Itemtype_head,투구,Head
-Itemtype_body,갑옷,Body
-Itemtype_foot,신발,Foot
-Itemtype_accessories,장신구,Accessories
+Itemtype_equipment_hand,장갑,Hand
+Itemtype_equipment_body,갑옷,Body
+Itemtype_equipment_foot,신발,Foot
+Itemtype_equipment_accessories,장신구,Accessories
 stat_damage,공격력,Damage
 stat_defence,방어력,Defense
 stat_speed,이동 속도,Speed

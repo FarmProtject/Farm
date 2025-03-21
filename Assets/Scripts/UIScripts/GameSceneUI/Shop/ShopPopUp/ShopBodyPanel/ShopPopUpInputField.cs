@@ -90,6 +90,17 @@ public class ShopPopUpInputField : UIBase
     }
     void UpdateInputField() 
     {
+        if(shopManager.item == null)
+        {
+            Debug.Log("shpo Item Null!!");
+        }
+        if (inputField.text != null)
+        {
+            if(int.TryParse(inputField.text,out shopManager.item.itemCount))
+            {
+                shopManager.item.itemCount = itemCount;
+            }
+        }
         shopManager.item.itemCount = itemCount;
         shopManager.SetInputField();
         inputField.text = shopManager.itemCount.ToString();

@@ -153,6 +153,7 @@ public class DataManager : MonoBehaviour
         LoadMulti(shopDataPath, shopData);
         LoadMulti(equipentsStatTableDataPath, equipStatDatas);
         LoadMulti(harvestDataPath, harvestData);
+        //DebugStats();
         //HarvestDataDebug();
         //MultiObToInt(shopData, shops);
         //MultiObToInt(equipStatDatas, equipStat);
@@ -160,6 +161,21 @@ public class DataManager : MonoBehaviour
     }
 
     #region debugs
+    void DebugStats()
+    {
+        foreach(int index in equipStatDatas.Keys)
+        {
+            for(int i = 0; i < equipStatDatas[index].Count; i++)
+            {
+                foreach(string key in equipStatDatas[index][i].datas.Keys)
+                {
+                    Debug.Log($"StatType : {key}  Value : {equipStatDatas[index][i].datas[key]}");
+
+                }
+                
+            }
+        }
+    }
     void DebugEffcetDict()
     {
         List<Dictionary<string, object>> temp = csvReader.Read(effectDataPath);

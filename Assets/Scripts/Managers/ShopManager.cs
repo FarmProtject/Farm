@@ -237,6 +237,10 @@ public class ShopManager : MonoBehaviour
     #endregion
     public void SellItem()
     {
+        if(item == null)
+        {
+            return;
+        }
         player.gold += item.price * itemCount;
         Debug.Log("sell");
         GameManager.instance.playerEntity.inventory.DecreaseItemCount(item, itemCount);
