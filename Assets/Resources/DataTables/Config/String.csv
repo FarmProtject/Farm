@@ -72,6 +72,12 @@ itemstat_movespeed,이동속도 + {0},Move Speed + {0}
 common_price,{0} g,{0} g
 common_count,{0}개,{0}
 common_maxstack,최대 개수: {0}개,Max {0}
+common_confirm,확인,Confirm
+common_cancle,취소,Cancle
+common_eachPrice,개당가격 {0},Each Price {0}
+common_sumPrice,합계 {0},Sum Price {0}
+common_buy,구매,Buy
+common_sell,판매,Sell
 Itemtype_material,재료,Material
 Itemtype_tool,도구,Tools
 Itemtype_consumable,소모품,consumItem

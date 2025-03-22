@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-public class ShopItemSlot : UIBase,IObserver,Isubject,IPointerEnterHandler,IPointerExitHandler
+public class ShopItemSlot : UIBase,IObserver,Isubject, IPointerEnterHandler, IPointerExitHandler
 {
     ShopBodyPanel shopBody;
     public ItemBase itemData;
@@ -105,14 +105,21 @@ public class ShopItemSlot : UIBase,IObserver,Isubject,IPointerEnterHandler,IPoin
 
     void ButtonFunction()
     {
-        GameManager.instance.UIManager.shopManager.SetBuyingItem(itemData);
-        GameManager.instance.UIManager.shopManager.shopState = ShopState.buy;
-        GameManager.instance.UIManager.ShopPopUpOpen();
-        GameManager.instance.UIManager.shopManager.AddConfirmFunction();
-        Debug.Log("buttonFundtion Added In ShopItemSlot");
-        if(GameManager.instance.UIManager.shopManager.item == null)
+        if(GameManager.instance.mouseManager.clickedSlot == null)
         {
-            GameManager.instance.UIManager.shopManager.SetBuyingItem(itemData);
+            ItemBase item = GameManager.instance.itemFactory.ItemMake(itemData.id);
+            item.itemCount = itemData.itemCount;
+            GameManager.instance.UIManager.shopManager.shopState = ShopState.buy;
+            GameManager.instance.UIManager.shopManager.SetBuyingItem(item);
+            GameManager.instance.UIManager.ShopPopUpOpen();
+            GameManager.instance.UIManager.shopManager.AddConfirmFunction();
+            Debug.Log("buttonFundtion Added In ShopItemSlot");
+            if (GameManager.instance.UIManager.shopManager.item == null)
+            {
+                item = GameManager.instance.itemFactory.ItemMake(itemData.id);
+                GameManager.instance.UIManager.shopManager.SetBuyingItem(item);
+                GameManager.instance.UIManager.shopManager.AddConfirmFunction();
+            }
         }
         //GameManager.instance.UIManager.shopManager.SetEachPrice();
     }
@@ -138,12 +145,16 @@ public class ShopItemSlot : UIBase,IObserver,Isubject,IPointerEnterHandler,IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer On ShopPanel");
-        toolTipPanel.UpdateItem(itemData);
-        if (!toolTipPanel.gameObject.activeSelf)
+        if(itemData != null)
         {
-            toolTipPanel.gameObject.SetActive(true);
+            Debug.Log("Pointer On ShopPanel");
+            toolTipPanel.UpdateItem(itemData);
+            if (!toolTipPanel.gameObject.activeSelf)
+            {
+                toolTipPanel.gameObject.SetActive(true);
+            }
         }
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -51,8 +51,6 @@ public class ItemFactory : MonoBehaviour
         ItemType type = ItemType.None;
         ItemCategory category = ItemCategory.none;
         TryConvertEnum(dataManager.itemDatas.datas[index], "category", ref category);
-        //TrySetValue(dataManager.itemDatas.datas[index],"type", ref type);
-        Debug.Log($"Item Category is    {category} ");
         ItemBase item;
         switch (category)
         {
@@ -190,8 +188,6 @@ public class ItemFactory : MonoBehaviour
             Debug.Log("id Dind't Contain in ItemFactory SetEqupStatFunction");
             return;
         }
-        //item.equipStats = DeepCopyStatDict(dataManager.equipStatDatas[index]);
-
 
         List<StringKeyDatas> datas = dataManager.equipStatDatas[index];//List<Dictionary<string,object>>
         Dictionary<string, int> newData = new Dictionary<string, int>();
@@ -203,21 +199,6 @@ public class ItemFactory : MonoBehaviour
             {
                 newData.Add(statType, stat);
             }
-            /*
-            string key = datas[index].datas["statType"]
-            Dictionary<string, int> data = new Dictionary<string, int>();
-            foreach(string key in datas[i].datas.Keys)
-            {
-                int value;
-                if(int.TryParse(datas[i].datas[key].ToString(), out value))
-                {
-                    data.Add(key, value);
-                }
-                else
-                {
-                    Debug.Log("Data Parsing Error");
-                }
-            }*/
         }
         item.equipStats = (newData);
     }
@@ -283,7 +264,7 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.consumable:
                 return dataManager.consumItemData;
             case ItemCategory.material:
-                return null;//dataManager.items;
+                return null;
             case ItemCategory.none:
                 return null;
             default:

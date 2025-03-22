@@ -51,12 +51,8 @@ public class KeySettings
     public void DefaultKeyBinding()
     {
         keyName.Add("run", KeyCode.LeftShift);
-        Debug.Log(keyName["run"]);
         keyName.Add("interact", KeyCode.F);
-        Debug.Log(keyName["interact"]);
         keyName.Add("itemTest", KeyCode.T);
-        Debug.Log(keyName["itemTest"]+"Item Test Key in");
         keyName.Add("inventory", KeyCode.I);
-        Debug.Log(keyName["inventory"]);
     }
 }

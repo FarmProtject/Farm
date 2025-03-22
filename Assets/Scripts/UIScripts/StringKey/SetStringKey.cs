@@ -15,6 +15,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     private void Awake()
     {
         OnAwake();
+        SetMyFont();
     }
 
     void OnAwake()
@@ -25,7 +26,7 @@ public class SetStringKey : MonoBehaviour,IObserver
 
     private void OnEnable()
     {
-        EnableFuction();
+        //EnableFuction();
     }
 
     private void Start()
@@ -62,6 +63,10 @@ public class SetStringKey : MonoBehaviour,IObserver
     }
     public string SetStringText()
     {
+        if(stringKeyManager == null)
+        {
+            SetField();
+        }
         if (stringKey != null && (stringKey.Contains("stat_")))
         {
             stringText = stringKeyManager.GetStringData(stringKey) + "  " + statValue;
@@ -70,7 +75,9 @@ public class SetStringKey : MonoBehaviour,IObserver
         }
         else if (stringKey != null)
         {
+            Debug.Log($"  String Key : {stringKey} ");
             stringText = stringKeyManager.GetStringData(stringKey);
+            Debug.Log(stringText);
         }
         else
         {
@@ -110,7 +117,7 @@ public class SetStringKey : MonoBehaviour,IObserver
         stringKey = "common_" + key;
 
     }
-
+    
     public void SetEffectKey(string key)
     {
         stringKey = "useeffect_desc_" + key;
@@ -124,6 +131,7 @@ public class SetStringKey : MonoBehaviour,IObserver
     public void SetMyText(string text)
     {
         stringText = text;
+        Debug.Log(stringText);
         myText.text = stringText;
     }
     

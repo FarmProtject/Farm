@@ -15,6 +15,7 @@ public class InventoryData
 
     public void AddinInventory(ItemBase item)
     {
+        Debug.Log("Added Item Invoke");
         if(item == null || !GameManager.instance.dataManager.items.ContainsKey(item.id))
         {
             Debug.Log("Item Id isn't Contain or item is Null");
@@ -26,13 +27,12 @@ public class InventoryData
             Debug.Log("Can't make item script");
             return;
         }
-        if (addedItem.id != item.id)
+        if (addedItem != item)
         {
-            Debug.Log("Id isn't same!");
+            Debug.Log("script isn't same!");
             AddinInventory(item);
-            
         }
-        addedItem.itemCount = item.itemCount;
+        //addedItem.itemCount = item.itemCount;
         if ((item.id != addedItem.id && addedItem.itemCount <=0)||(item.id == addedItem.id && addedItem.itemCount <=0))
         {
             Debug.Log("Item Count <= 0 In inventoryData AddinVentoryFcuntion");
@@ -76,17 +76,18 @@ public class InventoryData
     }
     public ItemBase OnGetCountCheck(ItemBase item)
     {
-        ItemBase getItem = GameManager.instance.itemFactory.ItemMake(item.id) ;
-        getItem.itemCount = item.itemCount;
+        ItemBase getItem;
         if (item.itemCount > item.maxStack)
         {
             getItem = GameManager.instance.itemFactory.ItemMake(item.id);
             getItem.itemCount = getItem.maxStack;
             item.itemCount -= getItem.maxStack;
-            Debug.Log($"          {item.itemCount}");
-            Debug.Log($"OnGetCountCheck{getItem.itemCount}");
+            return getItem;
         }
-
+        else
+        {
+            getItem = item;
+        }
         return getItem;
     }
     public ItemBase OnGetItemCheck(ItemBase item)
@@ -128,45 +129,6 @@ public class InventoryData
         }
         
     }
-
-    /*
-    public void OnGetItemCheck(ItemBase item)
-    {
-        int index = CheckSameItem(item);
-        if (index == -1)//인벤토리에 같은 아이템이 있는지 체크
-        {//같은아이템 존재X
-            if (InventorySlotCheck())//인벤토리 여분 확인
-            {
-                //return item; 
-                AddNewItem(item);
-            }
-        
-            else
-            {
-                Debug.Log("Find New Item Inventory Full");
-            }
-        }
-        else
-        {//같은 아이템O
-            int rest = inventory[index].AddStack(item, item.itemCount);//같은 아이템의 스택 ++
-
-            if (rest > 0 && InventorySlotCheck())
-            {//남은 아이템 존재,스택 최대치 도달, 인벤토리의 슬롯O
-                AddNewItem(item);
-                OnGetItemCheck(item);
-            }
-            else if (rest>0 && !InventorySlotCheck())
-            {//남은아이템 존재, 인벤토리의 슬롯X
-                Debug.Log("Let Rest Item");
-            }
-            else
-            {
-                Debug.Log("otherResons");
-            }
-        }
-        EventManager.instance.OnInventoryUpdate.Invoke();
-    }
-    */
 
     bool InventorySlotCheck()
     {
@@ -231,32 +193,7 @@ public class InventoryData
         item.itemCount = original.itemCount;
         return item;
     }
-    /*
-    public void InventorySlotSwap(int first,int second)
-    {
-        Debug.Log("InventorySlotSwap");
-        ItemBase temp;
-        if (inventory[first] == null)
-            return;
-        temp = inventory[first];
-        if(inventory[second]== null)
-        {
-            inventory[second] = inventory[first];
-            inventory[first] = null;
-        }
-        else if (inventory[second] != null && inventory[first].id == inventory[second].id && inventory[first].itemCount<inventory[first].maxStack)
-        {
-            inventory[second].itemCount = inventory[first].maxStack - inventory[first].itemCount;
-            inventory[first].itemCount = inventory[first].maxStack;
-        }
-        else if (inventory[second] != null)
-        {
-            inventory[first] = inventory[second];
-            inventory[second] = temp;
-        }
-        EventManager.instance.OnInventoryUpdate.Invoke();
-    }
-    */
+
     public void InventorySlotSwap(int first, int second)
     {
         Debug.Log("InventorySlotSwap");

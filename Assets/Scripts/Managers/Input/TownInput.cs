@@ -31,10 +31,6 @@ public class TownInput : InputBase
         }
         OnAxisInput();
         OnRunKey();
-        if(front.magnitude == 0)
-        {
-            Debug.Log("MAGNITYDE = 0");
-        }
         OnInteractKey();
 
         OnInventoryKey();

@@ -8,10 +8,13 @@ public class ShopPopUpPanel : UIBase, Isubject
     List<IObserver> observers = new List<IObserver>();
     [SerializeField]
     Image ItemImage;
+    [SerializeField] SetStringKey itemName;
+    [SerializeField] SetStringKey sumValue;
+    [SerializeField] SetStringKey eachPrice;
+    [SerializeField] SetStringKey confirmText;
+    [SerializeField] SetStringKey cancleText;
     [SerializeField]
-    TextMeshProUGUI itemName;
-    [SerializeField]
-    TextMeshProUGUI itemCount;
+    //TextMeshProUGUI itemCount;
     public ItemBase item;
     [SerializeField]TMP_InputField popUpInputPanel;
     public void Attach(IObserver observer)
@@ -66,13 +69,14 @@ public class ShopPopUpPanel : UIBase, Isubject
     {
         Debug.Log("Need to Write SetImage in ShopPopUpPanel");
     }
-    void SetItemCount()
+    public void SetItemCount()
     {
         if(item == null)
         {
             Debug.Log("item is Null");
             return;
         }
+        /*
         if (popUpInputPanel.text != null)
         {
             if (int.TryParse(popUpInputPanel.text, out item.itemCount))
@@ -84,7 +88,18 @@ public class ShopPopUpPanel : UIBase, Isubject
         {
             itemCount.text = item.itemCount.ToString();
         }
-        Debug.Log("Need to Write ItemCOunt in ShopPopUpPanel");
+        */
+        sumValue.SetStringText();
+        eachPrice.SetStringText();
+        sumValue.ValueTextReplace((item.itemCount*item.price).ToString());
+        eachPrice.ValueTextReplace(item.price.ToString());
+        sumValue.TextToStringText();
+        eachPrice.TextToStringText();
+        cancleText.SetStringText();
+        cancleText.TextToStringText();
+        confirmText.SetCommonKey(GameManager.instance.shopManager.shopState.ToString());
+        confirmText.SetStringText();
+        confirmText.TextToStringText();
     }
     void SetItemName()
     {
@@ -93,7 +108,8 @@ public class ShopPopUpPanel : UIBase, Isubject
             Debug.Log("item is Null");
             return;
         }
-        itemName.text = item.name;
+        itemName.SetItemKey(item.id.ToString());
+        itemName.UpdateMyText();
         Debug.Log("Need to Write SetItemName in ShopPopUpPanel");
     }
 

@@ -15,11 +15,9 @@ public class QuickSlotItemClick : IClickAction
     {
         if (item != null && item.itemCount != 0)
         {
-            //item.useeffect.function();
         }
         else
         {
-            Debug.Log("ItemCount 0 or Item Null");
         }
     }
 }
@@ -39,11 +37,9 @@ public class QuickSlotManager : MonoBehaviour
     void SetLeftClick()
     {
         GameManager.instance.mouseManager.leftClick.Push(quickUse);
-        Debug.Log("QuickSlotPuse");
     }
     void UseQuickSlot()
     {
-        Debug.Log("UseQuickSlot Invoked");
         quickUse.Invoke();
     }
 }

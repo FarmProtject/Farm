@@ -27,7 +27,6 @@ public class ClickActionStack
     }
     public IClickAction Peek()
     {
-        Debug.Log("Default Action!!!");
         return actions.Count > 0 ? actions[^1] : defaultAction;
 
     }

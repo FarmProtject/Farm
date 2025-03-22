@@ -39,12 +39,16 @@ public class ToolTipPanel : UIBase,Isubject
             headPaenl = this.transform.GetChild(0).gameObject;
         }
         this.gameObject.SetActive(false);
+        this.transform.SetAsLastSibling();
     }
     private void OnEnable()
     {
-        
+        if(item == null)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
         UpdateItemInfo();
-        Debug.Log(this.transform.position);
         OnStart();
     }
     protected override void OnStart()
@@ -117,15 +121,18 @@ public class ToolTipPanel : UIBase,Isubject
         maxCountText.SetCommonKey("maxstack");
         itemCountText.SetStringText();
         string countText = itemCountText.ValueTextReplace(item.itemCount.ToString());
-        itemCountText.SetMyText(countText);
+        
         maxCountText.SetStringText();
         string maxText = maxCountText.ValueTextReplace( item.maxStack.ToString());
+
+        itemCountText.SetMyText(countText);
         maxCountText.SetMyText(maxText);
+
         headNameText.EnableFuction();
         headTypeText.EnableFuction();
-        //headTypeText.EnableFuction();
-        itemCountText.TextToStringText();
-        maxCountText.TextToStringText();
+
+        //itemCountText.TextToStringText();
+        //maxCountText.TextToStringText();
     }
 
     void GetItemType()

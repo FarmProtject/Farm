@@ -13,6 +13,7 @@ public class ShopPopUpInputField : UIBase
     TMP_InputField inputField;
     ShopManager shopManager;
     PlayerEntity player;
+    [SerializeField]ShopPopUpPanel shopPopUpPanel;
     int itemCount;
     private void Awake()
     {
@@ -61,6 +62,7 @@ public class ShopPopUpInputField : UIBase
         {
             itemCount = Convert.ToInt32(inputField.text);
             UpdateInputField();
+            shopPopUpPanel.SetItemCount();
         }
     }
     void SetItemData(string input)
@@ -92,9 +94,10 @@ public class ShopPopUpInputField : UIBase
     {
         if(shopManager.item == null)
         {
-            Debug.Log("shpo Item Null!!");
+            Debug.Log("shop Item Null!!");
+            return;
         }
-        if (inputField.text != null)
+        if (inputField.text != null && shopManager.item != null)
         {
             if(int.TryParse(inputField.text,out shopManager.item.itemCount))
             {
@@ -104,7 +107,6 @@ public class ShopPopUpInputField : UIBase
         shopManager.item.itemCount = itemCount;
         shopManager.SetInputField();
         inputField.text = shopManager.itemCount.ToString();
-
     }
 
     void PlusItemCount()

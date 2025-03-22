@@ -67,7 +67,6 @@ public class InventoryItemPanel : UIBase,IObserver,Isubject
 
     public void Notyfy()
     {
-        Debug.Log("ItemPanel Notify");
         foreach(var obser in observers)
         {
             obser.Invoke();

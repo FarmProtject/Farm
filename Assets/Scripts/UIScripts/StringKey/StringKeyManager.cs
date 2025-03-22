@@ -53,7 +53,7 @@ public class StringKeyManager : MonoBehaviour
         }
         if(key == null || lngKey == null)
         {
-            Debug.Log("key is Null");
+            Debug.Log("key Wasn't Contain");
             return null;
         }
         if (!stringData.ContainsKey(key) || !stringData[key].ContainsKey(lngKey))
@@ -63,12 +63,10 @@ public class StringKeyManager : MonoBehaviour
         }
         if (stringData.ContainsKey(key) && stringData[key].ContainsKey(lngKey))
         {
-            Debug.Log("Key Contain");
             text = stringData[key][lngKey].ToString();
         }
         else
         {
-            Debug.Log("Key Didn't Contained!");
             text = "KeyError";
         }
         return text;

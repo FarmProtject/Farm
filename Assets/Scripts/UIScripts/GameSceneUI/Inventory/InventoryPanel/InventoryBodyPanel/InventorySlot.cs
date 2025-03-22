@@ -65,6 +65,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField]
     GameObject tooltipOBJ;
     ToolTipPanel tooltipPanel;
+
+    [SerializeField] int id;
     private void Awake()
     {
         myItemImageObj = transform.GetChild(1).gameObject;
@@ -91,6 +93,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         leftClick = new InvenLeftClick(this);
         wheelAction = new InvenWheelAction();
         
+    }
+    private void Update()
+    {
+        if(item != null)
+        {
+            id = item.id;
+        }
     }
     void ToolTipUpdate()
     {
@@ -158,7 +167,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (GameManager.instance.playerEntity.inventory.inventory[slotNumber] != null)
         {
-            itemCount.text = "id : " + GameManager.instance.playerEntity.inventory.inventory[slotNumber].id + " Count : " + GameManager.instance.playerEntity.inventory.inventory[slotNumber].itemCount.ToString();
+            itemCount.text = GameManager.instance.playerEntity.inventory.inventory[slotNumber].itemCount.ToString();
         }
         else
         {
@@ -250,6 +259,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void RayToShopLayer()
     {
+        
         PointerEventData pointerEventData = new PointerEventData(GameManager.instance.UIManager.eventSystem);
         pointerEventData.position = Input.mousePosition;
         GraphicRaycaster caster = GameManager.instance.UIManager.grapicRaycaster;
@@ -277,14 +287,15 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void ItemSell()
     {
-        GameManager.instance.UIManager.shopManager.shopState = ShopState.sell;
-        GameManager.instance.UIManager.shopManager.item = GameManager.instance.playerEntity.inventory.inventory[slotNumber];
-        GameManager.instance.UIManager.shopManager.AddConfirmFunction();
-        GameManager.instance.UIManager.ShopPopUpOpen();
-        ItemPickUpCancle();
-        RemoveMyActions();
-        
-        Debug.Log("sellItem");
+        if(GameManager.instance.mouseManager.clickedSlot != null)
+        {
+            GameManager.instance.UIManager.shopManager.shopState = ShopState.sell;
+            GameManager.instance.UIManager.shopManager.item = GameManager.instance.playerEntity.inventory.inventory[slotNumber];
+            GameManager.instance.UIManager.shopManager.AddConfirmFunction();
+            GameManager.instance.UIManager.ShopPopUpOpen();
+            ItemPickUpCancle();
+            RemoveMyActions();
+        }
     }
     public void InvenRightClick()
     {

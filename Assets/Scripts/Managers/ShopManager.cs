@@ -143,7 +143,7 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Item Null in ShopManager SetEachPrice");
             return;
         }
-        eachPriceText.text = item.price.ToString();
+        //eachPriceText.text = item.price.ToString();
     }
 
     void SetSumPrice()
@@ -167,7 +167,7 @@ public class ShopManager : MonoBehaviour
             default:
                 break;
         }
-        sumPriceText.text = (item.price * itemCount).ToString();
+        
     }
     #endregion
     #region 아이템구매
@@ -182,8 +182,12 @@ public class ShopManager : MonoBehaviour
     void BuyItem()
     {
         BuyCheck();
+        
         player.gold -= tradePrice;
-        player.inventory.AddinInventory(item);
+        ItemBase newItem = GameManager.instance.itemFactory.ItemMake(item.id);
+        Debug.Log($"new Item Name !{newItem.name}");
+        newItem.itemCount = itemCount;
+        player.inventory.AddinInventory(newItem);
         Debug.Log("item buy");
         popUpOBJ.SetActive(false);
     }
@@ -239,6 +243,7 @@ public class ShopManager : MonoBehaviour
     {
         if(item == null)
         {
+            Debug.Log("item Data Null");
             return;
         }
         player.gold += item.price * itemCount;
