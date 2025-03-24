@@ -14,7 +14,7 @@ public enum EffectType
 {
     heal
 }
-public class EffectBase : MonoBehaviour
+public class EffectBase
 {
     public int id;
     public string name;
