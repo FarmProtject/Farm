@@ -10,21 +10,16 @@ public enum EffectTarget
     none
 }
 
-public enum EffectType
-{
-    heal
-}
 public class EffectBase
 {
     public int id;
     public string name;
     public EffectTarget target;
     public string functionName;
-    public EffectType effectType;
     public int integerParameter;
     public float percentParam;
-    public float colliderSizeX;
-    public float colliderSizeY;
-    public float colliderSizeZ;
+    public float colliderHori;
+    public float colliderVert;
+    public float colliderHeight;
 
 }
