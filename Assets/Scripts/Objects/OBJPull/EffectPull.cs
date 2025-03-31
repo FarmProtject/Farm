@@ -7,41 +7,92 @@ enum ColliderDirection
     Horizontal,
     Vertical
 }
-enum ColliderInstatType
+public enum ColliderInstatType
 {
     none,
     Around,
-    Front,
     ToBack
+}
+public class LeftEffectClick : IClickAction
+{
+    EffectPull effectScript;
+    public LeftEffectClick(EffectPull pullScript)
+    {
+        effectScript = pullScript;
+    }
+    public void Invoke()
+    {
+        effectScript.OnLeftClick();
+    }
+}
+public class RightEffectClick : IClickAction
+{
+    EffectPull effectScript;
+    public RightEffectClick(EffectPull pullScript)
+    {
+        effectScript = pullScript;
+    }
+    public void Invoke()
+    {
+        effectScript.OnRightClick();
+    }
 }
 public class EffectPull : MonoBehaviour
 {
-    [SerializeField] GameObject objPreFab;
     GameObject parentsObj;
-    List<GameObject> colliderObjs;
+    [SerializeField]GameObject myObj;
+    
+    BoxCollider myCollider;
     ColliderDirection direction;
     ColliderInstatType collType;
+    Vector3 myCenter;
+    EffectCollider eftColl;
+    LeftEffectClick OnLeftClickAction;
+    RightEffectClick OnRightClickAction;
+    int verti;
+    int hori;
+    int height;
+    Vector3 targetPos;
     private void Awake()
     {
-        
+        OnAwake();
     }
 
+    public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, int verti, int hori, int height)
+    {
+        this.collType = collType;
+        this.targetPos = targetPos;
+        this.verti = verti;
+        this.hori = hori;
+        this.height = height;
+    }
     void OnAwake()
     {
         parentsObj = transform.parent.gameObject;
+        if (myCollider == null)
+        {
+            myCollider = myObj.transform.GetComponent<BoxCollider>();
+        }
+        if(eftColl == null)
+        {
+            eftColl = myCollider.transform.GetComponent<EffectCollider>();
+        }
     }
-    void Invoke(Vector3 targetPos, int verti, int hori, int height)
+    void SetColliderType(ColliderInstatType collType)
     {
+        this.collType = collType;
+    }
+    public void Invoke()
+    {
+        myObj.SetActive(true);
+        SetColliderType(collType);
         SetDirection();
         switch (collType)
         {
             case ColliderInstatType.none:
                 break;
             case ColliderInstatType.Around:
-                AroundSet(targetPos,verti,hori,height);
-                break;
-            case ColliderInstatType.Front:
-                FrontSet(targetPos, verti, hori, height);
+                AroundSet(targetPos, verti, hori, height);
                 break;
             case ColliderInstatType.ToBack:
                 ToBackSet(targetPos, verti, hori, height);
@@ -51,131 +102,82 @@ public class EffectPull : MonoBehaviour
         }
     }
     #region 오브젝트 생성방식
-    void AroundSet(Vector3 targetPos,int verti,int hori,int height)
+    void AroundSet(Vector3 targetPos, int verti, int hori, int height)
     {
+
+        Vector3 collsize = new Vector3();
         switch (direction)
         {
             case ColliderDirection.none:
                 break;
             case ColliderDirection.Horizontal:
-                for(int i = 0; i < verti; i++)
-                {
-                    
-                    for(int j = 0; j < hori; j++)
-                    {
+                collsize.x = hori;
+                collsize.z = verti;
 
-                    }
-                }
+                myCollider.size = collsize;
                 break;
             case ColliderDirection.Vertical:
-                for (int i = 0; i < verti; i++)
-                {
-                    for (int j = 0; j < hori; j++)
-                    {
+                collsize.x = verti;
+                collsize.z = hori;
 
-                    }
-                }
+                myCollider.size = collsize;
+                
                 break;
             default:
                 break;
         }
-
+        myObj.transform.position = targetPos;
     }
     void ToBackSet(Vector3 targetPos, int verti, int hori, int height)
     {
+        Vector3 collSize = new Vector3();
+        Vector3 pibotPos = Vector3.zero;
+        float pibotx = 0f;
+        float pibotz = 0f;
         switch (direction)
         {
             case ColliderDirection.none:
                 break;
             case ColliderDirection.Horizontal:
-                for (int i = 0; i < verti; i++)
-                {
-                    Vector3 temp;
-                    GameObject go = colliderObjs[i * 3];
-                    temp = targetPos;
-                    temp.y = targetPos.y + (i * VertiDirectionSet());
-                    go.SetActive(true);
-                    VertiOBjSet(temp, go);
-                    for (int j = 0; j < hori; j++)
-                    {
-                        GameObject leftObj = colliderObjs[i + 1];
-                        GameObject rightObj = colliderObjs[i + 2];
-                        leftObj.SetActive(true);
-                        rightObj.SetActive(true);
-                        HoriObjSet(targetPos, leftObj, rightObj);
-                    }
-                }
+
+                collSize.x = hori;
+                collSize.z = verti;
+                //피봇계산
+                pibotx = hori / 2;
+                pibotz = verti / 2;
+                pibotPos.x = pibotx;
+                pibotPos.z = pibotz * VertiDirectionSet();
+                pibotPos.y = 0.5f;
+                myCollider.size = collSize;
+                
                 break;
             case ColliderDirection.Vertical:
-                for (int i = 0; i < verti; i++)
-                {
-                    Vector3 temp;
-                    GameObject go = colliderObjs[i * 3];
-                    temp = targetPos;
-                    temp.x = targetPos.x + (i * VertiDirectionSet());
-                    go.SetActive(true);
-                    VertiOBjSet(temp, go);
-                    for (int j = 0; j < hori; j++)
-                    {
-                        GameObject leftObj = colliderObjs[i + 1];
-                        GameObject rightObj = colliderObjs[i + 2];
-                        leftObj.SetActive(true);
-                        rightObj.SetActive(true);
-                        HoriObjSet(targetPos, leftObj, rightObj);
-                    }
-                }
+
+                collSize.z = hori;
+                collSize.x = verti;
+                //피봇계산
+                pibotx = verti/2;
+                pibotz = hori/2;
+                pibotPos.x = pibotx;
+                pibotPos.z = pibotz * VertiDirectionSet();
+                pibotPos.y = 0.5f;
+                myCollider.size = collSize;
+                
                 break;
             default:
                 break;
         }
+        //피봇적용, 위치조정
+        myObj.transform.position = targetPos+pibotPos;
     }
-    void FrontSet(Vector3 targetPos, int verti, int hori, int height)
-    {
-        switch (direction)
-        {
-            case ColliderDirection.none:
-                break;
-            case ColliderDirection.Horizontal:
-                break;
-            case ColliderDirection.Vertical:
-                break;
-            default:
-                break;
-        }
-    }
+
     #endregion
-    void SetObjectCount(int objCount)
-    {
-        int enableObjCount = 0;
-        if (colliderObjs.Count < objCount)
-        {
-            for (int i = colliderObjs.Count; i < objCount; i++)
-            {
-                GameObject go = Instantiate(objPreFab);
-                go.transform.SetParent(this.gameObject.transform);
-                colliderObjs.Add(go);
-                go.SetActive(false);
-            }
-        }
-        
-        for(int i = 0; i< colliderObjs.Count; i++)
-        {
-            if (colliderObjs[i].activeSelf)
-            {
-                enableObjCount++;
-            }
-        }
-        for(int i = 0; i < objCount; i++)
-        {
-            colliderObjs[i].SetActive(true);
-        }
-    }
     void SetDirection()
     {
         Vector3 forward = parentsObj.transform.forward;
         forward.y = 0;
         forward = forward.normalized;
-        if (Math.Abs( forward.x )> Math.Abs( forward.y))
+        if (Math.Abs(forward.x) > Math.Abs(forward.y))
         {
             direction = ColliderDirection.Vertical;//y축 +-  플레이어 프론트 벡터 방향 ←→ 
         }
@@ -184,10 +186,11 @@ public class EffectPull : MonoBehaviour
             direction = ColliderDirection.Horizontal;//x축 +-생성 플레이어 프론트 벡터 방향 ↑ 
         }
     }
-    void HoriObjSet(Vector3 targetPos,GameObject leftTarget, GameObject rightTarget)
+    /*
+    void HoriObjSet(Vector3 targetPos, GameObject leftTarget, GameObject rightTarget)
     { // 평행방향 콜라이더 생성
         Vector3 leftPos = Vector3.zero;
-        Vector3 rightPos = Vector3.zero; 
+        Vector3 rightPos = Vector3.zero;
         Vector3 tempPos;
         switch (direction)
         {
@@ -215,10 +218,7 @@ public class EffectPull : MonoBehaviour
         leftTarget.transform.position = leftPos;
         rightTarget.transform.position = rightPos;
     }
-    void VertiOBjSet(Vector3 targetPos,GameObject vertObj)
-    {
-        vertObj.transform.position = targetPos;
-    }
+    */
     int VertiDirectionSet()
     {
         int direct = 1;
@@ -254,4 +254,14 @@ public class EffectPull : MonoBehaviour
         }
         return direct;
     }
+    #region 실행부
+    public void OnLeftClick()
+    {
+
+    }
+    public void OnRightClick()
+    {
+
+    }
+    #endregion
 }
