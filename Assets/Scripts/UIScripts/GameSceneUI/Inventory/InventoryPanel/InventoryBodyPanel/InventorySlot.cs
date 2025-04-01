@@ -67,6 +67,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     ToolTipPanel tooltipPanel;
 
     [SerializeField] int id;
+
+    bool isMouseOver = false;
     private void Awake()
     {
         myItemImageObj = transform.GetChild(1).gameObject;
@@ -329,13 +331,54 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    void AddInQuickSlot()
+    {
+        
+        if ( isMouseOver && TryGetPressedKey(out KeyCode k))
+        {
+            KeySettings keySettings = GameManager.instance.keySettings;
+            if (keySettings.quickSlotKeyName.ContainsValue(k))
+            {
+                foreach(int index in keySettings.quickSlots.Keys)
+                {
+                    if(keySettings.quickSlots[index].item == item)
+                    {
+                        keySettings.quickSlots[index].item = null;
+                    }
+                }
+
+                int slotNumber = keySettings.quickSlotKeys[k];
+                QuickSlot selectSlot = keySettings.quickSlots[slotNumber];
+                selectSlot.SetItem(item);
+                //아이템 이미지 세팅 필요!
+                Debug.Log(" Need To Write Item Sprite Set ");
+            }
+        }
+    }
+
+
+    bool TryGetPressedKey(out KeyCode key)
+    {
+        foreach (KeyCode k in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(k))
+            {
+                key = k;
+                return true;
+            }
+        }
+        key = KeyCode.None;
+        return false;
+    }
+
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (item != null && item.itemCount!=0)
         {
             tooltipOBJ.SetActive(true);
         }
-        
+        isMouseOver = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -344,6 +387,6 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             tooltipOBJ.SetActive(false);
         }
-        
+        isMouseOver = false;
     }
 }

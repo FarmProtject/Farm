@@ -22,7 +22,8 @@ public class TownInput : InputBase
 
     public PlayerEntity playerEntity;
     public QuickSlotManager quickSlot;
-    
+
+    KeySettings keySetting;
     public override void OnPlayerInput()
     {
         if(cameraTr == null)
@@ -173,26 +174,32 @@ public class TownInput : InputBase
     #region 퀵슬롯 
     void OnQuickSlotKey()
     {
-        foreach(var key in gameManager.keySettings.quickSlotKeys.Keys)
+        if(keySetting == null)
         {
-            int slotNumber = gameManager.keySettings.quickSlotKeys[key];
-            if (Input.GetKeyDown(key))
-            {
-                /*
-                quickSlot.quickUse.SetItem(gameManager.keySettings.quickSlots[slotNumber].item);
-                if ((quickSlot.quickUse.item) is FarmItem farmItem)
-                {//농장에서 사용 가능 한 아이템일경우 레이캐스트로 사용가능여부 판별등에 쓸 레이어 정보 갱신
-                    gameManager.farmManager.InvokeLayerChange(farmItem.layer);
-                }
-                else
-                {
-                    gameManager.farmManager.InvokeLayerChange("Default");//아닐경우 디폴트레이어로 갱신
-                }*/
-            }
+            keySetting = gameManager.keySettings;
+        }
+        KeyCode key;
+        if(TryGetPressedKey( out key) && keySetting.quickSlotKeys.ContainsKey(key))
+        {
+            int index = keySetting.quickSlotKeys[key];
+            QuickSlot select = keySetting.quickSlots[index];
+            gameManager.quickSlotManager.SetSelectSlot(select);
         }
     }
 
+    bool TryGetPressedKey(out KeyCode key)
+    {
+        foreach (KeyCode k in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(k))
+            {
+                key = k;
+                return true;
+            }
+        }
+        key = KeyCode.None;
+        return false;
+    }
 
-    
     #endregion
 }

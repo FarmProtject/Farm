@@ -47,8 +47,6 @@ public class EffectPull : MonoBehaviour
     ColliderInstatType collType;
     Vector3 myCenter;
     EffectCollider eftColl;
-    LeftEffectClick OnLeftClickAction;
-    RightEffectClick OnRightClickAction;
     int verti;
     int hori;
     int height;

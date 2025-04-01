@@ -21603,7 +21603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d3af415fa4b8489a34259f33338cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPreFab: {fileID: 0}
   myObj: {fileID: 1163397157}
 --- !u!65 &1671018719
 BoxCollider:

@@ -14,6 +14,7 @@ public class EffectBase
 {
     public int id;
     public string name;
+    ColliderInstatType collType;
     public EffectTarget target;
     public string functionName;
     public int integerParameter;
