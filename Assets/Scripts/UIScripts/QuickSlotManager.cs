@@ -11,36 +11,47 @@ public class QuickSlotLeftClick : IClickAction
     }
     public void Invoke()
     {
-        if (quickSlotManager.GetSelectSlot() != null && quickSlotManager.GetSelectSlot().item!=null)
+        if (quickSlotManager.GetSelectSlot() != null && quickSlotManager.GetSelectSlot().item != null)
+        {
             quickSlotManager.GetSelectSlot().ItemInvoke();
+            Debug.Log("QuickSlot left Click Invoke");
+        }
+            
+        else
+        {
+            Debug.Log("quickslot data null");
+        }
     }
 }
 
 public class QuickSlotManager : MonoBehaviour,Isubject
 {
+
     Dictionary<int, ItemBase> quickSlotItems = new Dictionary<int, ItemBase>();
-    public QuickSlotLeftClick quickLeftClick;
+    public QuickSlotLeftClick quickLeftClick ;
     List<QuickSlot> quickSlots = new List<QuickSlot>();
     List<IObserver> observers = new List<IObserver>();
-    QuickSlot selectSlot;
+    [SerializeField] GameObject quickSlotPanel;
+    [SerializeField] QuickSlot selectSlot;
     int slotNumber;
 
     private void Awake()
     {
-        
+        OnAwake();
 
     }
 
     void OnAwake()
     {
         quickLeftClick = new QuickSlotLeftClick(this);
+        AddQuickslot();
         QuickSlotSet();
         Notyfy();
     }
 
     private void Start()
     {
-        SetLeftClick();
+        //SetLeftClick();
     }
     public void SetSelectSlot(QuickSlot slot)
     {
@@ -50,10 +61,7 @@ public class QuickSlotManager : MonoBehaviour,Isubject
     {
         return selectSlot;
     }
-    void SetLeftClick()
-    {
-        GameManager.instance.mouseManager.leftClick.Push(quickLeftClick);
-    }
+    
     void UseQuickSlot()
     {
         if (quickSlotItems[slotNumber] != null)
@@ -62,13 +70,32 @@ public class QuickSlotManager : MonoBehaviour,Isubject
         }
         
     }
+    void AddQuickslot()
+    {
+        if (quickSlotPanel == null)
+        {
+            quickSlotPanel = GameObject.Find("QuickSlotPanel").gameObject;
+        }
+
+        QuickSlot[] quicks = quickSlotPanel.transform.GetComponentsInChildren<QuickSlot>();
+        
+        Debug.Log("Added");
+        foreach(QuickSlot quick in quicks)
+        {
+            quickSlots.Add(quick);
+        }
+        
+    }
     void QuickSlotSet()
     {
+        Debug.Log("QuickSlot Set");
+        Debug.Log($"QuickSlot Count : {quickSlots.Count}");
         KeySettings keySetting = GameManager.instance.keySettings;
         for(int i = 0; i < quickSlots.Count; i++)
         {
             quickSlots[i].slotNumber = i + 1;
             keySetting.quickSlots.Add(quickSlots[i].slotNumber, quickSlots[i]);
+            Debug.Log($"quickslot SlotNumber {quickSlots[i].slotNumber}");
         }
     }
     public void AddInQuickSlot(ItemBase item)
@@ -101,4 +128,6 @@ public class QuickSlotManager : MonoBehaviour,Isubject
             observers[i].Invoke();
         }
     }
+
+
 }

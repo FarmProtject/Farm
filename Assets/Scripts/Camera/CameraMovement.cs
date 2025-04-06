@@ -155,7 +155,7 @@ public class CameraMovement : MonoBehaviour
 
     public void ChangeAllMouseInput()
     {
-        AddLeftClick();
+        //AddLeftClick();
         AddRightClick();
         AddWheel();
     }
@@ -167,6 +167,7 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         gameManager.mouseManager.leftClick.Push(cameraLeftClick);
+        Debug.Log("camera leftclick");
     }
     public void AddRightClick()
     {
@@ -176,6 +177,7 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         gameManager.mouseManager.rightClick.Push(cameraRightClick);
+        Debug.Log("RightClick Added");
     }
     public void AddWheel()
     {
@@ -185,5 +187,6 @@ public class CameraMovement : MonoBehaviour
             return;
         }
         gameManager.mouseManager.wheelAction.Push(cameraWheel);
+        Debug.Log("Wheel Action Added");
     }
 }

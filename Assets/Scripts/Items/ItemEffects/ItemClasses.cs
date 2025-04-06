@@ -26,6 +26,12 @@ public enum ItemCategory
 public class EffectItem : ItemBase
 {
     public string useEffectKey;
+    public EffectBase effect;
+
+    public void ItemInvoke()
+    {
+        Debug.Log($" item id : {id} Invoked");
+    }
 }
 public class MaterialItem : ItemBase
 {

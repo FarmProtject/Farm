@@ -7,7 +7,7 @@ public class ClickActionStack
 {
     //여러가지 클릭액션을 관리하기 위해서 스택형태로 저장
     public List<IClickAction> actions = new List<IClickAction>();
-    private IClickAction defaultAction;
+    public IClickAction defaultAction;
     public void Push(IClickAction action)
     {
         if (!actions.Contains(action))
@@ -52,6 +52,7 @@ public class MouseInputManager : MonoBehaviour
     public ClickActionStack rightClick;
     public ClickActionStack wheelAction;
 
+    public ClickActionStack leftClickDefaultAction;
     public Sprite baseCursorImage;
     InventoryData inventory;
     public InventorySlot clickedSlot;
@@ -64,7 +65,13 @@ public class MouseInputManager : MonoBehaviour
     GameObject playerObj;
 
     QuickSlot selectQuick;
+    QuickSlotManager quickManager;
     private void Awake()
+    {
+        OnAwake();
+    }
+
+    void OnAwake()
     {
         inventory = GameManager.instance.playerEntity.inventory;
         cameraMove = GameManager.instance.camearaMove;
@@ -80,6 +87,10 @@ public class MouseInputManager : MonoBehaviour
         leftClick = new ClickActionStack();
         rightClick = new ClickActionStack();
         wheelAction = new ClickActionStack();
+        if (quickManager == null)
+        {
+            quickManager = GameManager.instance.quickSlotManager;
+        }
     }
 
     void Start()
@@ -94,6 +105,7 @@ public class MouseInputManager : MonoBehaviour
     #region 마우스 인풋 실행부
     public void OnPlayerInput()
     {
+        InputFunctionCheck();
         OnLeftClick();
         OnRightClick();
         OnmouseWeel();
@@ -103,8 +115,12 @@ public class MouseInputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if (leftClick == null)
-                return;
+            if (leftClick.actions.Count == 0)
+            {
+                SetQuickSlotDefaultAction();
+                Debug.Log("SetQuickDefault");
+            }
+                
             leftClick.Peek().Invoke();
         }
     }
@@ -135,6 +151,7 @@ public class MouseInputManager : MonoBehaviour
     public void InputChangeToCamera()
     {
         cameraMove.ChangeAllMouseInput();
+        InputFunctionCheck();
     }
 
     public void InventoryInput()
@@ -161,9 +178,13 @@ public class MouseInputManager : MonoBehaviour
     }
     public void InputFunctionCheck()
     {
-        if (leftClick.actions.Count == 0)
+        if(quickManager == null)
         {
-            cameraMove.AddLeftClick();
+            quickManager = GameManager.instance.quickSlotManager;
+        }
+        if (leftClick.defaultAction == null)
+        {
+            leftClick.defaultAction = quickManager.quickLeftClick;
         }
         if (rightClick.actions.Count == 0)
         {
@@ -192,5 +213,20 @@ public class MouseInputManager : MonoBehaviour
     public void OnInteractOBJ()
     {
 
+    }
+
+    public void SetLeftDefaultAction(IClickAction clickAction)
+    {
+        leftClick.Push(clickAction);
+    }
+
+    void SetQuickSlotDefaultAction()
+    {
+        Debug.Log("setDefultAction");
+        if(quickManager == null)
+        {
+            quickManager = GameManager.instance.quickSlotManager;
+        }
+        leftClick.Push(quickManager.quickLeftClick);
     }
 }

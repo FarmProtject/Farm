@@ -30,7 +30,7 @@ public class InvenLeftClick : IClickAction
     {
 
         slot.InvenItemLeftClick();
-        Debug.Log($"ItemRightClick : {GameManager.instance.mouseManager.rightClick.actions.Count }");
+        Debug.Log($"ItemLeftClick : {GameManager.instance.mouseManager.leftClick.actions.Count }");
     }
 }
 public class InvenWheelAction : IClickAction
@@ -89,6 +89,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         inven = GameManager.instance.playerEntity.inventory;
         EventManager.instance.OnInventoryUpdate.AddListener(UpDateMySlot);
+        EventManager.instance.OnPlayerInput.AddListener(AddInQuickSlot);
         UpDateMySlot();
         myButton.onClick.AddListener(OnClickItem);
         rightClick = new InvenRightClick(this);
@@ -344,12 +345,14 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                     if(keySettings.quickSlots[index].item == item)
                     {
                         keySettings.quickSlots[index].item = null;
+                        keySettings.quickSlots[index].SetSprite(null);
                     }
                 }
 
                 int slotNumber = keySettings.quickSlotKeys[k];
                 QuickSlot selectSlot = keySettings.quickSlots[slotNumber];
                 selectSlot.SetItem(item);
+                selectSlot.SetSprite(itemSprite.sprite);
                 //아이템 이미지 세팅 필요!
                 Debug.Log(" Need To Write Item Sprite Set ");
             }

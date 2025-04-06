@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class QuickSlot : MonoBehaviour,IObserver
 {
     public int slotNumber;
     public ItemBase item;
+
+    [SerializeField]Image myImage;
+
     void Start()
     {
         
@@ -24,6 +27,10 @@ public class QuickSlot : MonoBehaviour,IObserver
     {
         KeySettings keySet = GameManager.instance.keySettings;
         keySet.quickSlots.Add(slotNumber, this);
+        if (myImage == null)
+        {
+            myImage = transform.GetChild(0).transform.GetComponent<Image>();
+        }
     }
     public void SetQuickSlot()
     {
@@ -44,9 +51,20 @@ public class QuickSlot : MonoBehaviour,IObserver
         SetSlotKey();
         OnAwake();
     }
-
+    public void SetSprite(Sprite sprite)
+    {
+        Debug.Log("SetSprite");
+        if (myImage == null)
+        {
+            myImage = transform.GetChild(0).transform.GetComponent<Image>();
+        }
+        myImage.sprite = sprite;
+    }
     public void ItemInvoke()
     {
-
+        if (item != null && item is EffectItem effectItem)
+        {
+            effectItem.ItemInvoke();
+        }
     }
 }

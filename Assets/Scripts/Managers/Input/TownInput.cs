@@ -33,7 +33,7 @@ public class TownInput : InputBase
         OnAxisInput();
         OnRunKey();
         OnInteractKey();
-
+        OnQuickSlotKey();
         OnInventoryKey();
         OnItemTest();
     }
@@ -172,7 +172,7 @@ public class TownInput : InputBase
     }
     #endregion
     #region Äü½½·Ô 
-    void OnQuickSlotKey()
+    public void OnQuickSlotKey()
     {
         if(keySetting == null)
         {
