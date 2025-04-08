@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using TMPro;
-enum languges
+public enum languges
 {
     kr,
     en,
@@ -34,6 +34,7 @@ public class StringKeyManager : MonoBehaviour
     {
         Notyfy();
     }
+
     public string GetStringData(string key)
     {
 
@@ -151,4 +152,16 @@ public class StringKeyManager : MonoBehaviour
 
     }
 
+    #region 언어변경
+    public void LanguageChange(languges langquage)
+    {
+        lng = langquage;
+
+        for(int i =0; i < observerList.Count; i++)
+        {
+            observerList[i].LanguageChange();
+        }
+    }
+
+    #endregion
 }

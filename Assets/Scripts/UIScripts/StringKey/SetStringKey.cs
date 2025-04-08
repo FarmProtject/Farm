@@ -39,6 +39,13 @@ public class SetStringKey : MonoBehaviour,IObserver
 
 
     }
+
+    public void LanguageChange()
+    {
+        SetMyFont();
+        SetStringText();
+        TextToStringText();
+    }
     public void EnableFuction()
     {
         if (stringKey != null)
