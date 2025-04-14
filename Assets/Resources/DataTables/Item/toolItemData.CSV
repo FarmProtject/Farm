@@ -1,5 +1,9 @@
-id,type,useEffect,#주석#
-100001,hoe,1006,괭이
-100002,warteringcan,1001,물뿌리개
-100003,sword,3001,검
-100004,axe,null,도끼
+﻿id,type,useEffect,#주석#
+100001,hoe,1001,괭이
+100002,hoe,1002,좋은 괭이
+100003,hoe,1003,아주 좋은 괭이
+100004,warteringcan,1004,물뿌리개
+100005,warteringcan,1005,좋은 물뿌리개
+100006,warteringcan,1006,아주 좋은 물뿌리개
+100007,sword,3001,검
+100008,axe,null,도끼

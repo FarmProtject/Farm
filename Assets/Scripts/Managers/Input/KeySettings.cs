@@ -9,8 +9,31 @@ public class KeySettings
 
     public Dictionary<int, KeyCode> quickSlotKeyName = new Dictionary<int, KeyCode>();
     public Dictionary<KeyCode, int> quickSlotKeys = new Dictionary<KeyCode,int>();
+
     public Dictionary<int, QuickSlot> quickSlots = new Dictionary<int, QuickSlot>();
-    
+
+    #region 키세팅변경
+
+    public void CahngeQuickSlotKey(int oldKey,KeyCode keyCode)
+    {
+        int tempIndex = oldKey;
+        KeyCode tempKey = quickSlotKeyName[oldKey];
+        quickSlotKeyName.Remove(oldKey);
+        quickSlotKeyName.Add(oldKey, keyCode);
+        quickSlotKeys.Remove(tempKey);
+        quickSlotKeys.Add(keyCode, oldKey);
+    }
+    public void ChangeKey(string oldKey,KeyCode keyCde)
+    {
+        keyName.Remove(oldKey);
+        keyName.Add(oldKey, keyCde);
+    }
+
+
+    #endregion
+
+
+
     public void OpenUIOnKey(string key)
     {
         if (keyName.ContainsKey(key))

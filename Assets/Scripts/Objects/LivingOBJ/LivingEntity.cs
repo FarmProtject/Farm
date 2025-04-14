@@ -23,6 +23,7 @@ public class LivingEntity : MonoBehaviour
     public int attack { get; set; }
     public int deffense { get; set; }
     public int healthPoint { get; set; }
+    public int maxHealthPoint { get; set; }
     public int steminaPoint { get; set; }
     [SerializeField]protected float moveSpeed { get; set; }
     protected Vector3 front;
@@ -73,5 +74,16 @@ public class LivingEntity : MonoBehaviour
     {
 
     }
-   
+
+    public void AddHealthPoint(int point)
+    {
+        if (point + healthPoint <= maxHealthPoint)
+        {
+            healthPoint = healthPoint + point;
+        }
+        else if (point + healthPoint > maxHealthPoint)
+        {
+            healthPoint = maxHealthPoint;
+        }
+    }
 }

@@ -2,20 +2,12 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public enum EffectTarget
-{
-    target,
-    nonTarget,
-    self,
-    none
-}
-
-public class EffectBase
+public abstract class EffectBase
 {
     public int id;
     public string name;
     ColliderInstatType collType;
-    public EffectTarget target;
+    public TargetType target;
     public string functionName;
     public int integerParameter;
     public float percentParam;
@@ -23,4 +15,5 @@ public class EffectBase
     public float colliderVert;
     public float colliderHeight;
 
+    public abstract void Apply(GameObject go);
 }

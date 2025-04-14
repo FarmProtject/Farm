@@ -1,8 +1,12 @@
 ﻿id,kr,en
 item_name_100001,괭이,Hoe
-item_name_100002,물뿌리개,Watering Can
-item_name_100003,검,Sword
-item_name_100004,도끼,Axe
+item_name_100002,좋은 괭이,Good Hoe
+item_name_100003,아주 좋은 괭이,Very Good Hoe
+item_name_100004,물뿌리개,Watering Can
+item_name_100005,좋은 물뿌리개,Good Watering Can
+item_name_100006,아주 좋은 물뿌리개,Very Good Watering Can
+item_name_100007,검,Sword
+item_name_100008,도끼,Axe
 item_name_100101,씨앗1,Seed 1
 item_name_100102,씨앗2,Seed 2
 item_name_100103,씨앗3,Seed 3
@@ -29,9 +33,13 @@ item_name_400002,재료2,Material 2
 item_name_400003,재료3,Material 3
 item_name_400004,재료4,Material 4
 item_desc_100001,괭이 설명,Hoe Description
-item_desc_100002,물뿌리개 설명,Watering Can Description
-item_desc_100003,검 설명,Sword Description
-item_desc_100004,도끼 설명,Axe Description
+item_desc_100002,좋은 괭이 설명,Good Hoe Description
+item_desc_100003,아주 좋은 괭이 설명,Very Good Hoe Description
+item_desc_100004,물뿌리개 설명,Watering Can Description
+item_desc_100005,좋은 물뿌리개 설명,Good Watering Can Description
+item_desc_100006,아주 좋은 물뿌리개 설명,Very Good Watering Can Description
+item_desc_100007,검 설명,Sword Description
+item_desc_100008,도끼 설명,Axe Description
 item_desc_100101,씨앗1 설명,Seed 1 Description
 item_desc_100102,씨앗2 설명,Seed 2 Description
 item_desc_100103,씨앗3 설명,Seed 3 Description

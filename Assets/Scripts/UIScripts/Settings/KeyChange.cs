@@ -17,22 +17,31 @@ public class KeyChange : MonoBehaviour
         
         if(keySet.keyName.ContainsValue(getKey))
         {
-            string keyName;
+            string keyName = null;
 
             foreach(string bindingKey in keySet.keyName.Keys)
             {
                 keyName = bindingKey;
+                break;
+            }
+            if (keyName != null)
+            {
+                keySet.ChangeKey(keyName, getKey);
             }
         }
         else if (keySet.quickSlotKeyName.ContainsValue(getKey))
         {
-            int keyNumber;
+            int keyNumber = -1 ;
             KeyCode tempKey = getKey;
             foreach(int bindingKey in keySet.quickSlotKeyName.Keys)
             {
                 keyNumber = bindingKey;
+                break;
             }
-
+            if (keyNumber != -1)
+            {
+                keySet.CahngeQuickSlotKey(keyNumber, getKey);
+            }
             
         }
     }

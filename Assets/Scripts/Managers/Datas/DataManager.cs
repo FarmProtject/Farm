@@ -207,7 +207,17 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-
+    void ItemDataDebug()
+    {
+        foreach(int index in itemDatas.datas.Keys)
+        {
+            foreach (string key in itemDatas.datas[index].Keys)
+            {
+                Debug.Log(itemDatas.datas[index][key]);
+            }
+                
+        }
+    }
     void StringKeyDebug()
     {
         foreach(string key in stringDatas.Keys)
@@ -532,12 +542,14 @@ public class DataManager : MonoBehaviour
             int index;
             if (Int32.TryParse(temp["id"].ToString(), out index))
             {
-                newData.datas.Add(index, tempDataList[i]);
-                /*
-                DataClass newData = new DataClass();
-                newData.datas = temp;
-                dataMap.Add(index, temp);
-                */
+                if (newData.datas.ContainsKey(index))
+                {
+                    Debug.Log($"{index}");
+                    ItemDataDebug();
+                    return;
+                }
+                newData.datas.Add(index, temp);
+                
             }
             else
             {
@@ -545,6 +557,7 @@ public class DataManager : MonoBehaviour
             }
         }
     }
+    
     void StringKeyRead(string path)
     {
         List<Dictionary<string, object>> tempDatas = new List<Dictionary<string, object>>();

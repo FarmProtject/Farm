@@ -23,7 +23,10 @@ public class CSVReader
         }
         var lines = Regex.Split(data.text, LINE_SPLIT_RE);
 
-        if (lines.Length <= 1) return list;
+        if (lines.Length <= 1) 
+        {
+            return list;
+        }
         var header = Regex.Split(lines[0], SPLIT_RE);
         for (var i = 1; i < lines.Length; i++)
         {
@@ -35,7 +38,13 @@ public class CSVReader
             for (var j = 0; j < header.Length && j < values.Length; j++)
             {
                 string value = values[j];
+                
                 value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                if(value == null)
+                {
+                    value = null;
+                    Debug.Log("value is null");
+                }
                 object finalvalue = value;
                 int n;
                 float f;
@@ -46,6 +55,11 @@ public class CSVReader
                 else if (float.TryParse(value, out f))
                 {
                     finalvalue = f;
+                }
+                if(header[j] == "#주석#")
+                {
+                    Debug.Log("주석라인");
+                    continue;
                 }
                 entry[header[j]] = finalvalue;
             }

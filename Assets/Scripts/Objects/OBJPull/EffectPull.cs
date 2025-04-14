@@ -13,6 +13,17 @@ public enum ColliderInstatType
     Around,
     ToBack
 }
+
+public enum TargetType
+{
+    none,
+    Self,
+    Soil,
+    ReadySoil,
+    Crop,
+    Enemy,
+    Friendly
+}
 public class LeftEffectClick : IClickAction
 {
     EffectPull effectScript;
@@ -41,7 +52,8 @@ public class EffectPull : MonoBehaviour
 {
     GameObject parentsObj;
     [SerializeField]GameObject myObj;
-    
+
+    public TargetType targetType;
     BoxCollider myCollider;
     ColliderDirection direction;
     ColliderInstatType collType;
