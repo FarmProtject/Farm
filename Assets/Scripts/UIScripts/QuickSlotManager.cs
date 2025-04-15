@@ -13,7 +13,7 @@ public class QuickSlotLeftClick : IClickAction
     {
         if (quickSlotManager.GetSelectSlot() != null && quickSlotManager.GetSelectSlot().item != null)
         {
-            quickSlotManager.GetSelectSlot().ItemInvoke();
+            quickSlotManager.ItemInvoke();
             Debug.Log("QuickSlot left Click Invoke");
         }
             
@@ -22,6 +22,8 @@ public class QuickSlotLeftClick : IClickAction
             Debug.Log("quickslot data null");
         }
     }
+
+    
 }
 
 public class QuickSlotManager : MonoBehaviour,Isubject
@@ -33,8 +35,11 @@ public class QuickSlotManager : MonoBehaviour,Isubject
     List<IObserver> observers = new List<IObserver>();
     [SerializeField] GameObject quickSlotPanel;
     [SerializeField] QuickSlot selectSlot;
+    [SerializeField] EffectPull effectPuller;
+    List<GameObject> targetObjs;
     int slotNumber;
 
+    Vector3 targetPos;
     private void Awake()
     {
         OnAwake();
@@ -47,15 +52,46 @@ public class QuickSlotManager : MonoBehaviour,Isubject
         AddQuickslot();
         QuickSlotSet();
         Notyfy();
+        GetPlayerEffectPuller();
     }
-
+    public void SetTargetPos(Vector3 target)
+    {
+        if(selectSlot.item is EffectItem effectItem)
+        {
+            if (effectItem.effect.target != TargetType.Self)
+            {
+                targetPos = target;
+            }
+            else
+            {
+                targetPos = this.gameObject.transform.position;
+            }
+        }
+        
+    }
     private void Start()
     {
         //SetLeftClick();
     }
+    void GetPlayerEffectPuller()
+    {
+        if(effectPuller == null)
+        {
+            effectPuller = GameManager.instance.playerEntity.myEffcetPuller;
+        }
+        
+    }
     public void SetSelectSlot(QuickSlot slot)
     {
         selectSlot = slot;
+        if(selectSlot.item is EffectItem effectItem)
+        {
+            EffectBase effect = effectItem.effect;
+            effectPuller.SetEffectInfo(effect.collType,targetPos,effect.colliderVert,effect.colliderHori,effect.colliderHeight);
+
+
+        }
+        
     }
     public QuickSlot GetSelectSlot()
     {
@@ -98,13 +134,27 @@ public class QuickSlotManager : MonoBehaviour,Isubject
             Debug.Log($"quickslot SlotNumber {quickSlots[i].slotNumber}");
         }
     }
-    public void AddInQuickSlot(ItemBase item)
+    public void ItemInvoke()
     {
-
+        effectPuller.SetTargetPos(targetPos);
+        effectPuller.Invoke();
+        targetObjs = effectPuller.GetTargetObjs();
+        for(int i = 0; i < targetObjs.Count; i++)
+        {
+            GetSelectSlot().ItemInvoke(targetObjs[i]);
+        }
         
 
     }
+    void GetWorldPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            targetPos = hit.point;
+        }
 
+    }
     public void Attach(IObserver observer)
     {
         if (!observers.Contains(observer))

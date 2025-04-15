@@ -46,6 +46,14 @@ public class FarmTile : MonoBehaviour
         }
 
     }
+    public void SetTileType(FarmTileType type)
+    {
+        tileType = type;
+    }
+    public FarmTileType GetTileType()
+    {
+        return tileType;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "SkillColl")

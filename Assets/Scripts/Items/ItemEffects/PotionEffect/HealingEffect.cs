@@ -12,4 +12,9 @@ public class HealingEffect : EffectBase
             entity.AddHealthPoint(integerParameter);
         }
     }
+
+    protected override EffectBase Create()
+    {
+        return new HealingEffect();
+    }
 }

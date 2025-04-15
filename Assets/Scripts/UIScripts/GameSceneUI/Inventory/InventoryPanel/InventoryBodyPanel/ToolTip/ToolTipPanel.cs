@@ -275,7 +275,7 @@ public class ToolTipPanel : UIBase,Isubject
         {
             bodyPanels[0].SetActive(true);
             SetStringKey stringKey = bodyPanels[0].transform.GetComponent<ToolTipBodyPanel>().myStringKey;
-            stringKey.SetEffectKey(effectItem.useEffectKey);
+            stringKey.SetEffectKey(effectItem.useEffectKey.ToString());
             stringKey.UpdateMyText(); ;
 
         }

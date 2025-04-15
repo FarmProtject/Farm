@@ -60,11 +60,11 @@ public class QuickSlot : MonoBehaviour,IObserver
         }
         myImage.sprite = sprite;
     }
-    public void ItemInvoke()
+    public void ItemInvoke(GameObject go)
     {
         if (item != null && item is EffectItem effectItem)
         {
-            effectItem.ItemInvoke();
+            effectItem.ItemInvoke(go);
         }
     }
 }

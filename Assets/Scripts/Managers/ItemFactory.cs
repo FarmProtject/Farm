@@ -6,7 +6,7 @@ using System;
 public class ItemFactory : MonoBehaviour
 {
     DataManager dataManager;
-
+    Dictionary<string, EffectBase> itemEffects = new Dictionary<string, EffectBase>();
 
 
     void Start()
@@ -24,7 +24,13 @@ public class ItemFactory : MonoBehaviour
     {
         dataManager = GameManager.instance.dataManager;
     }
-
+    public void AddItemEffectDatas(string key, EffectBase effect)
+    {
+        if (!itemEffects.ContainsKey(key))
+        {
+            itemEffects.Add(key, effect);
+        }
+    }
     public ItemBase GetItemData(int index)
     {
         ItemBase item;
@@ -139,14 +145,15 @@ public class ItemFactory : MonoBehaviour
         }
         if(!(item is EquipmentItem) && item is EffectItem effectItem)
         {
-            effectItem.useEffectKey = CategoryToTable(item.category)[effectItem.id]["useEffect"].ToString();
+            effectItem.useEffectKey = (int)CategoryToTable(item.category)[effectItem.id]["useEffect"];
+            
         }
         switch (item.category)
         {
             case ItemCategory.farm:
                 if(item is Farming farm)
                 {
-                    farm.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                    farm.useEffectKey = (int)CategoryToTable(item.category)[item.id]["useEffect"];
                 }
                 break;
             case ItemCategory.equipment:
@@ -161,7 +168,7 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.consumable:
                 if (item is Consumable consum)
                 {
-                    consum.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                    consum.useEffectKey = (int)CategoryToTable(item.category)[item.id]["useEffect"];
                 }
                 break;
             case ItemCategory.material:
@@ -169,7 +176,7 @@ public class ItemFactory : MonoBehaviour
             case ItemCategory.tool:
                 if (item is Tools tool)
                 {
-                    tool.useEffectKey = CategoryToTable(item.category)[item.id]["useEffect"].ToString();
+                    tool.useEffectKey = (int)CategoryToTable(item.category)[item.id]["useEffect"];
                 }
                 break;
             case ItemCategory.none:
@@ -177,12 +184,33 @@ public class ItemFactory : MonoBehaviour
             default:
                 break;
         }
+        if(item is EffectItem eft)
+        {
+
+            string effectName = dataManager.effectData[eft.useEffectKey]["functionName"].ToString();
+            eft.effect = dataManager.effectBases[effectName].GetNewScript();
+            SetEffectData(eft.effect, effectName);
+        }
         return item;
     }
-
+    #region 이펙트데이터 
+    void SetEffectData(EffectBase target, string name)
+    {
+        int index = -1;
+        if (int.TryParse(name, out index))
+        {
+            Dictionary<string, object> data = dataManager.effectData[index];
+            TrySetValue(data, "verti", ref target.colliderVert);
+            TrySetValue(data, "hori", ref target.colliderHori);
+            TrySetValue(data, "height", ref target.colliderHeight);
+            TrySetValue(data, "functionName", ref target.functionName);
+            TryConvertEnum(data, "targetType", ref target.target);
+        }
+        
+    }
+    #endregion
     public void SetEquipStat(int index, ref EquipmentItem item)
     {
-        
         if (!dataManager.equipStatDatas.ContainsKey(index))
         {
             Debug.Log("id Dind't Contain in ItemFactory SetEqupStatFunction");
@@ -248,7 +276,7 @@ public class ItemFactory : MonoBehaviour
 
         return newDict;
     }
-    Dictionary<int, Dictionary<string, string>> CategoryToTable(ItemCategory category)
+    Dictionary<int, Dictionary<string, object>> CategoryToTable(ItemCategory category)
     {
         switch (category)
         {

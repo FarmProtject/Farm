@@ -59,22 +59,26 @@ public class EffectPull : MonoBehaviour
     ColliderInstatType collType;
     Vector3 myCenter;
     EffectCollider eftColl;
-    int verti;
-    int hori;
-    int height;
+    float verti;
+    float hori;
+    float height;
     Vector3 targetPos;
     private void Awake()
     {
         OnAwake();
     }
 
-    public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, int verti, int hori, int height)
+    public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, float verti, float hori, float height)
     {
         this.collType = collType;
         this.targetPos = targetPos;
         this.verti = verti;
         this.hori = hori;
         this.height = height;
+    }
+    public void SetTargetPos(Vector3 pos)
+    {
+        targetPos = pos;
     }
     void OnAwake()
     {
@@ -94,7 +98,6 @@ public class EffectPull : MonoBehaviour
     }
     public void Invoke()
     {
-        myObj.SetActive(true);
         SetColliderType(collType);
         SetDirection();
         switch (collType)
@@ -110,9 +113,10 @@ public class EffectPull : MonoBehaviour
             default:
                 break;
         }
+        myObj.SetActive(true);
     }
     #region 오브젝트 생성방식
-    void AroundSet(Vector3 targetPos, int verti, int hori, int height)
+    void AroundSet(Vector3 targetPos, float verti, float hori, float height)
     {
 
         Vector3 collsize = new Vector3();
@@ -138,7 +142,7 @@ public class EffectPull : MonoBehaviour
         }
         myObj.transform.position = targetPos;
     }
-    void ToBackSet(Vector3 targetPos, int verti, int hori, int height)
+    void ToBackSet(Vector3 targetPos, float verti, float hori, float height)
     {
         Vector3 collSize = new Vector3();
         Vector3 pibotPos = Vector3.zero;
@@ -180,7 +184,10 @@ public class EffectPull : MonoBehaviour
         //피봇적용, 위치조정
         myObj.transform.position = targetPos+pibotPos;
     }
-
+    public List<GameObject> GetTargetObjs()
+    {
+        return eftColl.GetObjList();
+    }
     #endregion
     void SetDirection()
     {

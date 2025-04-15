@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+
+
 public class DataClass
 {
     public Dictionary<int, Dictionary<string, object>> datas = new Dictionary<int, Dictionary<string, object>>();
@@ -37,7 +41,7 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, ItemBase> items = new Dictionary<int, ItemBase>();
 
     [SerializeField, ReadOnly] private string effectDataPath;
-    public Dictionary<int, Dictionary<string, string>> effectData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> effectData = new Dictionary<int, Dictionary<string, object>>();
 
     
     [SerializeField, ReadOnly] private string equipentsStatTableDataPath;
@@ -53,19 +57,19 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<string, Dictionary<string, string>> gameConfigData = new Dictionary<string, Dictionary<string, string>>();
     [SerializeField, ReadOnly] private string consumItemDataPath;
-    public Dictionary<int, Dictionary<string, string>> consumItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> consumItemData = new Dictionary<int, Dictionary<string, object>>();
 
     [SerializeField, ReadOnly] private string equipItemDataPath;
-    public Dictionary<int, Dictionary<string, string>> equipItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> equipItemData = new Dictionary<int, Dictionary<string, object>>();
 
     [SerializeField, ReadOnly] private string farmingItemDataPath;
-    public Dictionary<int, Dictionary<string, string>> farmingItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> farmingItemData = new Dictionary<int, Dictionary<string, object>>();
     /*
     [SerializeField, ReadOnly] private string materialItemDataPath;
     public Dictionary<int, Dictionary<string, string>> materialItemData = new Dictionary<int, Dictionary<string, string>>();
     */
     [SerializeField, ReadOnly] string toolItemDataPath;
-    public Dictionary<int, Dictionary<string, string>> toolItemData = new Dictionary<int, Dictionary<string, string>>();
+    public Dictionary<int, Dictionary<string, object>> toolItemData = new Dictionary<int, Dictionary<string, object>>();
 
     [SerializeField,ReadOnly] string harvestDataPath;
     public Dictionary<int, List<StringKeyDatas>> harvestData = new Dictionary<int, List<StringKeyDatas>>();
@@ -86,27 +90,12 @@ public class DataManager : MonoBehaviour
         get => $"{dataPath}{soilItemDataPath}";
         set => soilItemDataPath = value.Replace(dataPath, "");
     }
-    /*
-    public Dictionary<int, Dictionary<string, string>> soilItemData = new Dictionary<int, Dictionary<string, string>>();
 
-    [SerializeField, ReadOnly] private string toolDataPath;
-    public string ToolDataPath
-    {
-        get => $"{dataPath}{toolDataPath}";
-        set => toolDataPath = value.Replace(dataPath, "");
-    }
-
-    public Dictionary<int, Dictionary<string, string>> toolData = new Dictionary<int, Dictionary<string, string>>();
-
-    [SerializeField, ReadOnly] private string dropTablePath;
-    public string DropTablePath
-    {
-        get => $"{dataPath}{dropTablePath}";
-        set => dropTablePath = value.Replace(dataPath, "");
-    }
-    */
     [SerializeField, ReadOnly] string dropTablePath;
     public Dictionary<string, List<DropTable>> dropTable = new Dictionary<string, List<DropTable>>();
+
+    public Dictionary<string, EffectBase> effectBases = new Dictionary<string, EffectBase>();
+
 
     private CSVReader csvReader = new CSVReader();
 
@@ -123,6 +112,7 @@ public class DataManager : MonoBehaviour
         StringKeyRead(stringDataPath);
         ReadStringData();
         ReadMultiKey();
+        ResisteAllEffects();
         //StringKeyDebug();
     }
 
@@ -130,6 +120,7 @@ public class DataManager : MonoBehaviour
     {
         DataRead(itemDataPath, itemDatas);
         ReadGameConfig(gameConfigDataPath);
+        
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
@@ -140,12 +131,12 @@ public class DataManager : MonoBehaviour
         
         //DebugEffcetDict();
         //DebugEffcetDict();
-        IntKeyReadToString(effectData, effectDataPath);
+        IntKeyReadToObject(effectData, effectDataPath);
 
-        IntKeyReadToString(consumItemData, consumItemDataPath);
-        IntKeyReadToString(equipItemData, equipItemDataPath);
-        IntKeyReadToString(toolItemData, toolItemDataPath);
-        IntKeyReadToString(farmingItemData, farmingItemDataPath);
+        IntKeyReadToObject(consumItemData, consumItemDataPath);
+        IntKeyReadToObject(equipItemData, equipItemDataPath);
+        IntKeyReadToObject(toolItemData, toolItemDataPath);
+        IntKeyReadToObject(farmingItemData, farmingItemDataPath);
         //IntKeyReadToString(materialItemData, materialItemDataPath);
     }
     void ReadMultiKey()
@@ -159,7 +150,22 @@ public class DataManager : MonoBehaviour
         //MultiObToInt(equipStatDatas, equipStat);
 
     }
-
+    #region ÀÌÆåÆ® 
+    void ResisteAllEffects()
+    {//ÀÌÆåÆ® µñ¼Å³Ê¸® ÃÊ±âÈ­
+        var effectTypes = Assembly.GetExecutingAssembly()
+                                  .GetTypes()
+                                  .Where(t => t.IsSubclassOf(typeof(EffectBase)) && t.GetCustomAttribute<AutoRegisterEffect>() != null)
+                                  .ToList();
+        foreach(var type in effectTypes)
+        {
+            string name = type.GetType().Name;
+            var effect = (EffectBase)Activator.CreateInstance(type);
+            Debug.Log(name);
+        }
+    }
+    
+    #endregion
     #region debugs
     void DebugStats()
     {
@@ -575,7 +581,7 @@ public class DataManager : MonoBehaviour
             stringDatas.Add(key, tempDatas[i]);
         }
     }
-    void IntKeyReadToString(Dictionary<int, Dictionary<string, string>> data, string dataPath)
+    void IntKeyReadToObject(Dictionary<int, Dictionary<string, object>> data, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
 
@@ -585,14 +591,14 @@ public class DataManager : MonoBehaviour
             if (int.TryParse(temp[i]["id"].ToString(), out index))
             {
                 Dictionary<string, object> tempOrigin = temp[i];
-                Dictionary<string, string> tempData = new Dictionary<string, string>();
-
+                //Dictionary<string, string> tempData = new Dictionary<string, string>();
+                /*
                 foreach (string key in temp[i].Keys)
                 {
                     tempData.Add(key, temp[i][key].ToString());
 
-                }
-                data.Add(index, tempData);
+                }*/
+                data.Add(index, tempOrigin);
 
             }
         }

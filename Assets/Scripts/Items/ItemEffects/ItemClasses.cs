@@ -25,12 +25,12 @@ public enum ItemCategory
 
 public class EffectItem : ItemBase
 {
-    public string useEffectKey;
+    public int useEffectKey;
     public EffectBase effect;
 
-    public void ItemInvoke()
+    public void ItemInvoke(GameObject go)
     {
-        Debug.Log($" item id : {id} Invoked");
+        effect.Apply(go);
     }
 }
 public class MaterialItem : ItemBase

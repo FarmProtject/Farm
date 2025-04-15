@@ -16,6 +16,8 @@ public class PlayerEntity : LivingEntity
     int maxInventory = 30;
     public int gold;
     [SerializeField]public List<ItemBase> inventoryList = new List<ItemBase>();
+
+    public EffectPull myEffcetPuller;
     private void Awake()
     {
         if (GameManager.instance.playerEntity == null)
@@ -47,6 +49,10 @@ public class PlayerEntity : LivingEntity
         }
         runSpeed = 4f;
         walkSpeed = 2f;
+        if(myEffcetPuller == null)
+        {
+            myEffcetPuller = transform.GetComponentInChildren<EffectPull>();
+        }
     }
     public void SetInventoryNull()
     {
