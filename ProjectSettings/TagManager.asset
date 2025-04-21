@@ -18,8 +18,8 @@ TagManager:
   - crops
   - FarmArea
   - readysoil
-  - 
-  - 
+  - SkillCollider
+  - GridObject
   - 
   - 
   - 

@@ -5,8 +5,8 @@ id,name,description,category,price,maxStack,icon,throwable,#주석#
 100004,item_name_100004,item_desc_100004,tool,150,1,,TRUE,물뿌리개
 100005,item_name_100005,item_desc_100005,tool,200,1,,TRUE,좋은 물뿌리개
 100006,item_name_100006,item_desc_100006,tool,250,1,,TRUE,아주 좋은 물뿌리개
-100003,item_name_100007,item_desc_100007,tool,200,1,,TRUE,검
-100004,item_name_100008,item_desc_100008,tool,250,1,,TRUE,도끼
+100007,item_name_100007,item_desc_100007,tool,200,1,,TRUE,검
+100008,item_name_100008,item_desc_100008,tool,250,1,,TRUE,도끼
 100101,item_name_100101,item_desc_100101,farm,100,20,,TRUE,씨앗1
 100102,item_name_100102,item_desc_100102,farm,150,30,,TRUE,씨앗2
 100103,item_name_100103,item_desc_100103,farm,200,40,,TRUE,씨앗3

@@ -353,6 +353,8 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 QuickSlot selectSlot = keySettings.quickSlots[slotNumber];
                 selectSlot.SetItem(item);
                 selectSlot.SetSprite(itemSprite.sprite);
+                GameManager.instance.quickSlotManager.SetSelectSlot(selectSlot);
+                //selectSlot.SetQuickSlot();
                 //아이템 이미지 세팅 필요!
                 Debug.Log(" Need To Write Item Sprite Set ");
             }

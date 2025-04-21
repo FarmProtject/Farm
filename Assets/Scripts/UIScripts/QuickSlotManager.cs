@@ -13,6 +13,7 @@ public class QuickSlotLeftClick : IClickAction
     {
         if (quickSlotManager.GetSelectSlot() != null && quickSlotManager.GetSelectSlot().item != null)
         {
+            quickSlotManager.GetWorldPosition();
             quickSlotManager.ItemInvoke();
             Debug.Log("QuickSlot left Click Invoke");
         }
@@ -60,7 +61,7 @@ public class QuickSlotManager : MonoBehaviour,Isubject
         {
             if (effectItem.effect.target != TargetType.Self)
             {
-                targetPos = target;
+                targetPos = effectPuller.parentsObj.transform.position;
             }
             else
             {
@@ -88,7 +89,7 @@ public class QuickSlotManager : MonoBehaviour,Isubject
         {
             EffectBase effect = effectItem.effect;
             effectPuller.SetEffectInfo(effect.collType,targetPos,effect.colliderVert,effect.colliderHori,effect.colliderHeight);
-
+            effectPuller.SetColliderType(effect.collType);
 
         }
         
@@ -124,30 +125,48 @@ public class QuickSlotManager : MonoBehaviour,Isubject
     }
     void QuickSlotSet()
     {
-        Debug.Log("QuickSlot Set");
-        Debug.Log($"QuickSlot Count : {quickSlots.Count}");
+
         KeySettings keySetting = GameManager.instance.keySettings;
         for(int i = 0; i < quickSlots.Count; i++)
         {
             quickSlots[i].slotNumber = i + 1;
             keySetting.quickSlots.Add(quickSlots[i].slotNumber, quickSlots[i]);
-            Debug.Log($"quickslot SlotNumber {quickSlots[i].slotNumber}");
         }
     }
     public void ItemInvoke()
     {
+        //effectPuller.GetEffectColl().ReSetCollObjs();
         effectPuller.SetTargetPos(targetPos);
+        
+        //effectPuller.myObj.SetActive(true);
         effectPuller.Invoke();
         targetObjs = effectPuller.GetTargetObjs();
+        Debug.Log("ItemInvoke");
         for(int i = 0; i < targetObjs.Count; i++)
         {
             GetSelectSlot().ItemInvoke(targetObjs[i]);
+            Debug.Log("Item Invoke to GameObject");
         }
-        
+        //effectPuller.myObj.SetActive(false);
 
     }
-    void GetWorldPosition()
+    public void GetWorldPosition()
     {
+        EffectItem effectItem = null;
+        if(selectSlot.item is EffectItem eft)
+        {
+            effectItem = eft;
+        }
+        else
+        {
+            Debug.Log("Item isn't EffectItem");
+            return;
+        }
+        if((effectItem!=null && effectItem.effect.target == TargetType.Self))
+        {
+            targetPos = this.gameObject.transform.position;
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {

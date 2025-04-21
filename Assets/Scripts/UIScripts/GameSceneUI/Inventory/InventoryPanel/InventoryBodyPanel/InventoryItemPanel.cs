@@ -27,7 +27,6 @@ public class InventoryItemPanel : UIBase,IObserver,Isubject
     {
         base.OnStart();
         Notyfy();
-        Debug.Log("ItemPanel Onstart");
         SetGridCellSize();
         GetGridCells();
     }

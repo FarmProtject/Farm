@@ -6,7 +6,6 @@ using System;
 public class ItemFactory : MonoBehaviour
 {
     DataManager dataManager;
-    Dictionary<string, EffectBase> itemEffects = new Dictionary<string, EffectBase>();
 
 
     void Start()
@@ -24,13 +23,7 @@ public class ItemFactory : MonoBehaviour
     {
         dataManager = GameManager.instance.dataManager;
     }
-    public void AddItemEffectDatas(string key, EffectBase effect)
-    {
-        if (!itemEffects.ContainsKey(key))
-        {
-            itemEffects.Add(key, effect);
-        }
-    }
+
     public ItemBase GetItemData(int index)
     {
         ItemBase item;
@@ -184,27 +177,41 @@ public class ItemFactory : MonoBehaviour
             default:
                 break;
         }
-        if(item is EffectItem eft)
+        if(item is EffectItem eft && !(item is EquipmentItem))
         {
-
-            string effectName = dataManager.effectData[eft.useEffectKey]["functionName"].ToString();
-            eft.effect = dataManager.effectBases[effectName].GetNewScript();
-            SetEffectData(eft.effect, effectName);
+            int id = (int)CategoryToTable(eft.category)[eft.id]["useEffect"];
+            string effectName= null;
+            if (dataManager.effectData.ContainsKey(id))
+            {
+                effectName = dataManager.effectData[id]["functionName"].ToString();
+            }
+            else
+            {
+                Debug.Log("NonData Effect");
+                return item;
+            }
+            //string effectName = dataManager.effectData[id]["functionName"].ToString();
+            if (effectName != null)
+            {
+                eft.effect = dataManager.effectBases[effectName].GetNewScript();
+            }
+            SetEffectData(eft.effect, id);
         }
         return item;
     }
     #region 이펙트데이터 
-    void SetEffectData(EffectBase target, string name)
+    void SetEffectData(EffectBase target, int id)
     {
-        int index = -1;
-        if (int.TryParse(name, out index))
+        if (dataManager.effectData.ContainsKey(id))
         {
-            Dictionary<string, object> data = dataManager.effectData[index];
+            Dictionary<string, object> data = dataManager.effectData[id];
             TrySetValue(data, "verti", ref target.colliderVert);
             TrySetValue(data, "hori", ref target.colliderHori);
             TrySetValue(data, "height", ref target.colliderHeight);
             TrySetValue(data, "functionName", ref target.functionName);
             TryConvertEnum(data, "targetType", ref target.target);
+            TryConvertEnum(data, "collType", ref target.collType);
+            Debug.Log($"Collider Type {target.collType}");
         }
         
     }
@@ -281,10 +288,8 @@ public class ItemFactory : MonoBehaviour
         switch (category)
         {
             case ItemCategory.farm:
-                Debug.Log("Get farmingItemData");
                 return dataManager.farmingItemData;
             case ItemCategory.tool:
-                Debug.Log("Get ToolItemData");
                 return dataManager.toolItemData;
                 
             case ItemCategory.equipment:

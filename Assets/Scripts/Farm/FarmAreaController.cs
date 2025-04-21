@@ -54,7 +54,7 @@ public class FarmAreaController : MonoBehaviour
             float finaly = (objSize.y)/2;
             int finalz = Mathf.FloorToInt(pos.z);
             Vector3 fianlVector = new Vector3(finalx+(objSize.x/2), finaly, finalz+(objSize.z/2));
-            Debug.Log(fianlVector);
+            //Debug.Log(fianlVector);
             preViewObj.transform.position = fianlVector;
             /*
             Vector3 vertifyVector = new Vector3(finalx + objSize.x/2, 0, finalz+objSize.z/2);
@@ -122,24 +122,16 @@ public class FarmAreaController : MonoBehaviour
         }
         foreach(Vector3 key in farmPosList)
         {
-            Debug.Log(key);
+            //Debug.Log(key);
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
-        {
-            preViewObj.SetActive(true);
-            EventManager.instance.FarmAreaEvents.AddListener(OBJFollow);
-        }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")
-        {
-            preViewObj.SetActive(false);
-            EventManager.instance.FarmAreaEvents.RemoveListener(OBJFollow);
-        }
+
     }
 }

@@ -1,18 +1,20 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-public class FarmTile : MonoBehaviour
+public class FarmTile : MonoBehaviour,IGridObject
 {
     [SerializeField] Material ableMeterial;
     [SerializeField] Material enAbleMeterial;
 
     [SerializeField]GameObject preViewObj;
-    MeshRenderer preViewMesh;
+    [SerializeField] GameObject farmObj;
+    MeshRenderer preViewRender;
 
-    FarmTileType tileType;
+    public FarmTileType tileType;
     private void Awake()
     {
-        
+        SetUpPreview();
+        tileType = FarmTileType.Soil;
     }
     void OnAwake()
     {
@@ -28,7 +30,7 @@ public class FarmTile : MonoBehaviour
         }
         if (preViewObj != null)
         {
-            preViewMesh = preViewObj.GetComponent<MeshRenderer>();
+            preViewRender = preViewObj.GetComponent<MeshRenderer>();
         }
 
         preViewObj.transform.rotation = Quaternion.identity;
@@ -38,32 +40,39 @@ public class FarmTile : MonoBehaviour
         preViewObj.SetActive(true);
         if(tileType == targetType)
         {
-            preViewMesh.material = ableMeterial;
+            preViewRender.material = ableMeterial;
         }
         else
         {
-            preViewMesh.material = enAbleMeterial;
+            preViewRender.material = enAbleMeterial;
         }
 
     }
     public void SetTileType(FarmTileType type)
     {
+        Debug.Log($"Tile Type Change {tileType} to {type}");
+
         tileType = type;
+        
+        Debug.Log($" Crreunt Tile Tpye {tileType}");
     }
     public FarmTileType GetTileType()
     {
         return tileType;
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "SkillColl")
         {
-            EffectPull ep = other.transform.GetComponent<EffectPull>();
+            //EffectCollider ec = other.transform.GetComponent<EffectCollider>();
+            EffectPull ep = other.GetComponent<EffectPull>();
             string type = ep.targetType.ToString();
             FarmTileType targetType;
             if(Enum.TryParse(type, out targetType))
             {
                 TurnOnPreview(targetType);
+                preViewObj.SetActive(true);
             }
         }
         
@@ -75,5 +84,10 @@ public class FarmTile : MonoBehaviour
             preViewObj.SetActive(false);
         }
         
+    }
+
+    public Vector3 GetGridPosition()
+    {
+        return transform.position;
     }
 }

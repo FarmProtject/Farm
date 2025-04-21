@@ -1,7 +1,8 @@
 id,collType,verti,hori,height,targetType,#주석#,functionName
-1001,Around,1,1,1,soil,괭이,HoeEffect
-1002,Around,1,3,1,soil,좋은 괭이,HoeEffect
-1003,Around,3,3,1,soil,아주 좋은 괭이,HoeEffect
-1004,ToBack,1,1,1,readySoil,물뿌리개,WateringEffect
-1005,ToBack,1,3,1,readySoil,좋은 물뿌리개,WateringEffect
-1006,ToBack,3,3,1,readySoil,아주 좋은 물뿌리개,WateringEffect
+1001,ToBack,1,1,1,soil,괭이,HoeEffect
+1002,ToBack,1,3,1,soil,좋은 괭이,HoeEffect
+1003,ToBack,3,3,1,soil,아주 좋은 괭이,HoeEffect
+1004,Around,1,1,1,readySoil,물뿌리개,WateringEffect
+1005,Around,1,3,1,readySoil,좋은 물뿌리개,WateringEffect
+1006,Around,3,3,1,readySoil,아주 좋은 물뿌리개,WateringEffect
+3004,Around,1,1,1,self,포션1,HealingEffect

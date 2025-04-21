@@ -114,6 +114,8 @@ public class DataManager : MonoBehaviour
         ReadMultiKey();
         ResisteAllEffects();
         //StringKeyDebug();
+        //DebugEffects();
+        //DebugItemData();
     }
 
     void AllDataRead()
@@ -161,12 +163,34 @@ public class DataManager : MonoBehaviour
         {
             string name = type.GetType().Name;
             var effect = (EffectBase)Activator.CreateInstance(type);
-            Debug.Log(name);
         }
     }
-    
+    public void AddItemEffectDatas(string key, EffectBase effect)
+    {
+        if (!effectBases.ContainsKey(key))
+        {
+            effectBases.Add(key, effect);
+        }
+    }
     #endregion
     #region debugs
+    void DebugItemData()
+    {
+        foreach(int id in itemDatas.datas.Keys)
+        {
+            foreach(string key in itemDatas.datas[id].Keys)
+            {
+                Debug.Log($"item id {id}  itemdataKey {key}  itemdata {itemDatas.datas[id][key]}");
+            }
+        }
+    }
+    void DebugEffects()
+    {
+        foreach(string name in effectBases.Keys)
+        {
+            Debug.Log($"effectName : {name}");
+        }
+    }
     void DebugStats()
     {
         foreach(int index in equipStatDatas.Keys)
@@ -550,9 +574,9 @@ public class DataManager : MonoBehaviour
             {
                 if (newData.datas.ContainsKey(index))
                 {
-                    Debug.Log($"{index}");
-                    ItemDataDebug();
-                    return;
+                    //Debug.Log($"{index}");
+                    //ItemDataDebug();
+                    continue;
                 }
                 newData.datas.Add(index, temp);
                 

@@ -29,7 +29,8 @@ public abstract class EffectBase
     void AddToFactoryData()
     {
         this.name = GetType().Name;
-        GameManager.instance.itemFactory.AddItemEffectDatas(this.name, this);
+        GameManager.instance.dataManager.AddItemEffectDatas(this.name, this);
+        Debug.Log($"AddTo Name {name}");
     }
 
     abstract protected EffectBase Create();
