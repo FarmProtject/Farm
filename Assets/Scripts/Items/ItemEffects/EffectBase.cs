@@ -30,7 +30,6 @@ public abstract class EffectBase
     {
         this.name = GetType().Name;
         GameManager.instance.dataManager.AddItemEffectDatas(this.name, this);
-        Debug.Log($"AddTo Name {name}");
     }
 
     abstract protected EffectBase Create();

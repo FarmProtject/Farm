@@ -53,7 +53,7 @@ public class FarmTile : MonoBehaviour,IGridObject
         Debug.Log($"Tile Type Change {tileType} to {type}");
 
         tileType = type;
-        
+        Debug.Log(transform.position);
         Debug.Log($" Crreunt Tile Tpye {tileType}");
     }
     public FarmTileType GetTileType()

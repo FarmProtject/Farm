@@ -70,12 +70,14 @@ public class EffectPull : MonoBehaviour
     List<GameObject> targetObjs;
 
     [SerializeField] LayerMask gridLayer;
+    public GameObject debugobject;
     private void Awake()
     {
         OnAwake();
     }
     private void FixedUpdate()
     {
+        transform.rotation = Quaternion.identity;
         if (CatchGridObject())
         {
 
@@ -84,22 +86,42 @@ public class EffectPull : MonoBehaviour
         {
             GetMousePosition();
         }
+        PositionAdjustmet();
     }
-
+    void PositionAdjustmet()
+    {
+        SetDirection();
+        switch (collType)
+        {
+            case ColliderInstatType.none:
+                transform.position = targetPos;
+                centerPos = targetPos;
+                break;
+            case ColliderInstatType.Around:
+                
+                AroundSet(targetPos, verti, hori, height);
+                transform.position = centerPos;
+                break;
+            case ColliderInstatType.ToBack:
+                ToBackSet(targetPos, verti, hori, height);
+                transform.position = centerPos;
+                break;
+            default:
+                break;
+        }
+        
+    }
     Vector3 GetMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit , 100f) )
         {
             targetPos = hit.point;
-            Debug.Log("Move To MousePosition");
-            transform.position = targetPos;
         }
         return targetPos;
     }
     bool CatchGridObject()
     {
-        Debug.Log("catchGridObject");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //LayerMask gridLayer = LayerMask.NameToLayer("GridObject");
         if (Physics.Raycast(ray, out RaycastHit hit,100f, gridLayer))
@@ -110,7 +132,7 @@ public class EffectPull : MonoBehaviour
             if (gridObject != null)
             {
                 targetPos = gridObject.GetGridPosition();
-                transform.position = targetPos;
+                //transform.position = targetPos;
                 Debug.Log("Move To Grid Position");
                 return true;
             }
@@ -126,6 +148,7 @@ public class EffectPull : MonoBehaviour
     }
     public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, float verti, float hori, float height)
     {
+        Debug.Log("CollType Set");
         this.collType = collType;
         this.targetPos = targetPos;
         this.verti = verti;
@@ -150,9 +173,8 @@ public class EffectPull : MonoBehaviour
     }
     public void Invoke()
     {
-        this.transform.position = targetPos;
-        //myObj.transform.position = Vector3.zero;
-        SetColliderType(collType);
+        //this.transform.position = targetPos;
+        /*
         SetDirection();
 
         switch (collType)
@@ -168,7 +190,7 @@ public class EffectPull : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
         //콜라이더 실제생성
         //myObj.SetActive(true);
         targetObjs = GetObjectsToBox();
@@ -218,19 +240,19 @@ public class EffectPull : MonoBehaviour
                 break;
             case ColliderDirection.Horizontal:
 
-                targetPos.z = verti;
+                //targetPos.z = verti;
                 size.x = hori;
                 size.y = height;
                 size.z = verti;
                 collSize = size;
                 //센터위치 보정
                 centerPos = targetPos;
-                centerVerti = targetPos.z - (VertiDirectionSet()*(size.z / 2 -0.5f)); //사이즈를 절반으로 나눈 후 센터가 될 크기의 콜라이더 크기 절반을  빼면 센터좌표
+                centerVerti = targetPos.z - (VertiDirectionSet()*((size.z-1)/ 2)); //사이즈를 절반으로 나눈 후 센터가 될 크기의 콜라이더 크기 절반을  빼면 센터좌표
                 centerPos.z = centerVerti;
                 Debug.Log("ToBack , Horizontal");
                 break;
             case ColliderDirection.Vertical:
-                targetPos.x = verti;
+                //targetPos.x = verti;
                 size.x = verti;
                 size.y = height;
                 size.z = hori;
@@ -238,7 +260,7 @@ public class EffectPull : MonoBehaviour
                 Debug.Log("ToBack , Vertical");
                 //센터 위치 보정
                 centerPos = targetPos;
-                centerVerti = targetPos.x - (VertiDirectionSet() * (size.x/2 -0.5f));
+                centerVerti = targetPos.x - (VertiDirectionSet() * ((size.x-1)/2));
                 centerPos.x = centerVerti;
                 break;
             default:
@@ -249,12 +271,6 @@ public class EffectPull : MonoBehaviour
     }
     public List<GameObject> GetTargetObjs()
     {
-        Debug.Log($"target Pos = {targetPos}");
-        Debug.Log($"center Pos = {centerPos}");
-        for(int i = 0; i<targetObjs.Count;i++)
-        {
-            Debug.Log($"TargetNames : {targetObjs[i].name}");
-        }
         return targetObjs;
     }
     #endregion
@@ -277,29 +293,24 @@ public class EffectPull : MonoBehaviour
     #region 콜라이더 생성
     List<GameObject> GetObjectsToBox()
     {
-        centerPos = targetPos;
+        //centerPos = targetPos;
         
-        Collider[] hits = Physics.OverlapBox(centerPos, collSize / 2);
+        Collider[] hits = Physics.OverlapBox(centerPos, (collSize / 2)*0.9f,Quaternion.identity);
         List<GameObject> results = new List<GameObject>();
+        Instantiate(debugobject, centerPos, Quaternion.identity);
         Debug.Log($"CenterPos = {centerPos}");
         Debug.Log($"collSize = {collSize}");
         foreach (Collider go in hits)
         {
-            SetGridPosition(go.gameObject);
             results.Add(go.gameObject);
             Debug.Log(go.gameObject.name);
         }
-        //OnDrawGizmos();
-
         return results;
     }
-    void SetGridPosition(GameObject go)
+    void OnDrawGizmosSelected()
     {
-        if(go.layer == LayerMask.NameToLayer("GridObject"))
-        {
-            this.transform.position = go.transform.position;
-            targetPos = go.transform.position;
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(centerPos, collSize);
     }
     #endregion
     int VertiDirectionSet()

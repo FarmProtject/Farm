@@ -22338,7 +22338,8 @@ MonoBehaviour:
   targetType: 0
   gridLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
+  debugobject: {fileID: 179186493}
 --- !u!65 &1671018719
 BoxCollider:
   m_ObjectHideFlags: 0
