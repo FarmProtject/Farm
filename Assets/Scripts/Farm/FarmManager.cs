@@ -12,29 +12,46 @@ public enum FarmTileType
 
 public class FarmManager : MonoBehaviour
 {
-
-    public delegate void LayerDetection(string layerName);
-    public event LayerDetection OnToolChange;
-
     FarmAreaController farmController;
+    public Dictionary<string, Dictionary<string, StringKeyDatas>> harvestData;
+    public Dictionary<string, Dictionary<string, StringKeyDatas>> cropToLevel;
+    ItemFactory factory;
+    private void Awake()
+    {
+        OnAwake();
+    }
     void Start()
     {
-        farmController = GameObject.Find("FarmArea").transform.GetComponent<FarmAreaController>();
-        OnToolChange += LayerChange;
+        
     }
-
+    void OnAwake()
+    {
+        farmController = GameObject.Find("FarmArea").transform.GetComponent<FarmAreaController>();
+        harvestData = GameManager.instance.dataManager.harvestData;
+        cropToLevel = GameManager.instance.dataManager.harvestToLevel;
+        factory = GameManager.instance.itemFactory;
+    
+    }
     void Update()
     {
         
     }
-
-    public void InvokeLayerChange(string layerName)
+    public CropData MakeCropData(int groupid,int id)
     {
-        OnToolChange.Invoke(layerName);
+        CropData newData = new CropData();
+        string groupKey = groupid.ToString();
+        string idKey = id.ToString();
+        newData.groudId = groupid;
+        newData.id = id;
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "name", ref newData.name);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "level", ref newData.level);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "nextlevel", ref newData.nextLevel);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "reqTime", ref newData.reqTime);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "hp", ref newData.hp);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "image", ref newData.Image);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "model", ref newData.model);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "texture", ref newData.texture);
+        factory.TrySetValue(harvestData[groupKey][idKey].datas, "dropID", ref newData.dropId);
+        return newData;
     }
-    void LayerChange(string layerName)
-    {
-        farmController.rayLayer = LayerMask.NameToLayer(layerName);
-    }
-    
 }

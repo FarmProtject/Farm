@@ -43,7 +43,7 @@ public class DataManager : MonoBehaviour
     [SerializeField, ReadOnly] private string effectDataPath;
     public Dictionary<int, Dictionary<string, object>> effectData = new Dictionary<int, Dictionary<string, object>>();
 
-    
+
     [SerializeField, ReadOnly] private string equipentsStatTableDataPath;
     public Dictionary<int, List<StringKeyDatas>> equipStatDatas = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> equipStat = new Dictionary<int, Dictionary<string, int>>();
@@ -71,16 +71,17 @@ public class DataManager : MonoBehaviour
     [SerializeField, ReadOnly] string toolItemDataPath;
     public Dictionary<int, Dictionary<string, object>> toolItemData = new Dictionary<int, Dictionary<string, object>>();
 
-    [SerializeField,ReadOnly] string harvestDataPath;
-    public Dictionary<int, List<StringKeyDatas>> harvestData = new Dictionary<int, List<StringKeyDatas>>();
-    
+    [SerializeField, ReadOnly] string harvestDataPath;
+    public Dictionary<string, Dictionary<string, StringKeyDatas>> harvestData = new Dictionary<string, Dictionary<string, StringKeyDatas>>();
+    public Dictionary<string, Dictionary<string, StringKeyDatas>> harvestToLevel = new Dictionary<string, Dictionary<string, StringKeyDatas>>();
+
     [SerializeField, ReadOnly] private string shopDataPath;
     public string ShopDataPath
     {
         get => $"{dataPath}{shopDataPath}";
         set => shopDataPath = value.Replace(dataPath, "");
     }
-    
+
     public Dictionary<int, List<StringKeyDatas>> shopData = new Dictionary<int, List<StringKeyDatas>>();
     public Dictionary<int, Dictionary<string, int>> shops = new Dictionary<int, Dictionary<string, int>>();
 
@@ -99,6 +100,7 @@ public class DataManager : MonoBehaviour
 
     private CSVReader csvReader = new CSVReader();
 
+    
     private void Awake()
     {
         OnAwake();
@@ -122,7 +124,7 @@ public class DataManager : MonoBehaviour
     {
         DataRead(itemDataPath, itemDatas);
         ReadGameConfig(gameConfigDataPath);
-        
+
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
@@ -130,7 +132,7 @@ public class DataManager : MonoBehaviour
     }
     void ReadStringData()
     {
-        
+
         //DebugEffcetDict();
         //DebugEffcetDict();
         IntKeyReadToObject(effectData, effectDataPath);
@@ -145,12 +147,12 @@ public class DataManager : MonoBehaviour
     {
         LoadMulti(shopDataPath, shopData);
         LoadMulti(equipentsStatTableDataPath, equipStatDatas);
-        LoadMulti(harvestDataPath, harvestData);
+        TwoKeyLoad(harvestDataPath, harvestData);
+        HarvestToLevel(harvestDataPath, harvestToLevel);
         //DebugStats();
         //HarvestDataDebug();
         //MultiObToInt(shopData, shops);
         //MultiObToInt(equipStatDatas, equipStat);
-
     }
     #region ÀÌÆåÆ® 
     void ResisteAllEffects()
@@ -159,7 +161,7 @@ public class DataManager : MonoBehaviour
                                   .GetTypes()
                                   .Where(t => t.IsSubclassOf(typeof(EffectBase)) && t.GetCustomAttribute<AutoRegisterEffect>() != null)
                                   .ToList();
-        foreach(var type in effectTypes)
+        foreach (var type in effectTypes)
         {
             string name = type.GetType().Name;
             var effect = (EffectBase)Activator.CreateInstance(type);
@@ -176,9 +178,9 @@ public class DataManager : MonoBehaviour
     #region debugs
     void DebugItemData()
     {
-        foreach(int id in itemDatas.datas.Keys)
+        foreach (int id in itemDatas.datas.Keys)
         {
-            foreach(string key in itemDatas.datas[id].Keys)
+            foreach (string key in itemDatas.datas[id].Keys)
             {
                 Debug.Log($"item id {id}  itemdataKey {key}  itemdata {itemDatas.datas[id][key]}");
             }
@@ -186,23 +188,23 @@ public class DataManager : MonoBehaviour
     }
     void DebugEffects()
     {
-        foreach(string name in effectBases.Keys)
+        foreach (string name in effectBases.Keys)
         {
             Debug.Log($"effectName : {name}");
         }
     }
     void DebugStats()
     {
-        foreach(int index in equipStatDatas.Keys)
+        foreach (int index in equipStatDatas.Keys)
         {
-            for(int i = 0; i < equipStatDatas[index].Count; i++)
+            for (int i = 0; i < equipStatDatas[index].Count; i++)
             {
-                foreach(string key in equipStatDatas[index][i].datas.Keys)
+                foreach (string key in equipStatDatas[index][i].datas.Keys)
                 {
                     Debug.Log($"StatType : {key}  Value : {equipStatDatas[index][i].datas[key]}");
 
                 }
-                
+
             }
         }
     }
@@ -218,46 +220,45 @@ public class DataManager : MonoBehaviour
         }
 
     }
-    void HarvestDataDebug()
-    {
-        foreach(int index in harvestData.Keys)
-        {
-            for(int i = 0; i < harvestData[index].Count; i++)
-            {
-                foreach(string key in harvestData[index][i].datas.Keys)
-                {
-                    Debug.Log($"ID : {index} Key : {key} Value {harvestData[index][i].datas[key].ToString()} ");
-
-
-
-
-                }
-
-
-            }
-        }
-    }
+    
     void ItemDataDebug()
     {
-        foreach(int index in itemDatas.datas.Keys)
+        foreach (int index in itemDatas.datas.Keys)
         {
             foreach (string key in itemDatas.datas[index].Keys)
             {
                 Debug.Log(itemDatas.datas[index][key]);
             }
-                
+
         }
     }
     void StringKeyDebug()
     {
-        foreach(string key in stringDatas.Keys)
+        foreach (string key in stringDatas.Keys)
         {
-            foreach(string lg in stringDatas[key].Keys)
+            foreach (string lg in stringDatas[key].Keys)
             {
                 Debug.Log($" key : {key}   lng : {lg}    valuy : {stringDatas[key][lg]}");
             }
 
 
+        }
+    }
+    void DebugTwoKeyCropData()
+    {
+        Debug.Log($"TwoKeyDebug    {harvestData.Count}");
+
+        foreach (string groupid in harvestData.Keys)
+        {
+            Debug.Log($"Groupid : {groupid}");
+            foreach (string id in harvestData[groupid].Keys)
+            {
+                foreach (string key in harvestData[groupid][id].datas.Keys)
+                {
+                    Debug.Log($"GroupId {groupid} ,  ID {id} , Key : {key}  ,Value {harvestData[groupid][id].datas[key].ToString()}");
+                }
+
+            }
         }
     }
     #endregion
@@ -284,7 +285,7 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    
+
     void KeyStringDataRead(Dictionary<string, Dictionary<string, string>> dataDict, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
@@ -347,7 +348,7 @@ public class DataManager : MonoBehaviour
             {
                 stringDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            
+
             if (fileNames[i]["fieldName"] == nameof(equipentsStatTableDataPath))
             {
                 equipentsStatTableDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
@@ -360,7 +361,7 @@ public class DataManager : MonoBehaviour
             {
                 itemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
-            
+
             if (fileNames[i]["fieldName"] == nameof(farmingItemDataPath))
             {
                 farmingItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
@@ -408,9 +409,9 @@ public class DataManager : MonoBehaviour
         {
             List<StringKeyDatas> datas = new List<StringKeyDatas>();
             Dictionary<string, object> temp = tempList[i];
-            
+
             int index;
-            
+
             if (temp.ContainsKey("groupId") && int.TryParse(temp["groupId"].ToString(), out index))
             {
                 StringKeyDatas keyData = new StringKeyDatas();
@@ -426,7 +427,7 @@ public class DataManager : MonoBehaviour
                     newData.Add(index, dataList);
                 }
             }
-            else if(temp.ContainsKey("id") && int.TryParse(temp["id"].ToString(), out index))
+            else if (temp.ContainsKey("id") && int.TryParse(temp["id"].ToString(), out index))
             {
                 StringKeyDatas keyData = new StringKeyDatas();
                 keyData.datas = temp;
@@ -442,6 +443,70 @@ public class DataManager : MonoBehaviour
                 }
 
             }
+        }
+    }
+    void TwoKeyLoad(string path, Dictionary<string, Dictionary<string, StringKeyDatas>> dictData)
+    {
+        List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();
+        tempList = csvReader.Read(path);
+        Debug.Log("TwoKeyLaoad");
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            Dictionary<string, object> temp = tempList[i];
+            StringKeyDatas keyData = new StringKeyDatas();
+            Dictionary<string, StringKeyDatas> idDict = new Dictionary<string, StringKeyDatas>();
+
+            keyData.datas = temp;
+            string groupid = temp["groupid"].ToString();
+            string id = temp["id"].ToString();
+
+            idDict.Add(id, keyData);
+
+            if (!dictData.ContainsKey(groupid))
+            {
+                dictData.Add(groupid, idDict);
+            }
+            else if (dictData.ContainsKey(groupid) && !dictData[groupid].ContainsKey(id))
+            {
+                dictData[groupid].Add(id, keyData);
+            }
+            else
+            {
+                Debug.Log("key Error");
+            }
+
+        }
+    }
+    void HarvestToLevel(string path, Dictionary<string,Dictionary<string,StringKeyDatas>> dictData)
+    {
+        List<Dictionary<string, object>> tempList = new List<Dictionary<string, object>>();
+        tempList = csvReader.Read(path);
+        Debug.Log("TwoKeyLaoad");
+        for (int i = 0; i < tempList.Count; i++)
+        {
+            Dictionary<string, object> temp = tempList[i];
+            StringKeyDatas keyData = new StringKeyDatas();
+            Dictionary<string, StringKeyDatas> idDict = new Dictionary<string, StringKeyDatas>();
+
+            keyData.datas = temp;
+            string groupid = temp["groupid"].ToString();
+            string level = temp["level"].ToString();
+
+            idDict.Add(level, keyData);
+
+            if (!dictData.ContainsKey(groupid))
+            {
+                dictData.Add(groupid, idDict);
+            }
+            else if (dictData.ContainsKey(groupid) && !dictData[groupid].ContainsKey(level))
+            {
+                dictData[groupid].Add(level, keyData);
+            }
+            else
+            {
+                Debug.Log("key Error");
+            }
+
         }
     }
     /*
@@ -579,7 +644,7 @@ public class DataManager : MonoBehaviour
                     continue;
                 }
                 newData.datas.Add(index, temp);
-                
+
             }
             else
             {
@@ -587,7 +652,7 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-    
+
     void StringKeyRead(string path)
     {
         List<Dictionary<string, object>> tempDatas = new List<Dictionary<string, object>>();
@@ -656,5 +721,5 @@ public class DataManager : MonoBehaviour
 
         }
     }
-    
+
 }

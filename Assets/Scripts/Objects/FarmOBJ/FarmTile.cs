@@ -3,22 +3,29 @@ using System;
 using System.Collections.Generic;
 public class FarmTile : MonoBehaviour,IGridObject
 {
+    MeshRenderer preViewRender;
     [SerializeField] Material ableMeterial;
     [SerializeField] Material enAbleMeterial;
 
     [SerializeField]GameObject preViewObj;
-    [SerializeField] GameObject farmObj;
-    MeshRenderer preViewRender;
+    [SerializeField] GameObject cropObj;
+
+    CropData cropData;
+
+    Material cropMaterial;
+    MeshRenderer cropMesh;
 
     public FarmTileType tileType;
+
     private void Awake()
     {
-        SetUpPreview();
-        tileType = FarmTileType.Soil;
+        OnAwake();
     }
     void OnAwake()
     {
-        
+        SetUpPreview();
+        //SetUpCropObj();
+        tileType = FarmTileType.Soil;
     }
 
     void SetUpPreview()
@@ -35,6 +42,21 @@ public class FarmTile : MonoBehaviour,IGridObject
 
         preViewObj.transform.rotation = Quaternion.identity;
     }
+    public void SetCropData(CropData crop)
+    {
+        cropData = crop;
+    }
+    public CropData GetCropData()
+    {
+        return cropData;
+    }
+    void SetUpCropObj()
+    {
+        cropData = cropObj.transform.GetComponent<CropData>();
+        cropMaterial = cropObj.transform.GetComponent<Material>();
+        cropMesh = cropObj.transform.GetComponent<MeshRenderer>();
+    }
+
     void TurnOnPreview(FarmTileType targetType)
     {
         preViewObj.SetActive(true);
@@ -61,33 +83,38 @@ public class FarmTile : MonoBehaviour,IGridObject
         return tileType;
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "SkillColl")
-        {
-            //EffectCollider ec = other.transform.GetComponent<EffectCollider>();
-            EffectPull ep = other.GetComponent<EffectPull>();
-            string type = ep.targetType.ToString();
-            FarmTileType targetType;
-            if(Enum.TryParse(type, out targetType))
-            {
-                TurnOnPreview(targetType);
-                preViewObj.SetActive(true);
-            }
-        }
-        
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.tag == "SkillColl")
-        {
-            preViewObj.SetActive(false);
-        }
-        
-    }
 
     public Vector3 GetGridPosition()
     {
         return transform.position;
     }
+
+
+
+
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SkillColl")
+        {
+            //EffectCollider ec = other.transform.GetComponent<EffectCollider>();
+            EffectPull ep = other.GetComponent<EffectPull>();
+            string type = ep.targetType.ToString();
+            FarmTileType targetType;
+            if (Enum.TryParse(type, out targetType))
+            {
+                TurnOnPreview(targetType);
+                preViewObj.SetActive(true);
+            }
+        }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "SkillColl")
+        {
+            preViewObj.SetActive(false);
+        }
+
+    }*/
 }

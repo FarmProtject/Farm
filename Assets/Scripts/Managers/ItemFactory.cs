@@ -211,6 +211,8 @@ public class ItemFactory : MonoBehaviour
             TrySetValue(data, "functionName", ref target.functionName);
             TryConvertEnum(data, "targetType", ref target.target);
             TryConvertEnum(data, "collType", ref target.collType);
+            TrySetValue(data, "integerParameter", ref target.integerParameter);
+            TrySetValue(data, "percentParam", ref target.percentParam);
             Debug.Log($"Collider Type {target.collType}");
         }
         
@@ -238,7 +240,7 @@ public class ItemFactory : MonoBehaviour
         item.equipStats = (newData);
     }
 
-    bool TrySetValue<T>(Dictionary<string, object> data, string key, ref T target)
+    public bool TrySetValue<T>(Dictionary<string, object> data, string key, ref T target)
     {
         if (data.ContainsKey(key) && data[key] != null)
         {

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class FarmAreaController : MonoBehaviour
 {
+
+    DataManager dataManager;
+
     Grid myGrid;
     [SerializeField]GameObject preViewObj;
     [SerializeField]GameObject soilPrefab;
@@ -33,39 +36,13 @@ public class FarmAreaController : MonoBehaviour
         preViewObj = GameObject.Find("FarmObjPreView");
         preViewObj.SetActive(false);
         mainCamera = Camera.main;
+        if(dataManager == null)
+        {
+            dataManager = GameManager.instance.dataManager;
+        }
         SetGridObjects();
     }
-
-    void OBJFollow()
-    {
-        Renderer rend = GetComponent<Renderer>();
-        Vector3 planeSize = rend.bounds.size;
-        Vector3 planeOrigin = transform.position - new Vector3(planeSize.x / 2, 0, planeSize.z / 2);
-        Vector3 objSize = preViewObj.GetComponent<Renderer>().bounds.size;
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = mainCamera.nearClipPlane;
-        Ray ray = mainCamera.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray,out hit, 100, rayLayer))
-        {
-            Vector3 pos = hit.point;
-            int finalx = Mathf.FloorToInt(pos.x);
-            float finaly = (objSize.y)/2;
-            int finalz = Mathf.FloorToInt(pos.z);
-            Vector3 fianlVector = new Vector3(finalx+(objSize.x/2), finaly, finalz+(objSize.z/2));
-            //Debug.Log(fianlVector);
-            preViewObj.transform.position = fianlVector;
-            /*
-            Vector3 vertifyVector = new Vector3(finalx + objSize.x/2, 0, finalz+objSize.z/2);
-            if (farmObjs.ContainsKey(vertifyVector))
-            {
-                preViewObj.transform.position = fianlVector;
-            }
-            */
-        }
-    }
-
+    #region 그리드
     public Vector3 GetGridPosition(LayerMask layer)
     {
         Vector3 mousePos = Input.mousePosition;
@@ -125,6 +102,15 @@ public class FarmAreaController : MonoBehaviour
             //Debug.Log(key);
         }
     }
+    #endregion
+    #region 팜데이터생성
+
+
+    
+    #endregion
+
+
+
     private void OnTriggerEnter(Collider other)
     {
 
