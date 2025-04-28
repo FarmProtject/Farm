@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     public ItemFactory itemFactory;
 
     public FarmDataManager farmDataManager;
+
+    public AssetBundleManager bundleManager;
     private void Awake()
     {
         SetUpField();
@@ -97,7 +99,11 @@ public class GameManager : MonoBehaviour
         }
         if(farmDataManager == null)
         {
-            FarmDataManager farmDataManager = GameObject.Find("FarmArea").transform.GetComponent<FarmDataManager>();
+            farmDataManager = GameObject.Find("FarmArea").transform.GetComponent<FarmDataManager>();
+        }
+        if(bundleManager == null)
+        {
+            bundleManager = transform.GetComponent<AssetBundleManager>();
         }
     }
     

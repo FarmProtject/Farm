@@ -15556,6 +15556,7 @@ GameObject:
   - component: {fileID: 1241100376}
   - component: {fileID: 1241100377}
   - component: {fileID: 1241100378}
+  - component: {fileID: 1241100379}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -15587,6 +15588,7 @@ MonoBehaviour:
   shopManager: {fileID: 0}
   itemFactory: {fileID: 0}
   farmDataManager: {fileID: 0}
+  bundleManager: {fileID: 0}
 --- !u!4 &1241100369
 Transform:
   m_ObjectHideFlags: 0
@@ -15689,6 +15691,9 @@ MonoBehaviour:
   shopDataPath: 
   soilItemDataPath: 
   dropTablePath: 
+  texturePath: 
+  matarialPath: 
+  mashPath: 
 --- !u!114 &1241100374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15754,6 +15759,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946be0b278be8f44499ded73f43a04f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bundlePath: 
+--- !u!114 &1241100379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241100367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d2cd11be0e06b64f87f9d84078f7c36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshPath: 
+  materialPath: 
 --- !u!1 &1245575557
 GameObject:
   m_ObjectHideFlags: 0

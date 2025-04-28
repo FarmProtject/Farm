@@ -12,9 +12,11 @@ public enum FarmTileType
 
 public class FarmManager : MonoBehaviour
 {
+    TextureManager textureManager;
     FarmAreaController farmController;
     public Dictionary<string, Dictionary<string, StringKeyDatas>> harvestData;
     public Dictionary<string, Dictionary<string, StringKeyDatas>> cropToLevel;
+    
     ItemFactory factory;
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class FarmManager : MonoBehaviour
         harvestData = GameManager.instance.dataManager.harvestData;
         cropToLevel = GameManager.instance.dataManager.harvestToLevel;
         factory = GameManager.instance.itemFactory;
+        textureManager = GameManager.instance.GetComponent<TextureManager>();
     
     }
     void Update()

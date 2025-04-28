@@ -10,13 +10,13 @@ public class SeedingEffect : EffectBase
         {
             if(tile.tileType == FarmTileType.ReadySoil)
             {
+                
                 int groupId = integerParameter;
                 int id = (int)percentParam;
                 CropData cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
                 tile.SetCropData(cropData);
-
-
-
+                Debug.Log($"Seeding! {tile.GetCropData().id}");
+                tile.SetMyTextures();
             }
         }
     }

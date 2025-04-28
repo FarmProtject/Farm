@@ -297,7 +297,7 @@ public class EffectPull : MonoBehaviour
         
         Collider[] hits = Physics.OverlapBox(centerPos, (collSize / 2)*0.9f,Quaternion.identity);
         List<GameObject> results = new List<GameObject>();
-        Instantiate(debugobject, centerPos, Quaternion.identity);
+        //Instantiate(debugobject, centerPos, Quaternion.identity);
         Debug.Log($"CenterPos = {centerPos}");
         Debug.Log($"collSize = {collSize}");
         foreach (Collider go in hits)

@@ -127,7 +127,7 @@ MonoBehaviour:
   ableMeterial: {fileID: 2100000, guid: 026ef363ee167b946945e7fcca738947, type: 2}
   enAbleMeterial: {fileID: 2100000, guid: a5a0adf46e1387940bf9af980c950711, type: 2}
   preViewObj: {fileID: 6299471768402262960}
-  farmObj: {fileID: 6495351214330552983}
+  cropObj: {fileID: 6495351214330552983}
   tileType: 0
 --- !u!54 &8617133177156001660
 Rigidbody:
@@ -323,7 +323,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2894882722348328920, guid: 3981fb40fef7d314189b2cc9057a1f64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 709219329869792565}
   m_SourcePrefab: {fileID: 100100000, guid: 3981fb40fef7d314189b2cc9057a1f64, type: 3}
 --- !u!4 &6020289385001809069 stripped
 Transform:
@@ -335,3 +338,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2894882722348328920, guid: 3981fb40fef7d314189b2cc9057a1f64, type: 3}
   m_PrefabInstance: {fileID: 9169478705885158504}
   m_PrefabAsset: {fileID: 0}
+--- !u!33 &709219329869792565
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299471768402262960}
+  m_Mesh: {fileID: 0}

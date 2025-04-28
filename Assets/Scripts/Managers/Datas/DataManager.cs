@@ -97,7 +97,10 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<string, EffectBase> effectBases = new Dictionary<string, EffectBase>();
 
-
+    public string texturePath;
+    public Dictionary<int, Dictionary<string, object>> textureMap = new Dictionary<int, Dictionary<string, object>>();
+    public string matarialPath;
+    public string mashPath;
     private CSVReader csvReader = new CSVReader();
 
     
@@ -124,7 +127,7 @@ public class DataManager : MonoBehaviour
     {
         DataRead(itemDataPath, itemDatas);
         ReadGameConfig(gameConfigDataPath);
-
+       
         /*
         ItemDataRead("EquipData", itemDatas);
         ItemDataRead("MaterialData", itemDatas);
@@ -141,6 +144,7 @@ public class DataManager : MonoBehaviour
         IntKeyReadToObject(equipItemData, equipItemDataPath);
         IntKeyReadToObject(toolItemData, toolItemDataPath);
         IntKeyReadToObject(farmingItemData, farmingItemDataPath);
+        IntKeyReadToObject(textureMap, texturePath);
         //IntKeyReadToString(materialItemData, materialItemDataPath);
     }
     void ReadMultiKey()
@@ -377,6 +381,10 @@ public class DataManager : MonoBehaviour
             if (fileNames[i]["fieldName"] == nameof(toolItemDataPath))
             {
                 toolItemDataPath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
+            }
+            if(fileNames[i]["fieldName"] == nameof(texturePath))
+            {
+                texturePath = dataPath + fileNames[i]["folder"] + "\\" + fileNames[i]["filename"];
             }
             /*
             if (fileNames[i]["fieldName"] == nameof(materialItemDataPath))
@@ -673,7 +681,11 @@ public class DataManager : MonoBehaviour
     void IntKeyReadToObject(Dictionary<int, Dictionary<string, object>> data, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
-
+        if(temp == null)
+        {
+            Debug.Log($" Data null {dataPath}");
+            return;
+        }
         for (int i = 0; i < temp.Count; i++)
         {
             int index;

@@ -12,11 +12,12 @@ public class FarmTile : MonoBehaviour,IGridObject
 
     CropData cropData;
 
-    Material cropMaterial;
-    MeshRenderer cropMesh;
+    MeshRenderer cropMaterial;
+    MeshFilter cropMesh;
 
     public FarmTileType tileType;
 
+    public bool isWet;
     private void Awake()
     {
         OnAwake();
@@ -24,7 +25,7 @@ public class FarmTile : MonoBehaviour,IGridObject
     void OnAwake()
     {
         SetUpPreview();
-        //SetUpCropObj();
+        SetUpCropObj();
         tileType = FarmTileType.Soil;
     }
 
@@ -52,9 +53,9 @@ public class FarmTile : MonoBehaviour,IGridObject
     }
     void SetUpCropObj()
     {
-        cropData = cropObj.transform.GetComponent<CropData>();
-        cropMaterial = cropObj.transform.GetComponent<Material>();
-        cropMesh = cropObj.transform.GetComponent<MeshRenderer>();
+        //cropData = cropObj.transform.GetComponent<CropData>();
+        cropMaterial = cropObj.transform.GetComponent<MeshRenderer>();
+        cropMesh = cropObj.transform.GetComponent<MeshFilter>();
     }
 
     void TurnOnPreview(FarmTileType targetType)
@@ -90,31 +91,33 @@ public class FarmTile : MonoBehaviour,IGridObject
     }
 
 
-
-
-    /*
-    private void OnTriggerEnter(Collider other)
+    public int GetCropId()
     {
-        if (other.tag == "SkillColl")
-        {
-            //EffectCollider ec = other.transform.GetComponent<EffectCollider>();
-            EffectPull ep = other.GetComponent<EffectPull>();
-            string type = ep.targetType.ToString();
-            FarmTileType targetType;
-            if (Enum.TryParse(type, out targetType))
-            {
-                TurnOnPreview(targetType);
-                preViewObj.SetActive(true);
-            }
-        }
+        return cropData.id;
+    }
+
+    public void SetCropMaterial(Material material)
+    {
+        cropMaterial.material = material;
+    }
+
+    public void SetCropTexture(Mesh texture)
+    {
+
+        cropMesh.mesh = texture;
 
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "SkillColl")
-        {
-            preViewObj.SetActive(false);
-        }
 
-    }*/
+    public void SetMyTextures()
+    {
+        Mesh mesh = GameManager.instance.bundleManager.LoadMeshBundle(cropData.id);
+        Material material = GameManager.instance.bundleManager.LoadMaterial(cropData.id);
+        SetCropMaterial(material);
+        SetCropTexture(mesh);
+        if (!cropObj.activeSelf)
+        {
+            cropObj.SetActive(true);
+        }
+    }
+
 }

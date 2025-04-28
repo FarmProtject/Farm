@@ -1,0 +1,12 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.25f1
+CRC: 3360977742
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: plantmat
+      Dependencies: {}
+    Info_1:
+      Name: plantmesh
+      Dependencies: {}
