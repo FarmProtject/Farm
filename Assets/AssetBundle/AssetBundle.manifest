@@ -1,0 +1,12 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.25f1
+CRC: 2728442298
+HashAppended: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: materials.bundle
+      Dependencies: {}
+    Info_1:
+      Name: meshes.bundle
+      Dependencies: {}

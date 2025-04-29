@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour,Isubject
 
     public GraphicRaycaster grapicRaycaster;
     public EventSystem eventSystem;
+
+    public GameObject confirmPanelObj;
+    public ConfirmPanel confirmPanel;
     private void Awake()
     {
         dialogueObj = GameObject.Find("DialoguePanel");
@@ -45,6 +48,14 @@ public class UIManager : MonoBehaviour,Isubject
         }
         grapicRaycaster = GameObject.Find("Canvas").transform.GetComponent<GraphicRaycaster>();
         eventSystem = GameObject.Find("EventSystem").transform.GetComponent<EventSystem>();
+        if(confirmPanelObj == null)
+        {
+            confirmPanelObj = GameObject.Find("ConfirmPanel");
+        }
+        if(confirmPanel == null)
+        {
+            confirmPanel = confirmPanelObj.transform.GetComponent<ConfirmPanel>();
+        }
     }
 
     void Start()

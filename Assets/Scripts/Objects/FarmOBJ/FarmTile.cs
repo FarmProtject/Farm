@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-public class FarmTile : MonoBehaviour,IGridObject
+public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
 {
     MeshRenderer preViewRender;
     [SerializeField] Material ableMeterial;
@@ -99,6 +99,7 @@ public class FarmTile : MonoBehaviour,IGridObject
     public void SetCropMaterial(Material material)
     {
         cropMaterial.material = material;
+        cropObj.transform.rotation = Quaternion.identity;
     }
 
     public void SetCropTexture(Mesh texture)
@@ -120,4 +121,38 @@ public class FarmTile : MonoBehaviour,IGridObject
         }
     }
 
+
+    public void Grow()
+    {
+        cropData.myTime++;
+
+        if (cropData.myTime >= cropData.reqTime)
+        {
+            float leftTime = cropData.myTime - cropData.reqTime;
+            CropLevelUp();
+            cropData.myTime = leftTime;
+        }
+    }
+
+    public void CropLevelUp()
+    {
+        if (cropData.nextLevel != 0)
+        {
+            int level = cropData.nextLevel;
+            int groupId = cropData.groudId;
+            int id = (int)GameManager.instance.dataManager.harvestToLevel[groupId.ToString()][level.ToString()].datas["id"];
+
+            cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
+            SetMyTextures();
+        }
+        //CropData cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
+    }
+
+    public void DayPassed()
+    {
+        if (cropData != null)
+        {
+            Grow();
+        }
+    }
 }

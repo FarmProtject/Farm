@@ -22,14 +22,20 @@ public class AssetBundleManager : MonoBehaviour
 
     void OnAwake()
     {
-        string path = "AssetBundle/Meshes";
-        meshPath = Path.Combine(Application.streamingAssetsPath, path);
-        Debug.Log(meshPath);
-        path = "AssetBundle/Materials";
-        materialPath = Path.Combine(Application.streamingAssetsPath, path);
-        Debug.Log(meshPath);
+        AssetLoad();
+
     }
 
+    public void AssetLoad()
+    {
+        string bundlePath = Path.Combine(Application.dataPath, "AssetBundle");
+
+        meshBundle = AssetBundle.LoadFromFile(Path.Combine(bundlePath, "meshes.bundle"));
+        materialBundle = AssetBundle.LoadFromFile(Path.Combine(bundlePath, "materials.bundle"));
+
+        Debug.Log($"Mesh bundle : {meshBundle}");
+        Debug.Log($"MateBundle : {materialBundle}");
+    }
 
     public Mesh LoadMeshBundle(int id)
     {
@@ -48,8 +54,7 @@ public class AssetBundleManager : MonoBehaviour
         if (!meshCache.ContainsKey(name))
         {
             string path = meshPath;// = Path.Combine(meshPath, name);
-            meshBundle = AssetBundle.LoadFromFile(path);/*".bundle"*/
-
+            Debug.Log(meshBundle.LoadAsset<Mesh>(name));
             Mesh loadedMesh = meshBundle.LoadAsset<Mesh>(name);
             meshCache.Add(name, loadedMesh);
         }
@@ -73,7 +78,7 @@ public class AssetBundleManager : MonoBehaviour
         if (!materialCache.ContainsKey(name))
         {
             string path = materialPath;//Path.Combine(materialPath, name);
-            materialBundle = AssetBundle.LoadFromFile(path); // + ".bundle");
+            Debug.Log(materialBundle.LoadAsset<Material>(name));
             Material loadMate = materialBundle.LoadAsset<Material>(name);
             materialCache.Add(name, loadMate);
         }

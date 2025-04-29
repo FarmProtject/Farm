@@ -1,60 +1,57 @@
-
 using UnityEditor;
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
+
 public class MyToolMenu
 {
-    [MenuItem("Mytool/AssetBundle Build")]
-
-    public static void BuildSelectedAssetBundles()
+    [MenuItem("MyTool/Build AssetBundles")]
+    public static void BuildAllAssetBundles()
     {
-        string directory = "./Assets/AssetBundle";
-        string materialFolder = Path.Combine(directory, "Materials");
-        string meshFolder = Path.Combine(directory, "Meshes");
-        if (!Directory.Exists(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-        if (!Directory.Exists(materialFolder))
-        {
-            Directory.CreateDirectory(materialFolder);
-        }
-        if (!Directory.Exists(meshFolder))
-        {
-            Directory.CreateDirectory(meshFolder);
-        }
-        // 1. 매터리얼 번들 빌드
+        string outputPath = "Assets/AssetBundle";
 
-        string[] materialAssets = AssetDatabase.FindAssets("t:Material", new[] { "Assets/Textures/Materials" });
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+        }
 
-        foreach (string guid in materialAssets)
+        List<AssetBundleBuild> bundleBuilds = new List<AssetBundleBuild>();
+
+        // 1. Material 번들
+        string[] materialGuids = AssetDatabase.FindAssets("t:Material", new[] { "Assets/Textures/Materials" });
+        List<string> materialPaths = new List<string>();
+
+        foreach (string guid in materialGuids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
-
-            AssetBundleBuild build = new AssetBundleBuild
-            {
-                assetBundleName = Path.GetFileNameWithoutExtension(path).ToLower() + ".bundle",
-                assetNames = new[] { path }
-            };
-            BuildPipeline.BuildAssetBundles(materialFolder, new[] { build }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+            materialPaths.Add(path);
         }
 
-        string[] meshAssets = AssetDatabase.FindAssets("t:Mesh", new[] { "Assets/Textures/Meshs" });
-        foreach (string guid in meshAssets)
+        bundleBuilds.Add(new AssetBundleBuild
+        {
+            assetBundleName = "materials.bundle",
+            assetNames = materialPaths.ToArray()
+        });
+
+        // 2. Mesh 번들
+        string[] meshGuids = AssetDatabase.FindAssets("t:Mesh", new[] { "Assets/Textures/Meshs" });
+        List<string> meshPaths = new List<string>();
+
+        foreach (string guid in meshGuids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
-
-            AssetBundleBuild build = new AssetBundleBuild
-            {
-                assetBundleName = Path.GetFileNameWithoutExtension(path).ToLower() + ".bundle",
-                assetNames = new[] { path }
-            };
-
-            BuildPipeline.BuildAssetBundles(meshFolder, new[] { build }, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+            meshPaths.Add(path);
         }
 
-        EditorUtility.DisplayDialog("에섯번들 빌드", "에셋 번들 빌드 완료했습니다", "완료");
+        bundleBuilds.Add(new AssetBundleBuild
+        {
+            assetBundleName = "meshes.bundle",
+            assetNames = meshPaths.ToArray()
+        });
+
+        // 번들 빌드
+        BuildPipeline.BuildAssetBundles(outputPath, bundleBuilds.ToArray(), BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows);
+
+        EditorUtility.DisplayDialog("AssetBundle 빌드", "모든 번들 빌드 완료!", "확인");
     }
 }

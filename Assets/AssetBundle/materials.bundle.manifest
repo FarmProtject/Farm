@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+UnityVersion: 6000.0.25f1
+CRC: 375030858
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 539f6fddd2d4aa25fc7df3e72e20aa64
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8ed81b296f435bff7379a355cd1d66d9
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 1f53cd4243c4e429bbe4385ec2c26e4f
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Textures/Materials/Plant.mat
+- Assets/Textures/Materials/unitychan_head.mat
+- Assets/Textures/Materials/unitychan_body.mat
+- Assets/Textures/Materials/unitychan_hair.mat
+- Assets/Textures/Materials/PlantMat.mat
+- Assets/Textures/Materials/unitychan_face.mat
+- Assets/Textures/Materials/Flower1Mat.mat
+Dependencies: []
