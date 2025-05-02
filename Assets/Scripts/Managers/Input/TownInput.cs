@@ -135,7 +135,7 @@ public class TownInput : InputBase
                 }
             }
 
-            
+            Debug.Log($"Interact Object Name : {interactObj.name}");
             IInteractable interact = interactObj.transform.GetComponent<IInteractable>();
 
             playerEntity.nowInteract = interactObj;

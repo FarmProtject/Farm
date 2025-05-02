@@ -37,7 +37,11 @@ public class GameManager : MonoBehaviour
 
     public FarmDataManager farmDataManager;
 
+    public DayManager dayManager;
+
     public AssetBundleManager bundleManager;
+
+    
     private void Awake()
     {
         SetUpField();
@@ -104,6 +108,10 @@ public class GameManager : MonoBehaviour
         if(bundleManager == null)
         {
             bundleManager = transform.GetComponent<AssetBundleManager>();
+        }
+        if(dayManager == null)
+        {
+            dayManager = transform.GetComponent<DayManager>();
         }
     }
     

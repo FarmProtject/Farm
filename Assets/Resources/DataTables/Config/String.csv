@@ -67,6 +67,9 @@ item_desc_400003,재료3 설명,Material 3 Description
 item_desc_400004,재료4 설명,Material 4 Description
 ui_shop_name,상점,Shop
 ui_bag_name,가방,Bag
+ui_bed_confirm,다음날로 진행할까요?,Go to next day?
+ui_confirm_yes,예,yes
+ui_confirm_no,아니오,no
 noti_shop_nomoney,돈이 부족해 구매할 수 없습니다,I don't have enough money to buy it
 noti_common_wait,지금은 할 수 없습니다,I can't do it now
 itemtype_soil,농기구,Farming Gear

@@ -39,7 +39,10 @@ public class SetStringKey : MonoBehaviour,IObserver
 
 
     }
-
+    public void SetKey(string key)
+    {
+        stringKey = key;
+    }
     public void LanguageChange()
     {
         SetMyFont();

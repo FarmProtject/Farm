@@ -39,6 +39,7 @@ public class InteractableEntity : LivingEntity,IInteractable
         {
             PlayerEntity playerEntity = other.transform.GetComponent<PlayerEntity>();
             playerEntity.interactOBJ.Add(this.gameObject);
+            Debug.Log($"{this.gameObject.name} in");
         }
     }
     protected void OnTriggerExit(Collider other)

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 public class DayManager : MonoBehaviour
 {
-    List<IDayTickable> listners;
+    List<IDayTickable> listners = new List<IDayTickable>();
 
     public UnityEvent DayEvents;
     

@@ -27,6 +27,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         SetUpPreview();
         SetUpCropObj();
         tileType = FarmTileType.Soil;
+        GameManager.instance.dayManager.Resister(this);
     }
 
     void SetUpPreview()

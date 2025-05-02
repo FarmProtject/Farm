@@ -198,4 +198,9 @@ public class UIManager : MonoBehaviour,Isubject
         }
     }
     #endregion
+
+    public void TurnOnConfirmPanel()
+    {
+        confirmPanelObj.SetActive(true);
+    }
 }
