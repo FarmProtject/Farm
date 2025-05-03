@@ -156,4 +156,18 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
             Grow();
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "SkillColl")
+        {
+            preViewObj.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "SkillColl")
+        {
+            preViewObj.SetActive(false);
+        }
+    }
 }
