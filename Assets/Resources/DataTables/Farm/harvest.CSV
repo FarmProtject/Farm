@@ -1,8 +1,8 @@
 id,groupid,name,level,nextlevel,reqTime,hp,image,model,texture,dropID
-1001,10001,crop_bean_1,1,2,2,1,bean01,bean01,,bean01,null
-1002,10001,crop_bean_2,2,3,2,1,bean02,bean02,bean02,,null
-1003,10001,crop_bean_3,3,4,2,1,bean03,bean03,bean03,,null
-1004,10001,crop_bean_4,4,0,0,3,bean04,bean04,,bean04,drop_bean
+1001,10001,crop_bean_1,1,2,1,1,bean01,bean01,bean01,null
+1002,10001,crop_bean_2,2,3,1,1,bean02,bean02,bean02,null
+1003,10001,crop_bean_3,3,4,1,1,bean03,bean03,bean03,null
+1004,10001,crop_bean_4,4,0,0,3,bean04,bean04,bean04,drop_bean
 1005,10002,crop_wheat_1,1,2,1,1,wheat01,wheat01,wheat01,null
 1006,10002,crop_wheat_2,2,3,2,1,wheat02,wheat02,wheat02,null
 1007,10002,crop_wheat_3,3,4,2,1,wheat03,wheat03,wheat03,null

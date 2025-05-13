@@ -10,6 +10,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
     [SerializeField]GameObject preViewObj;
     [SerializeField] GameObject cropObj;
 
+    CropObject cropScript;
     CropData cropData;
 
     MeshRenderer cropMaterial;
@@ -17,6 +18,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
 
     public FarmTileType tileType;
 
+    EffectPull effectPuller;
     public bool isWet;
     private void Awake()
     {
@@ -28,6 +30,8 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         SetUpCropObj();
         tileType = FarmTileType.Soil;
         GameManager.instance.dayManager.Resister(this);
+        effectPuller = GameManager.instance.playerEntity.myEffcetPuller;
+        cropScript = cropObj.transform.GetComponent<CropObject>();
     }
 
     void SetUpPreview()
@@ -59,18 +63,29 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         cropMesh = cropObj.transform.GetComponent<MeshFilter>();
     }
 
-    void TurnOnPreview(FarmTileType targetType)
+    public void TurnOnPreview(TargetType targetType)
     {
-        preViewObj.SetActive(true);
-        if(tileType == targetType)
+        string tempType = targetType.ToString();
+        Debug.Log($"temp Type : {tempType}");
+        FarmTileType farmType = FarmTileType.none;
+        Debug.Log($"farmType : {farmType}");
+        if (Enum.TryParse<FarmTileType>(tempType, out farmType))
         {
-            preViewRender.material = ableMeterial;
-        }
-        else
-        {
-            preViewRender.material = enAbleMeterial;
+            preViewObj.SetActive(true);
+            if (farmType == tileType|| targetType == TargetType.Any)
+            {
+                preViewRender.material = ableMeterial;
+            }
+            else
+            {
+                preViewRender.material = enAbleMeterial;
+            }
         }
 
+    }
+    public void TurnOffPreview()
+    {
+        preViewObj.SetActive(false);
     }
     public void SetTileType(FarmTileType type)
     {
@@ -125,6 +140,10 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
 
     public void Grow()
     {
+        if (!isWet)
+        {
+            return;
+        }
         cropData.myTime++;
 
         if (cropData.myTime >= cropData.reqTime)
@@ -132,6 +151,11 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
             float leftTime = cropData.myTime - cropData.reqTime;
             CropLevelUp();
             cropData.myTime = leftTime;
+        }
+        
+        else
+        {
+            cropScript.enabled = false;
         }
     }
 
@@ -144,9 +168,23 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
             int id = (int)GameManager.instance.dataManager.harvestToLevel[groupId.ToString()][level.ToString()].datas["id"];
 
             cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
+            Debug.Log($"DropId in CropData : {cropData.dropId}");
             SetMyTextures();
+            if (cropData.dropId != null && cropData.dropId != "null" && GameManager.instance.dataManager.dropTable.ContainsKey(cropData.dropId))
+            {
+                cropScript.SetDropTable(GameManager.instance.dataManager.dropTable[cropData.dropId]);
+                cropScript.enabled = true;
+            }
         }
         //CropData cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
+    }
+
+    public void Harvest()
+    {
+        cropData = null;
+        SetCropMaterial(null);
+        SetCropTexture(null);
+        tileType = FarmTileType.ReadySoil;
     }
 
     public void DayPassed()
@@ -156,11 +194,13 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
             Grow();
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "SkillColl")
         {
-            preViewObj.SetActive(true);
+            Debug.Log("SkillCollEnter!");
+            TurnOnPreview(effectPuller.targetType);
         }
     }
     private void OnTriggerExit(Collider other)

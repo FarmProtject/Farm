@@ -84,11 +84,16 @@ public class QuickSlotManager : MonoBehaviour,Isubject
     }
     public void SetSelectSlot(QuickSlot slot)
     {
+        if (selectSlot != null)
+        {
+            selectSlot.OutLineOff();
+        }
         selectSlot = slot;
+        selectSlot.OutLineOn();
         if(selectSlot.item is EffectItem effectItem)
         {
             EffectBase effect = effectItem.effect;
-            effectPuller.SetEffectInfo(effect.collType,targetPos,effect.colliderVert,effect.colliderHori,effect.colliderHeight);
+            effectPuller.SetEffectInfo(effect.collType,targetPos,effect.colliderVert,effect.colliderHori,effect.colliderHeight,effect.target);
             effectPuller.SetColliderType(effect.collType);
 
         }

@@ -376,7 +376,11 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return false;
     }
 
-
+   
+    public void SetMouseIn(bool isIn)
+    {
+        isMouseOver = isIn;
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (item != null && item.itemCount!=0)
@@ -387,6 +391,14 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
 
     public void OnPointerExit(PointerEventData eventData)
+    {
+        if (tooltipOBJ.activeSelf)
+        {
+            tooltipOBJ.SetActive(false);
+        }
+        isMouseOver = false;
+    }
+    private void OnDisable()
     {
         if (tooltipOBJ.activeSelf)
         {

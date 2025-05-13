@@ -35,6 +35,8 @@ public class InteractableEntity : LivingEntity,IInteractable
     
     protected void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Object In to {this.gameObject.name}! Name : {other.gameObject.name} tag : {other.tag}");
+        
         if (other.tag == "Player")
         {
             PlayerEntity playerEntity = other.transform.GetComponent<PlayerEntity>();

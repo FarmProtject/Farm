@@ -14,6 +14,8 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnInventoryUpdate;
     public UnityEvent OnPlayerMouseinput;
     public UnityEvent FarmAreaEvents;
+
+    public bool controllAble = true;
     private void Awake()
     {
         SetUpField();
@@ -37,7 +39,7 @@ public class EventManager : MonoBehaviour
         {
             MoveOnUpDate.Invoke();
         }
-        if (OnPlayerInput != null)
+        if (OnPlayerInput != null && controllAble)
         {
             OnPlayerInput.Invoke();
         }

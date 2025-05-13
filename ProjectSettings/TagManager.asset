@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ShopUI
   - SkillColl
+  - GridObject
   layers:
   - Default
   - TransparentFX

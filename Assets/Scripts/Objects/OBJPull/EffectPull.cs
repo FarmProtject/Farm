@@ -23,7 +23,8 @@ public enum TargetType
     ReadySoil,
     Crop,
     Enemy,
-    Friendly
+    Friendly,
+    Any
 }
 /*
 public class LeftEffectClick : IClickAction
@@ -68,9 +69,10 @@ public class EffectPull : MonoBehaviour
     Vector3 centerPos;
     Vector3 collSize = new Vector3();
     List<GameObject> targetObjs;
-
+    List<FarmTile> previewObj = new List<FarmTile>();
     [SerializeField] LayerMask gridLayer;
     public GameObject debugobject;
+    
     private void Awake()
     {
         OnAwake();
@@ -131,7 +133,10 @@ public class EffectPull : MonoBehaviour
             Debug.Log(hit.collider.name);
             if (gridObject != null)
             {
+                //PositionAdjustmet();
                 targetPos = gridObject.GetGridPosition();
+                //previewObj = GetObjectsToBox();
+                //PreviewObjOn();
                 //transform.position = targetPos;
                 Debug.Log("Move To Grid Position");
                 return true;
@@ -146,7 +151,7 @@ public class EffectPull : MonoBehaviour
             return false;
         }
     }
-    public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, float verti, float hori, float height)
+    public void SetEffectInfo(ColliderInstatType collType, Vector3 targetPos, float verti, float hori, float height,TargetType targetType)
     {
         Debug.Log("CollType Set");
         this.collType = collType;
@@ -154,6 +159,13 @@ public class EffectPull : MonoBehaviour
         this.verti = verti;
         this.hori = hori;
         this.height = height;
+        this.targetType = targetType;
+        PositionAdjustmet();
+        PreviewObjReset();
+    }
+    void SetColliderSize()
+    {
+
     }
     public void SetTargetPos(Vector3 pos)
     {
@@ -356,6 +368,48 @@ public class EffectPull : MonoBehaviour
     public void OnRightClick()
     {
 
+    }
+    public void PreviewObjOn()
+    {
+        Debug.Log("!!!!!!!!!!!!!!");
+        FarmTileType tileType = ChangeType(targetType);
+        if (tileType == FarmTileType.none)
+        {
+            return;
+        }
+        for (int i = 0; i < previewObj.Count; i++)
+        {
+            FarmTile tileScript = previewObj[i].transform.GetComponent<FarmTile>();
+            if (tileScript != null)
+            {
+                tileScript.TurnOnPreview(targetType);
+            }
+        }
+    }
+    public void PreviewObjReset()
+    {
+        for(int i = 0; i < previewObj.Count; i++)
+        {
+            previewObj[i].TurnOffPreview();
+        }
+    }
+    public FarmTileType ChangeType(TargetType target)
+    {
+        FarmTileType farmType = FarmTileType.none;
+        string type = target.ToString();
+        if(Enum.TryParse<FarmTileType>(type, out farmType))
+        {
+            
+        }
+        return farmType;
+    }
+    public void RemoveFarmTile(FarmTile tile)
+    {
+        previewObj.Remove(tile);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
     #endregion
 }

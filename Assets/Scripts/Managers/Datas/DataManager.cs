@@ -107,6 +107,7 @@ public class DataManager : MonoBehaviour
     private void Awake()
     {
         OnAwake();
+        DebugDropTable();
     }
 
     private void OnAwake()
@@ -153,6 +154,7 @@ public class DataManager : MonoBehaviour
         LoadMulti(equipentsStatTableDataPath, equipStatDatas);
         TwoKeyLoad(harvestDataPath, harvestData);
         HarvestToLevel(harvestDataPath, harvestToLevel);
+        ReadDropTable();
         //DebugStats();
         //HarvestDataDebug();
         //MultiObToInt(shopData, shops);
@@ -289,7 +291,16 @@ public class DataManager : MonoBehaviour
             }
         }
     }
-
+    void DebugDropTable()
+    {
+        foreach(string key in dropTable.Keys)
+        {
+            for(int i = 0; i<dropTable[key].Count; i++)
+            {
+                Debug.Log($"dropID in Table {dropTable[key][i].key} dropItem in Table{dropTable[key][i].dropItem}");
+            }
+        }
+    }
     void KeyStringDataRead(Dictionary<string, Dictionary<string, string>> dataDict, string dataPath)
     {
         List<Dictionary<string, object>> temp = csvReader.Read(dataPath);
@@ -587,15 +598,15 @@ public class DataManager : MonoBehaviour
             {
                 tempTable.id = index;
             }
-            if (temp[i].ContainsKey("keys"))
+            if (temp[i].ContainsKey("dropID"))
             {
-                tempTable.key = temp[i]["keys"].ToString();
+                tempTable.key = temp[i]["dropID"].ToString();
             }
-            if (int.TryParse(temp[i]["dropItem"].ToString(), out index))
+            if (int.TryParse(temp[i]["dropItemId"].ToString(), out index))
             {
                 tempTable.dropItem = index;
             }
-            if (int.TryParse(temp[i]["dropRation"].ToString(), out index))
+            if (int.TryParse(temp[i]["dropRatio"].ToString(), out index))
             {
                 tempTable.dropRation = index;
             }
@@ -606,6 +617,16 @@ public class DataManager : MonoBehaviour
             if (int.TryParse(temp[i]["maxDropCount"].ToString(), out index))
             {
                 tempTable.maxDropCount = index;
+            }
+            if (dropTable.ContainsKey(tempTable.key))
+            {
+                dropTable[tempTable.key].Add(tempTable);
+            }
+            else
+            {
+                List<DropTable> newList = new List<DropTable>();
+                newList.Add(tempTable);
+                dropTable.Add(tempTable.key, newList);
             }
         }
     }

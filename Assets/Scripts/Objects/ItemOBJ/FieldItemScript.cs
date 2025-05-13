@@ -4,46 +4,35 @@ using UnityEngine;
 
 public class FieldItemScript : MonoBehaviour
 {
-    ItemBase item = new ItemBase();
+    ItemBase item;
     public int itemCount;
     void Start()
     {
-        SetTestData();
     }
 
-    void Update()
+
+
+    public void SetItemData(ItemBase data)
     {
+        item = data;
         itemCount = item.itemCount;
-        if (item.itemCount <= 0)
+    }
+    public void GetItem()
+    {
+        GameManager.instance.playerEntity.inventory.AddinInventory(this.item);
+        itemCount = item.itemCount;
+        if (itemCount <= 0)
         {
-            Destroy(this.gameObject, 0.5f) ;
+            Destroy(this.gameObject);
         }
     }
-
-    public void ItemTest()
-    {
-
-    }
-    public void SetTestData()
-    {
-
-        item.id = UnityEngine.Random.Range(1, 5);
-        item.maxStack = item.id;
-        item.itemCount = UnityEngine.Random.Range(1, 5);
-        item.name = item.id.ToString();
-
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
         
-        if(other.tag == "Player")
+        if(other.tag == "Player" && itemCount>1)
         {
             Debug.Log("playerEnter!");
-            GameManager.instance.playerEntity.inventory.AddinInventory(this.item);
-            itemCount = item.itemCount;
-            
+            GetItem();
         }
     }
 }

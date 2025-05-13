@@ -9,7 +9,7 @@ public class QuickSlot : MonoBehaviour,IObserver
     public ItemBase item;
 
     [SerializeField]Image myImage;
-
+    [SerializeField] Image outLine;
     void Start()
     {
         
@@ -21,7 +21,7 @@ public class QuickSlot : MonoBehaviour,IObserver
     }
     private void Awake()
     {
-        
+        OutLineOff();
     }
     void OnAwake()
     {
@@ -29,7 +29,7 @@ public class QuickSlot : MonoBehaviour,IObserver
         keySet.quickSlots.Add(slotNumber, this);
         if (myImage == null)
         {
-            myImage = transform.GetChild(0).transform.GetComponent<Image>();
+            myImage = transform.GetChild(1).transform.GetComponent<Image>();
         }
     }
     public void SetQuickSlot()
@@ -44,6 +44,14 @@ public class QuickSlot : MonoBehaviour,IObserver
     public void SetItem(ItemBase item)
     {
         this.item = item;
+    }
+    public void OutLineOn()
+    {
+        outLine.gameObject.SetActive(true);
+    }
+    public void OutLineOff()
+    {
+        outLine.gameObject.SetActive(false);
     }
     public void Invoke()
     {

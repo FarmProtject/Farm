@@ -15,6 +15,7 @@ public class HoeEffect : EffectBase
             targetScript = go.transform.GetComponent<FarmTile>();
             ChangeMesh(targetScript);
             targetScript.SetTileType(FarmTileType.ReadySoil);
+            targetScript.TurnOnPreview(target);
         }
     }
     void ChangeMesh(FarmTile farm)

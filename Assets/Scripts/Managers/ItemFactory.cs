@@ -6,7 +6,7 @@ using System;
 public class ItemFactory : MonoBehaviour
 {
     DataManager dataManager;
-
+    [SerializeField] GameObject dropPrefab;
 
     void Start()
     {
@@ -307,4 +307,26 @@ public class ItemFactory : MonoBehaviour
         }
 
     }
+
+    #region 아이템드롭
+    public void ItemDrop(List<DropTable> dropTable, Vector3 itemPos)
+    {
+        List<int> dropIds = new List<int>();
+        for (int i = 0; i < dropTable.Count; i++)
+        {
+            int ration = UnityEngine.Random.Range(1, 101);
+            if (ration < dropTable[i].dropRation)
+            {
+                int min = dropTable[i].maxDropCount;
+                int max = dropTable[i].maxDropCount;
+                int itemCount = UnityEngine.Random.Range(min + 1, max + 1);
+                ItemBase item = ItemMake(dropTable[i].dropItem);
+                item.itemCount = itemCount;
+                GameObject go = Instantiate(dropPrefab,itemPos,Quaternion.identity);
+                FieldItemScript fieled = go.transform.GetComponent<FieldItemScript>();
+                fieled.SetItemData(item);
+            }
+        }
+    }
+    #endregion
 }
