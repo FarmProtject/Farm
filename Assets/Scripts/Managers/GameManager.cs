@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public AssetBundleManager bundleManager;
 
-    
+    public TextureManager textureManager;
     private void Awake()
     {
         SetUpField();
@@ -112,6 +112,10 @@ public class GameManager : MonoBehaviour
         if(dayManager == null)
         {
             dayManager = transform.GetComponent<DayManager>();
+        }
+        if(textureManager== null)
+        {
+            textureManager = transform.GetComponent<TextureManager>();
         }
     }
     

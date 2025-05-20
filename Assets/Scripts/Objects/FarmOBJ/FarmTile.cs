@@ -7,7 +7,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
     [SerializeField] Material ableMeterial;
     [SerializeField] Material enAbleMeterial;
 
-    [SerializeField]GameObject preViewObj;
+    [SerializeField] GameObject preViewObj;
     [SerializeField] GameObject cropObj;
 
     CropObject cropScript;
@@ -16,6 +16,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
     MeshRenderer cropMaterial;
     MeshFilter cropMesh;
 
+    [SerializeField] MeshRenderer soilMeshRender;
     public FarmTileType tileType;
 
     EffectPull effectPuller;
@@ -32,6 +33,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         GameManager.instance.dayManager.Resister(this);
         effectPuller = GameManager.instance.playerEntity.myEffcetPuller;
         cropScript = cropObj.transform.GetComponent<CropObject>();
+        soilMeshRender = transform.GetComponent<MeshRenderer>();
     }
 
     void SetUpPreview()
@@ -157,6 +159,7 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         {
             cropScript.enabled = false;
         }
+        isWet = false;
     }
 
     public void CropLevelUp()
@@ -178,7 +181,10 @@ public class FarmTile : MonoBehaviour,IGridObject,IDayTickable
         }
         //CropData cropData = GameManager.instance.farmManager.MakeCropData(groupId, id);
     }
-
+    public void SetMaterial(Material mat)
+    {
+        soilMeshRender.material = mat;
+    }
     public void Harvest()
     {
         cropData = null;

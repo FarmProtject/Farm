@@ -4,6 +4,12 @@ using System.Collections.Generic;
 [AutoRegisterEffect]
 public class HoeEffect : EffectBase
 {
+    Material readySoilMat;
+
+    void OnAwake()
+    {
+
+    }
     public override void Apply(GameObject go)
     {
         Debug.Log($"Apply!!! {go.name}");
@@ -20,7 +26,12 @@ public class HoeEffect : EffectBase
     }
     void ChangeMesh(FarmTile farm)
     {
-        Debug.Log($"Cahnge Mesh{farm.gameObject.name}");
+        if(readySoilMat == null)
+        {
+            readySoilMat = GameManager.instance.textureManager.readySoilMat;
+        }
+        farm.SetMaterial(readySoilMat);
+
     }
     protected override EffectBase Create()
     {

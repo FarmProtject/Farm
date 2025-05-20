@@ -144,6 +144,7 @@ public class UIManager : MonoBehaviour,Isubject
     {
         if (GameManager.instance.playerEntity.nowInteract == shopNPC.gameObject && shopPanelObj.activeSelf)
         {
+            Debug.Log("ShopInteract to Close");
             ShopPanelClose();
             shopPanel.RemoveItems();
             inventoryObj.SetActive(false);
@@ -171,6 +172,7 @@ public class UIManager : MonoBehaviour,Isubject
     public void ShopPopUpClose()
     {
         shopPopUpObj.SetActive(false);
+        Debug.Log("ShopPanelClose");
     }
     #endregion
     #region ObserverInterface

@@ -7,6 +7,7 @@ public class TextureManager : MonoBehaviour
 
     Dictionary<string, object> TextureDatas = new Dictionary<string, object>();
 
+    public Material readySoilMat;
     [SerializeField] string bundlePath;
 
     private void Awake()

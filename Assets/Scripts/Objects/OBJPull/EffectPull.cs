@@ -82,7 +82,7 @@ public class EffectPull : MonoBehaviour
         transform.rotation = Quaternion.identity;
         if (CatchGridObject())
         {
-
+            this.transform.position = targetPos;
         }
         else
         {

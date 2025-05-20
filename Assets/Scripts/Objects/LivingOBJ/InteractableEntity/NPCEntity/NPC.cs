@@ -6,10 +6,11 @@ public class NPC : InteractableEntity,IInteractable
 {
     [SerializeField]
     protected int id;
+    GameObject player;
     protected override void OnAwake()
     {
         base.OnAwake();
-
+        
         SetDialogueData();
     }
 
@@ -17,6 +18,7 @@ public class NPC : InteractableEntity,IInteractable
     {
         base.NPCInteract();
         OpenDialogueUI();
+        LookAt();
     }
     protected override void TriggerOut(Collider other)
     {
@@ -34,6 +36,19 @@ public class NPC : InteractableEntity,IInteractable
     public string GetDialogue()
     {
         return dialogue;
+    }
+    void LookAt()
+    {
+        if (player == null)
+        {
+            player = GameManager.instance.playerEntity.gameObject;
+        }
+        Vector3 direction = player.transform.position - transform.position;
+        Quaternion rot = Quaternion.LookRotation(direction);
+        Vector3 rotEuler = rot.eulerAngles;
+        rotEuler.x = 0f;
+        rotEuler.z = 0f;
+        transform.rotation = Quaternion.Euler(rotEuler);
     }
     private void SetDialogueData()
     {
